@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trainingmanagesys.web.finance.dao.FinanceMapper">
+
+
+    <insert id="insertAll" parameterType="com.trainingmanagesys.web.finance.entity.Finance">
+        insert into t_finance ( finance_code, in_out, PIC_id, pay_account, receive_account, trade_method, amount, date, category, comment )
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                #{financeCode,jdbcType=VARCHAR},
+                #{inOut,jdbcType=VARCHAR},
+                #{picId,jdbcType=INTEGER},
+                #{payAccount,jdbcType=VARCHAR},
+                #{receiveAccount,jdbcType=VARCHAR},
+                #{tradeMethod,jdbcType=VARCHAR},
+                #{amount,jdbcType=INTEGER},
+                #{date,jdbcType=TIMESTAMP},
+                #{category,jdbcType=VARCHAR},
+                #{comment,jdbcType=VARCHAR},
+        </trim>
+    </insert>
+</mapper>

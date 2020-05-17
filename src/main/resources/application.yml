@@ -1,0 +1,8 @@
+spring:
+  profiles:
+    active: ln
+
+# Mybatis配置
+mybatis:
+  mapper-locations: classpath:com/trainingmanagesys/web/**/*.xml
+  type-aliases-package: com.trainingmanagesys.**.entity
