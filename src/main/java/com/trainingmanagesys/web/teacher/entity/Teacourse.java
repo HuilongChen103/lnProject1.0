@@ -10,6 +10,8 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 import org.hibernate.annotations.Table;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * <p>
  * 
@@ -30,11 +32,13 @@ public class Teacourse implements Serializable {
      * tc=teacher course流水号
      */
     @TableId(value = "tc_serial", type = IdType.AUTO)
+    @NotNull(groups = basicNotNullGroup.class, message = "请指明教师课程流水号")
     private Long tcSerial;
 
     /**
      * 教师id
      */
+    @NotNull(groups = notAllNullGroup.class, message = "请指明信息，不能全部为空")
     private Long teacherId;
 
     /**
@@ -62,5 +66,13 @@ public class Teacourse implements Serializable {
      */
     private String intro;
 
+
+    public interface basicNotNullGroup{
+
+    }
+
+    public interface notAllNullGroup{
+
+    }
 
 }

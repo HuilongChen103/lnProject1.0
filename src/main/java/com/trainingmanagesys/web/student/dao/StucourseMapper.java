@@ -1,6 +1,6 @@
 package com.trainingmanagesys.web.student.dao;
 
-import com.trainingmanagesys.web.student.entity.TStucourse;
+import com.trainingmanagesys.web.student.entity.Stucourse;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author luoying
  * @since 2020-05-13
  */
-public interface TStucourseMapper extends BaseMapper<TStucourse> {
+public interface StucourseMapper extends BaseMapper<Stucourse> {
 
 }

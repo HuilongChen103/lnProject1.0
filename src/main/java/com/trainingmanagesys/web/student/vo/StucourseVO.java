@@ -1,8 +1,7 @@
-package com.trainingmanagesys.web.teacher.vo;
+package com.trainingmanagesys.web.student.vo;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -21,15 +20,14 @@ import java.io.Serializable;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-public class TeacourseVO implements Serializable {
+public class StucourseVO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-
     /**
-     * 教师id
+     * 学生id
      */
-    private Long teacherId;
+    private Long studentId;
 
     /**
      * 课程编号
@@ -42,33 +40,32 @@ public class TeacourseVO implements Serializable {
     private String classCode;
 
     /**
-     * 班级表现(学生均分/满分)
+     * 费用
      */
-    private Long percentageMax;
+    private Long feeMax;
 
-    private Long percentageMin;
+    private Long feeMin;
 
     /**
-     * 学生留存率(实际学生数量/初始学生数量)
+     * 是否支付(已支付，未支付)
      */
-    private Long remainMax;
+    private String pay;
 
-    private Long remainMin;
+    /**
+     * 收支编号
+     */
+    private String financeCode;
 
     private Integer limit;
 
-    @NotNull(groups = pagedListGroup.class, message = "请指明当前页面")
+    @NotNull(groups = pageListGroup.class, message = "请指明当前页面")
     private Integer currentPage;
 
-    @NotNull(groups = pagedListGroup.class, message = "请指明当前页面大小")
+    @NotNull(groups = pageListGroup.class, message = "请指明当前页面大小")
     private Integer pageSize;
 
-    /**
-     * 逻辑校验组
-     */
 
-    // 用于分页列数据时的校验
-    public interface pagedListGroup{
+    public interface pageListGroup{
 
     }
 }

@@ -41,11 +41,15 @@ public class UserController {
     @ApiOperation(value = "添加用户", notes = "添加用户")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "name", value = "用户名字", dataType = "String", required = true),
-            @ApiImplicitParam(name = "password", value = "用户密码", dataType = "String", required = true)
+            @ApiImplicitParam(name = "password", value = "用户密码", dataType = "String", required = true),
+            @ApiImplicitParam(name = "gender", value = "性别", dataType = "String", required = false),
+            @ApiImplicitParam(name = "birthday", value = "生日", dataType = "Date", required = false),
+            @ApiImplicitParam(name = "position", value = "身份", dataType = "String", required = false),
+            @ApiImplicitParam(name = "state", value = "登陆状态", dataType = "String", required = false),
+            @ApiImplicitParam(name = "tel", value = "电话号码", dataType = "String", required = false)
     })
     @PostMapping("/addUser")
-    public String addUser(@RequestBody @Validated AddUserVO vo){
-        User user = AddUserVO.allNotNullUserVO2User(vo);
+    public String addUser(@RequestBody @Validated User user){
         return userService.addUser(user);
     }
 

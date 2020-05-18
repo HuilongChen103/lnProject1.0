@@ -3,9 +3,14 @@ package com.trainingmanagesys.web.student.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
+
+import com.trainingmanagesys.web.student.validator.UpdateStucourseValidator;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+import org.hibernate.validator.group.GroupSequenceProvider;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * <p>
@@ -18,7 +23,8 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-public class TStucourse implements Serializable {
+@GroupSequenceProvider(UpdateStucourseValidator.class)
+public class Stucourse implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -26,12 +32,14 @@ public class TStucourse implements Serializable {
      * sc=student course流水号
      */
     @TableId(value = "sc_serial", type = IdType.AUTO)
-    private Integer scSerial;
+    @NotNull(groups = basicNotNullGroup.class, message = "请指明学生课程流水号")
+    private Long scSerial;
 
     /**
      * 学生id
      */
-    private Integer studentId;
+    @NotNull(groups = notAllNullGroup.class, message = "请输入信息，不能全部为空")
+    private Long studentId;
 
     /**
      * 课程编号
@@ -44,14 +52,9 @@ public class TStucourse implements Serializable {
     private String classCode;
 
     /**
-     * 课程名称
-     */
-    private String courseName;
-
-    /**
      * 费用
      */
-    private Integer fee;
+    private Long fee;
 
     /**
      * 是否支付(已支付，未支付)
@@ -63,5 +66,13 @@ public class TStucourse implements Serializable {
      */
     private String financeCode;
 
+
+    public interface basicNotNullGroup{
+
+    }
+
+    public interface notAllNullGroup{
+
+    }
 
 }

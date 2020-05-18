@@ -38,9 +38,9 @@ public class TeacourseController {
 
     @ApiOperation(value = "添加教师课程")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "teacher_id", value = "教师id", dataType = "Long", required = false),
-            @ApiImplicitParam(name = "course_code", value = "课程编号", dataType = "String", required = false),
-            @ApiImplicitParam(name = "class_code", value = "班级编号", dataType = "String", required = false),
+            @ApiImplicitParam(name = "teacherId", value = "教师id", dataType = "Long", required = false),
+            @ApiImplicitParam(name = "courseCode", value = "课程编号", dataType = "String", required = false),
+            @ApiImplicitParam(name = "classCode", value = "班级编号", dataType = "String", required = false),
             @ApiImplicitParam(name = "percentage", value = "班级表现(学生均分/满分)", dataType = "Long", required = false),
             @ApiImplicitParam(name = "remain", value = "学生留存率(实际学生数量/初始学生数量)", dataType = "Long", required = false),
             @ApiImplicitParam(name = "intro", value = "教师个人介绍，课程介绍。", dataType = "String", required = false)
@@ -52,10 +52,10 @@ public class TeacourseController {
 
     @ApiOperation(value = "更新教师课程")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "tc_serial", value = "teacher course流水号", dataType = "Long", required = true),
-            @ApiImplicitParam(name = "teacher_id", value = "教师id", dataType = "Long", required = false),
-            @ApiImplicitParam(name = "course_code", value = "课程编号", dataType = "String", required = false),
-            @ApiImplicitParam(name = "class_code", value = "班级编号", dataType = "String", required = false),
+            @ApiImplicitParam(name = "tcSerial", value = "teacher course流水号", dataType = "Long", required = true),
+            @ApiImplicitParam(name = "teacherId", value = "教师id", dataType = "Long", required = false),
+            @ApiImplicitParam(name = "courseCode", value = "课程编号", dataType = "String", required = false),
+            @ApiImplicitParam(name = "classCode", value = "班级编号", dataType = "String", required = false),
             @ApiImplicitParam(name = "percentage", value = "班级表现(学生均分/满分)", dataType = "Long", required = false),
             @ApiImplicitParam(name = "remain", value = "学生留存率(实际学生数量/初始学生数量)", dataType = "Long", required = false),
             @ApiImplicitParam(name = "intro", value = "教师个人介绍，课程介绍。", dataType = "String", required = false)
@@ -101,7 +101,7 @@ public class TeacourseController {
             @ApiImplicitParam(name = "pageSize", value = "页面数量", dataType = "Integer", required = false)
     })
     @PostMapping("/pagedListTeacourse")
-    public IPage<Teacourse> pagedListTeaCourse(@RequestBody @Validated TeacourseVO teacourseVO){
+    public IPage<Teacourse> pagedListTeaCourse(@RequestBody @Validated(TeacourseVO.pagedListGroup.class) TeacourseVO teacourseVO){
         return teacourseService.pagedListTeaCourse(teacourseVO);
     }
 }
