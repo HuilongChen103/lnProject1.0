@@ -27,6 +27,7 @@ import java.util.List;
 @Api(value = "学生课程", tags = {"学生课程操作接口"})
 @RestController
 @RequestMapping("/stucourse")
+@Validated
 public class StucourseController {
 
     @Autowired
@@ -97,7 +98,7 @@ public class StucourseController {
             @ApiImplicitParam(name = "currentPage", value = "数量", dataType = "Integer", required = true),
             @ApiImplicitParam(name = "pageSize", value = "数量", dataType = "Integer", required = true)
     })
-    @PostMapping("/listStucourse")
+    @PostMapping("/pageListStucourse")
     public IPage<Stucourse> pagedListStucourse(@RequestBody @Validated(StucourseVO.pageListGroup.class) StucourseVO stucourseVO){
         return stucourseService.pagedListStuCourse(stucourseVO);
     }

@@ -11,11 +11,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -31,6 +27,7 @@ import java.util.List;
 @Api(value = "教师课程", tags = {"教师课程操作接口"})
 @RestController
 @RequestMapping("/teacourse")
+@Validated
 public class TeacourseController {
 
     @Autowired
@@ -67,6 +64,7 @@ public class TeacourseController {
 
     @ApiOperation(value = "删除教师课程")
     @ApiImplicitParam(name = "tc_serial", value = "teacher course流水号", dataType = "Long", required = true)
+    @DeleteMapping("/deleteTeacourse")
     public String deleteTeacourse(@NotNull(message = "请指明教师课程流水号") Long tcSerial){
         return teacourseService.deleteTeaCourse(tcSerial);
     }

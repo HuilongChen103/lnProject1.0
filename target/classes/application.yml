@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: ln
+    active: dev
 
 # Mybatis配置
 mybatis:

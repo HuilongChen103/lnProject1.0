@@ -5,4 +5,20 @@
     <select id="getPosition" resultType="java.lang.String">
         SELECT position from t_user where uid = #{uid}
     </select>
+
+    <insert id="insertUserAndGetId" parameterType="com.trainingmanagesys.web.user.entity.User">
+        <selectKey keyProperty="uid" order="AFTER" resultType="java.lang.Long">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into t_user ( name, gender, birthday, position, tel, password )
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            #{name,jdbcType=VARCHAR},
+            #{gender,jdbcType=VARCHAR},
+            #{birthday,jdbcType=TIMESTAMP},
+            #{position,jdbcType=VARCHAR},
+            #{tel,jdbcType=VARCHAR},
+            #{password,jdbcType=VARCHAR}
+        </trim>
+
+    </insert>
 </mapper>

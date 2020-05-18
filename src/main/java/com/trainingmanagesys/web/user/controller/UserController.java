@@ -15,6 +15,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -48,8 +49,9 @@ public class UserController {
             @ApiImplicitParam(name = "state", value = "登陆状态", dataType = "String", required = false),
             @ApiImplicitParam(name = "tel", value = "电话号码", dataType = "String", required = false)
     })
+    @Transactional(rollbackFor = Exception.class)
     @PostMapping("/addUser")
-    public String addUser(@RequestBody @Validated User user){
+    public Long addUser(@RequestBody @Validated User user){
         return userService.addUser(user);
     }
 

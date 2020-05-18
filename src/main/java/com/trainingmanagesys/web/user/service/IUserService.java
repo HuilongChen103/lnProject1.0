@@ -14,7 +14,7 @@ import java.util.List;
  * @since 2020-04-29
  */
 public interface IUserService extends IService<User> {
-    String addUser(User user);
+    Long addUser(User user);
 
     User updateUser(User user);
 

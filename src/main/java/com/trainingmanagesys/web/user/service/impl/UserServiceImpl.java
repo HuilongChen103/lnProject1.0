@@ -24,12 +24,11 @@ import java.util.List;
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
 
     @Override
-    public String addUser(User user) {
+    public Long addUser(User user) {
         String result = "添加用户失败";
-        int code = baseMapper.insert(user);
-        if (code == 1)
-            result = "添加用户成功";
-        return result;
+        //return baseMapper.insertUserAndGetId(user);
+        baseMapper.insert(user);
+        return user.getUid();
     }
 
     @Override

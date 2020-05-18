@@ -14,4 +14,6 @@ import org.apache.ibatis.annotations.Param;
  */
 public interface UserMapper extends BaseMapper<User> {
     String getPosition(@Param("uid") Long uid);
+
+    Long insertUserAndGetId(User user);
 }
