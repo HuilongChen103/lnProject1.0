@@ -1,6 +1,6 @@
 package com.trainingmanagesys.web.homework.dao;
 
-import com.trainingmanagesys.web.homework.entity.THomework;
+import com.trainingmanagesys.web.homework.entity.Homework;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author luoying
  * @since 2020-05-13
  */
-public interface THomeworkMapper extends BaseMapper<THomework> {
+public interface HomeworkMapper extends BaseMapper<Homework> {
 
 }
