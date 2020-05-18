@@ -36,9 +36,9 @@ public class Schedule implements Serializable {
     /**
      * 日程id
      */
-    @TableId(value = "schedule_id", type = IdType.AUTO)
+    @TableId(value = "schedule_serial", type = IdType.AUTO)
     @NotNull(groups = basicNotNullGroup.class, message = "请指明scheduleId")
-    private Long scheduleId;
+    private Long scheduleSerial;
 
     /**
      * 事件编号

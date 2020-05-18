@@ -8,6 +8,7 @@ import com.trainingmanagesys.web.user.entity.User;
 import com.trainingmanagesys.web.user.dao.UserMapper;
 import com.trainingmanagesys.web.user.service.IUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.trainingmanagesys.web.user.vo.PagedListUserVO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -68,34 +69,30 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     }
 
     @Override
-    public List<User> listUser(User user) {
-        String position = user.getPosition();
-        String state = user.getState();
-        Integer enable = user.getEnable();
+    public List<User> listUser(PagedListUserVO vo) {
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
 
-        if (position != null) queryWrapper.eq("position", position);
-        if (state != null) queryWrapper.eq("state", state);
-        if (enable != null) queryWrapper.eq("enable", enable);
+        if (vo.getPosition() != null) queryWrapper.eq("position", vo.getPosition());
+        if (vo.getState() != null) queryWrapper.eq("state", vo.getState());
+        if (vo.getEnable() != null) queryWrapper.eq("enable", vo.getEnable());
+        if (vo.getLimit() != null) queryWrapper.last(" limit " + vo.getLimit());
 
         List<User> list = baseMapper.selectList(queryWrapper);
         return list;
     }
 
     @Override
-    public IPage<User> pagedListUser(User user, Integer currentPage, Integer pageSize) {
-        String position = user.getPosition();
-        String state = user.getState();
-        Integer enable = user.getEnable();
+    public IPage<User> pagedListUser(PagedListUserVO vo) {
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
 
-        if (position != null) queryWrapper.eq("position", position);
-        if (state != null) queryWrapper.eq("state", state);
-        if (enable != null) queryWrapper.eq("enable", enable);
+        if (vo.getPosition() != null) queryWrapper.eq("position", vo.getPosition());
+        if (vo.getEnable() != null) queryWrapper.eq("enable", vo.getEnable());
+        if (vo.getState() != null) queryWrapper.eq("state", vo.getState());
+        if (vo.getLimit() != null) queryWrapper.last(" limit " + vo.getLimit());
 
         Page<User> page = new Page<>();
-        page.setCurrent(currentPage);
-        page.setSize(pageSize);
+        page.setCurrent(vo.getCurrentPage());
+        page.setSize(vo.getPageSize());
         IPage<User> pagedList = baseMapper.selectPage(page, queryWrapper);
         return pagedList;
     }

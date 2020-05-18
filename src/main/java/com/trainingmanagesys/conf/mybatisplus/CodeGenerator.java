@@ -37,7 +37,7 @@ public class CodeGenerator {
         AutoGenerator mpg = new AutoGenerator();
         // 全局配置
         GlobalConfig gc = new GlobalConfig();
-        String projectPath = "C:\\Huilong\\ln";
+        String projectPath = "C:\\Huilong\\ln1.0\\lnProject1.0";
         gc.setOutputDir(projectPath + "/src/main/java");
         gc.setAuthor("luoying");
         gc.setOpen(false);

@@ -62,7 +62,8 @@ public class UserController {
             @ApiImplicitParam(name = "gender", value = "用户性别", dataType = "String", required = false),
             @ApiImplicitParam(name = "birthday", value = "用户生日", dataType = "Date", required = false),
             @ApiImplicitParam(name = "position", value = "用户身份", dataType = "String", required = false),
-            @ApiImplicitParam(name = "password", value = "用户密码", dataType = "String", required = false)
+            @ApiImplicitParam(name = "password", value = "用户密码", dataType = "String", required = false),
+            @ApiImplicitParam(name = "tel", value = "电话号码", dataType = "String", required = false)
     })
     @PostMapping("/updateUser")
     public User updateUser(@RequestBody @Validated UpdateUserVO vo){
@@ -102,8 +103,8 @@ public class UserController {
             @ApiImplicitParam(name = "enable", value = "账号是否可用", dataType = "Integer", required = false)
     })
     @PostMapping("/listUser")
-    public List<User> listUser(@RequestBody User user){
-        return userService.listUser(user);
+    public List<User> listUser(@RequestBody PagedListUserVO vo){
+        return userService.listUser(vo);
     }
 
     @ApiOperation(value = "根据职位、登陆状态分页列用户")
@@ -116,13 +117,7 @@ public class UserController {
     })
     @PostMapping("/pagedListUser")
     public IPage<User> pagedListUser(@RequestBody @Validated PagedListUserVO vo){
-        Integer currentPage = vo.getCurrentPage();
-        Integer pageSize = vo.getPageSize();
-        User user = new User();
-        user.setPosition(vo.getPosition());
-        user.setState(vo.getState());
-        user.setEnable(vo.getEnable());
-        return userService.pagedListUser(user, currentPage, pageSize);
+        return userService.pagedListUser(vo);
     }
 
     @ApiOperation(value = "输入uid以及密码登录")

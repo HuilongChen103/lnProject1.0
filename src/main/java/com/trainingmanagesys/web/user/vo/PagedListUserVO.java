@@ -21,6 +21,8 @@ public class PagedListUserVO implements Serializable {
 
     private Integer enable;
 
+    private Integer limit;
+
     @NotNull
     @Range(min = 1, max = 999)
     private Integer currentPage;

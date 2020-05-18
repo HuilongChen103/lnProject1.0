@@ -15,7 +15,7 @@ public class UpdateScheduleValidator implements DefaultGroupSequenceProvider<Sch
         defaultGroupSequence.add(Schedule.class);
 
         if (null != schedule){
-            if (schedule.getScheduleId() == null){
+            if (schedule.getScheduleSerial() == null){
                 defaultGroupSequence.add(UpdateUserVO.userIdRequiredGroup.class);
                 return defaultGroupSequence;
             }

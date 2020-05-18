@@ -46,7 +46,7 @@ public class ScheduleController {
 
     @ApiOperation(value = "更新日程安排")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "scheduleId", value = "日程id", dataType = "Integer", required = false),
+            @ApiImplicitParam(name = "scheduleSerial", value = "日程id", dataType = "Integer", required = false),
             @ApiImplicitParam(name = "eventCode", value = "事件编号", dataType = "String", required = false),
             @ApiImplicitParam(name = "time", value = "时间段", dataType = "Date", required = false),
             @ApiImplicitParam(name = "week", value = "周数", dataType = "Integer", required = false),
