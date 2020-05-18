@@ -29,7 +29,7 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, File> implements IF
     @Override
     public String updateFile(File file) {
         String result = "更新文件失败";
-        int code = baseMapper.insert(file);
+        int code = baseMapper.updateById(file);
         if (code == 1)
             result = "更新文件成功";
         return result;
