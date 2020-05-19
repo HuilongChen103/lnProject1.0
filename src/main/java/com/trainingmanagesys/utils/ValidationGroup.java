@@ -1,6 +1,6 @@
 package com.trainingmanagesys.utils;
 
-public interface ValidatationGroup {
+public interface ValidationGroup {
 
     public interface basicNotNullGroup{
 

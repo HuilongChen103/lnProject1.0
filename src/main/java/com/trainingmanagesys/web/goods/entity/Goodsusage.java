@@ -1,13 +1,12 @@
 package com.trainingmanagesys.web.goods.entity;
 
-import java.time.LocalDateTime;
 import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
 import java.util.Date;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.trainingmanagesys.utils.ValidatationGroup;
+import com.trainingmanagesys.utils.ValidationGroup;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -26,7 +25,7 @@ import javax.validation.constraints.NotNull;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("t_goodsusage")
-public class Goodsusage implements Serializable, ValidatationGroup {
+public class Goodsusage implements Serializable, ValidationGroup {
 
     private static final long serialVersionUID = 1L;
 

@@ -11,8 +11,6 @@ import lombok.experimental.Accessors;
 
 import javax.validation.constraints.NotNull;
 
-import com.trainingmanagesys.utils.ValidatationGroup;
-
 /**
  * <p>
  * 

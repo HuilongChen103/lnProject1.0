@@ -1,6 +1,5 @@
 package com.trainingmanagesys.web.file.entity;
 
-import java.time.LocalDateTime;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -8,7 +7,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.trainingmanagesys.utils.ValidatationGroup;
+import com.trainingmanagesys.utils.ValidationGroup;
 import com.trainingmanagesys.web.file.validator.UpdateFileValidator;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -30,7 +29,7 @@ import javax.validation.constraints.NotNull;
 @Accessors(chain = true)
 @TableName("t_file")
 @GroupSequenceProvider(UpdateFileValidator.class)
-public class File implements Serializable, ValidatationGroup {
+public class File implements Serializable, ValidationGroup {
 
     private static final long serialVersionUID = 1L;
 
