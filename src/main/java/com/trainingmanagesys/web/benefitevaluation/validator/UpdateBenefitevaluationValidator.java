@@ -15,18 +15,20 @@ public class UpdateBenefitevaluationValidator implements DefaultGroupSequencePro
         defaultGroupSequence.add(Benefitevaluation.class);
 
         if (null != benefitevaluation){
-            if (file.getFileSerial() == null){
-                defaultGroupSequence.add(File.basicNotNullGroup.class);
+            if (benefitevaluation.getBenefitSerial() == null){
+                defaultGroupSequence.add(Benefitevaluation.basicNotNullGroup.class);
                 return defaultGroupSequence;
             }
 
             // 判断updateUser时输入信息是否全部为空
-            if (null == file.getName() && null == file.getDisplayname() &&
-                null == file.getExtension() && null == file.getContenttype() &&
-                null == file.getFileData() && null == file.getFileSize() &&
-                null == file.getUploadTime() && null == file.getUploaderId()){
-                defaultGroupSequence.add(File.notAllNullGroup.class);
+            if (null == benefitevaluation.getStuffId() && null == benefitevaluation.getYear() &&
+                null == benefitevaluation.getMonth() && null == benefitevaluation.getBenefit() &&
+                null == benefitevaluation.getAssessment()){
+                defaultGroupSequence.add(Benefitevaluation.notAllNullGroup.class);
             }
+
+            if (null == benefitevaluation.getYear() && null != benefitevaluation.getMonth())
+                defaultGroupSequence.add(Benefitevaluation.yearNotNullGroup.class);
 
         }
         return defaultGroupSequence;

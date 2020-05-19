@@ -2,10 +2,15 @@ package com.trainingmanagesys.web.course.entity;
 
 import java.io.Serializable;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.trainingmanagesys.web.course.validator.UpdateCourseValidator;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+import org.hibernate.validator.group.GroupSequenceProvider;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * <p>
@@ -19,6 +24,7 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("t_course")
+@GroupSequenceProvider(UpdateCourseValidator.class)
 public class Course implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -26,11 +32,14 @@ public class Course implements Serializable {
     /**
      * 课程编号
      */
+    @TableId(value = "course_code")
+    @NotNull(groups = basicNotNullGroup.class, message = "请指明课程编号")
     private String courseCode;
 
     /**
      * 课程名称
      */
+    @NotNull(groups = notAllNullGroup.class, message = "请输入信息，不能全部为空")
     private String courseName;
 
     /**
@@ -54,4 +63,11 @@ public class Course implements Serializable {
     private String comment;
 
 
+    public interface basicNotNullGroup{
+
+    }
+
+    public interface notAllNullGroup{
+
+    }
 }

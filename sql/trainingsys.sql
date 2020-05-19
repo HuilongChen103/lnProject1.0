@@ -11,7 +11,7 @@
  Target Server Version : 50728
  File Encoding         : 65001
 
- Date: 18/05/2020 14:43:34
+ Date: 19/05/2020 10:32:21
 */
 
 SET NAMES utf8mb4;
@@ -253,7 +253,7 @@ CREATE TABLE `t_grade`  (
 DROP TABLE IF EXISTS `t_homework`;
 CREATE TABLE `t_homework`  (
   `hw_serial` int(255) NOT NULL COMMENT '作业流水号',
-  `arrange_serial` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '作业安排流水号',
+  `arrange_serial` int(255) NULL DEFAULT NULL COMMENT '作业安排流水号',
   `student_id` int(11) NOT NULL COMMENT '学生id',
   `hw_file` int(255) NULL DEFAULT NULL COMMENT '作业文件',
   `grade` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '分数',
@@ -272,17 +272,18 @@ CREATE TABLE `t_homework`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `t_homeworkarrange`;
 CREATE TABLE `t_homeworkarrange`  (
-  `arrange_serial` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '作业安排流水号',
+  `arrange_serial` int(255) NOT NULL AUTO_INCREMENT COMMENT '作业安排流水号',
   `class_code` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '班级编号',
   `arrange_file` int(255) NULL DEFAULT NULL COMMENT '相关文件 可为null',
   `content` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '作业内容文字说明',
   `deadline` timestamp(0) NULL DEFAULT NULL COMMENT '截至时间',
+  PRIMARY KEY (`arrange_serial`) USING BTREE,
   INDEX `arrange_serial`(`arrange_serial`) USING BTREE,
   INDEX `hwarrange_class`(`class_code`) USING BTREE,
   INDEX `hwarrange_file`(`arrange_file`) USING BTREE,
   CONSTRAINT `hwarrange_class` FOREIGN KEY (`class_code`) REFERENCES `t_class` (`class_code`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `hwarrange_file` FOREIGN KEY (`arrange_file`) REFERENCES `t_file` (`file_serial`) ON DELETE RESTRICT ON UPDATE CASCADE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for t_messageboard
@@ -332,9 +333,9 @@ CREATE TABLE `t_recruitee`  (
   INDEX `recruitee_recruit`(`recruit_code`) USING BTREE,
   INDEX `recruitee_resume`(`resume_file`) USING BTREE,
   INDEX `recruitee_audit`(`audit_serial`) USING BTREE,
+  CONSTRAINT `recruitee_audit` FOREIGN KEY (`audit_serial`) REFERENCES `t_audit` (`audit_serial`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `recruitee_recruit` FOREIGN KEY (`recruit_code`) REFERENCES `t_recruit` (`recruit_code`) ON DELETE RESTRICT ON UPDATE CASCADE,
-  CONSTRAINT `recruitee_resume` FOREIGN KEY (`resume_file`) REFERENCES `t_file` (`file_serial`) ON DELETE RESTRICT ON UPDATE CASCADE,
-  CONSTRAINT `recruitee_audit` FOREIGN KEY (`audit_serial`) REFERENCES `t_audit` (`audit_serial`) ON DELETE RESTRICT ON UPDATE CASCADE
+  CONSTRAINT `recruitee_resume` FOREIGN KEY (`resume_file`) REFERENCES `t_file` (`file_serial`) ON DELETE RESTRICT ON UPDATE CASCADE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -457,8 +458,8 @@ CREATE TABLE `t_test`  (
   INDEX `test_class`(`class_code`) USING BTREE,
   INDEX `test_tester`(`tester_id2`) USING BTREE,
   INDEX `test_file`(`test_file`) USING BTREE,
-  INDEX `test_schedule`(`schedule_serial`) USING BTREE,
   INDEX `test_tester1`(`tester_id1`) USING BTREE,
+  INDEX `test_schedule`(`schedule_serial`) USING BTREE,
   CONSTRAINT `test_class` FOREIGN KEY (`class_code`) REFERENCES `t_class` (`class_code`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `test_file` FOREIGN KEY (`test_file`) REFERENCES `t_file` (`file_serial`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `test_schedule` FOREIGN KEY (`schedule_serial`) REFERENCES `t_schedule` (`schedule_serial`) ON DELETE RESTRICT ON UPDATE CASCADE,

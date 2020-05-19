@@ -1,10 +1,9 @@
-package com.trainingmanagesys.web.benefitevaluation.entity;
+package com.trainingmanagesys.web.benefitevaluation.vo;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import java.io.Serializable;
-
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.trainingmanagesys.web.benefitevaluation.validator.PagedListBenefitevaluationValidator;
 import com.trainingmanagesys.web.benefitevaluation.validator.UpdateBenefitevaluationValidator;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -12,6 +11,7 @@ import lombok.experimental.Accessors;
 import org.hibernate.validator.group.GroupSequenceProvider;
 
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 /**
  * <p>
@@ -24,23 +24,15 @@ import javax.validation.constraints.NotNull;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("t_benefitevaluation")
-@GroupSequenceProvider(UpdateBenefitevaluationValidator.class)
-public class Benefitevaluation implements Serializable {
+@GroupSequenceProvider(PagedListBenefitevaluationValidator.class)
+public class BenefitevaluationVO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * 绩效考评流水号
-     */
-    @TableId(value = "benefit_serial", type = IdType.AUTO)
-    @NotNull(groups = basicNotNullGroup.class, message = "请指明绩效考评流水号")
-    private Long benefitSerial;
 
     /**
      * 员工id（职员、教师）
      */
-    @NotNull(groups = notAllNullGroup.class, message = "请输入信息，不能全部为空")
     private Long stuffId;
 
     /**
@@ -57,19 +49,25 @@ public class Benefitevaluation implements Serializable {
     /**
      * 效益（具体金额）
      */
-    private Long benefit;
+    private Long benefitMax;
+
+    private Long benefitMin;
 
     /**
      * 考评（文字说明）
      */
     private String assessment;
 
+    private Integer limit;
+
+    @NotNull(groups = basicNotNullGroup.class, message = "请指定当前页面")
+    private Integer currentPage;
+
+    @NotNull(groups = basicNotNullGroup.class, message = "请指定页面大小")
+    private Integer pageSize;
+
 
     public interface basicNotNullGroup{
-
-    }
-
-    public interface notAllNullGroup{
 
     }
 
