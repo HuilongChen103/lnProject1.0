@@ -19,6 +19,9 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements
 
     @Override
     public String addGoods(Goods goods) {
+        String result = "该物资编号已经存在";
+        if (baseMapper.selectById(goods.getGoodsCode()) == null)
+            return result;
         baseMapper.insert(goods);
         return goods.getGoodsCode();
     }
