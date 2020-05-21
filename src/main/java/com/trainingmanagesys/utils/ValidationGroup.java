@@ -2,11 +2,15 @@ package com.trainingmanagesys.utils;
 
 public interface ValidationGroup {
 
-    public interface basicNotNullGroup{
+    public interface addKeyGroup{
 
     }
 
-    public interface notAllNullGroup{
+    public interface addAdditionGroup{
+
+    }
+
+    public interface updateGroup{
 
     }
 
