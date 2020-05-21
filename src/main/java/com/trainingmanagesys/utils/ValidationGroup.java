@@ -9,4 +9,8 @@ public interface ValidationGroup {
     public interface notAllNullGroup{
 
     }
+
+    public interface yearNotNullGroup{
+
+    }
 }

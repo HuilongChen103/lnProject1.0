@@ -11,7 +11,7 @@
  Target Server Version : 50728
  File Encoding         : 65001
 
- Date: 19/05/2020 10:32:21
+ Date: 21/05/2020 15:38:17
 */
 
 SET NAMES utf8mb4;
@@ -45,7 +45,7 @@ CREATE TABLE `t_assessment`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `t_audit`;
 CREATE TABLE `t_audit`  (
-  `audit_serial` int(255) NOT NULL AUTO_INCREMENT COMMENT '审核编号',
+  `audit_serial` int(11) NOT NULL AUTO_INCREMENT COMMENT '审核编号',
   `auditor_id` int(11) NULL DEFAULT NULL COMMENT '审核人id',
   `applicant_id` int(11) NULL DEFAULT NULL COMMENT '申请人id',
   `event_code` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '事件编号(招聘，物资调用，退课...)',
@@ -70,11 +70,11 @@ CREATE TABLE `t_audit`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `t_benefitevaluation`;
 CREATE TABLE `t_benefitevaluation`  (
-  `benefit_serial` int(255) NOT NULL AUTO_INCREMENT COMMENT '绩效考评流水号',
+  `benefit_serial` int(11) NOT NULL AUTO_INCREMENT COMMENT '绩效考评流水号',
   `stuff_id` int(11) NULL DEFAULT NULL COMMENT '员工id（职员、教师）',
-  `year` int(255) NULL DEFAULT NULL COMMENT '年份',
-  `month` int(255) NULL DEFAULT NULL COMMENT '月份',
-  `benefit` int(255) NULL DEFAULT NULL COMMENT '效益（具体金额）',
+  `year` int(11) NULL DEFAULT NULL COMMENT '年份',
+  `month` int(11) NULL DEFAULT NULL COMMENT '月份',
+  `benefit` int(11) NULL DEFAULT NULL COMMENT '效益（具体金额）',
   `assessment` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '考评（文字说明）',
   PRIMARY KEY (`benefit_serial`) USING BTREE,
   INDEX `benefit_stuff`(`stuff_id`) USING BTREE,
@@ -89,7 +89,7 @@ CREATE TABLE `t_class`  (
   `class_code` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '班级号',
   `course_code` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '课程号',
   `student_num` int(11) NULL DEFAULT NULL COMMENT '起始学生数量(开学的时候)',
-  `real_num` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '实际学生数量',
+  `real_num` int(11) NULL DEFAULT NULL COMMENT '实际学生数量',
   `teacher_id` int(11) NULL DEFAULT NULL COMMENT '教师id',
   `class_num` int(11) NULL DEFAULT NULL COMMENT '班级在对应课程中的序号',
   `schedule_serial` int(11) NULL DEFAULT NULL COMMENT '日程安排编号',
@@ -129,7 +129,7 @@ INSERT INTO `t_course` VALUES ('ZHE404', '古筝业余', '1.5小时', 10, '弦�
 -- ----------------------------
 DROP TABLE IF EXISTS `t_courseware`;
 CREATE TABLE `t_courseware`  (
-  `courseware_serial` int(255) NOT NULL COMMENT '课件流水号',
+  `courseware_serial` int(255) NOT NULL AUTO_INCREMENT COMMENT '课件流水号',
   `class_code` varchar(11) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '班级号',
   `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '标题',
   `file_serial` int(255) NULL DEFAULT NULL COMMENT '文件序号',
@@ -138,7 +138,7 @@ CREATE TABLE `t_courseware`  (
   INDEX `courseware_class`(`class_code`) USING BTREE,
   CONSTRAINT `courseware_class` FOREIGN KEY (`class_code`) REFERENCES `t_class` (`class_code`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `courseware_file` FOREIGN KEY (`file_serial`) REFERENCES `t_file` (`file_serial`) ON DELETE RESTRICT ON UPDATE CASCADE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for t_department
@@ -155,7 +155,7 @@ CREATE TABLE `t_department`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `t_file`;
 CREATE TABLE `t_file`  (
-  `file_serial` int(255) NOT NULL AUTO_INCREMENT COMMENT '文件流水号',
+  `file_serial` int(11) NOT NULL AUTO_INCREMENT COMMENT '文件流水号',
   `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '文件名',
   `displayname` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '文件展示名',
   `extension` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '文件扩展名',
@@ -201,7 +201,7 @@ CREATE TABLE `t_goods`  (
   `stock_in_date` datetime(0) NULL DEFAULT NULL COMMENT '入库时间',
   `stock_out_date` datetime(0) NULL DEFAULT NULL COMMENT '出库时间',
   `price` decimal(10, 2) NULL DEFAULT NULL COMMENT '价格',
-  `room_num` int(255) NULL DEFAULT NULL COMMENT '现在的地点（房间号）',
+  `room_num` int(11) NULL DEFAULT NULL COMMENT '现在的地点（房间号）',
   `comment` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`goods_code`) USING BTREE,
   INDEX `goods_PIC`(`PIC_id`) USING BTREE,
@@ -235,28 +235,28 @@ CREATE TABLE `t_goodsusage`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `t_grade`;
 CREATE TABLE `t_grade`  (
-  `grade_serial` int(255) NOT NULL COMMENT '分数流水号',
+  `grade_serial` int(255) NOT NULL AUTO_INCREMENT COMMENT '分数流水号',
   `test_serial` int(11) NOT NULL COMMENT '考试号',
   `student_id` int(11) NULL DEFAULT NULL COMMENT '学生id',
-  `grade` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '分数',
+  `grade` int(11) NULL DEFAULT NULL COMMENT '分数',
   `comment` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`grade_serial`) USING BTREE,
   INDEX `grade_student`(`student_id`) USING BTREE,
   INDEX `grade_test`(`test_serial`) USING BTREE,
   CONSTRAINT `grade_student` FOREIGN KEY (`student_id`) REFERENCES `t_user` (`uid`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `grade_test` FOREIGN KEY (`test_serial`) REFERENCES `t_test` (`test_serial`) ON DELETE RESTRICT ON UPDATE CASCADE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for t_homework
 -- ----------------------------
 DROP TABLE IF EXISTS `t_homework`;
 CREATE TABLE `t_homework`  (
-  `hw_serial` int(255) NOT NULL COMMENT '作业流水号',
-  `arrange_serial` int(255) NULL DEFAULT NULL COMMENT '作业安排流水号',
+  `hw_serial` int(11) NOT NULL COMMENT '作业流水号',
+  `arrange_serial` int(11) NULL DEFAULT NULL COMMENT '作业安排流水号',
   `student_id` int(11) NOT NULL COMMENT '学生id',
-  `hw_file` int(255) NULL DEFAULT NULL COMMENT '作业文件',
-  `grade` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '分数',
+  `hw_file` int(11) NULL DEFAULT NULL COMMENT '作业文件',
+  `grade` int(11) NULL DEFAULT NULL COMMENT '分数',
   `overtime` enum('超时','未超时') CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '是否超时(超时，未超时)',
   PRIMARY KEY (`hw_serial`) USING BTREE,
   INDEX `homework_student`(`student_id`) USING BTREE,
@@ -272,9 +272,9 @@ CREATE TABLE `t_homework`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `t_homeworkarrange`;
 CREATE TABLE `t_homeworkarrange`  (
-  `arrange_serial` int(255) NOT NULL AUTO_INCREMENT COMMENT '作业安排流水号',
+  `arrange_serial` int(11) NOT NULL AUTO_INCREMENT COMMENT '作业安排流水号',
   `class_code` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '班级编号',
-  `arrange_file` int(255) NULL DEFAULT NULL COMMENT '相关文件 可为null',
+  `arrange_file` int(11) NULL DEFAULT NULL COMMENT '相关文件 可为null',
   `content` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '作业内容文字说明',
   `deadline` timestamp(0) NULL DEFAULT NULL COMMENT '截至时间',
   PRIMARY KEY (`arrange_serial`) USING BTREE,
@@ -290,7 +290,7 @@ CREATE TABLE `t_homeworkarrange`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `t_messageboard`;
 CREATE TABLE `t_messageboard`  (
-  `message_serial` int(255) NOT NULL COMMENT '留言流水号',
+  `message_serial` int(11) NOT NULL AUTO_INCREMENT COMMENT '留言流水号',
   `uploader_id` int(11) NOT NULL COMMENT '上传人id',
   `content` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '内容',
   `date` timestamp(0) NULL DEFAULT NULL COMMENT '时间',
@@ -300,7 +300,7 @@ CREATE TABLE `t_messageboard`  (
   INDEX `messageboard_uploader`(`uploader_id`) USING BTREE,
   CONSTRAINT `messageboard_class` FOREIGN KEY (`class_code`) REFERENCES `t_class` (`class_code`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `messageboard_uploader` FOREIGN KEY (`uploader_id`) REFERENCES `t_user` (`uid`) ON DELETE RESTRICT ON UPDATE CASCADE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for t_recruit
@@ -313,6 +313,7 @@ CREATE TABLE `t_recruit`  (
   `place` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '地点',
   `method` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '方式（网络，实地等）',
   `catagory` enum('教师','职工','学生') CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '招聘对象类型（教师，学生，职工）',
+  `comment` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`recruit_code`) USING BTREE,
   INDEX `recruit_PIC`(`PIC_id`) USING BTREE,
   CONSTRAINT `recruit_PIC` FOREIGN KEY (`PIC_id`) REFERENCES `t_user` (`uid`) ON DELETE RESTRICT ON UPDATE CASCADE
@@ -323,20 +324,20 @@ CREATE TABLE `t_recruit`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `t_recruitee`;
 CREATE TABLE `t_recruitee`  (
-  `recruitee_serial` int(255) NOT NULL AUTO_INCREMENT COMMENT '受招募人流水号',
+  `recruitee_code` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '受招募人流水号',
   `recruit_code` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '招聘会编号',
   `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '名字',
-  `resume_file` int(255) NULL DEFAULT NULL COMMENT '简历文档',
+  `resume_file` int(11) NULL DEFAULT NULL COMMENT '简历文档',
   `catagory` enum('教师','职工','学生') CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '类型（学生、职员、教师）',
-  `audit_serial` int(255) NULL DEFAULT NULL COMMENT '审核编号',
-  PRIMARY KEY (`recruitee_serial`) USING BTREE,
+  `audit_serial` int(11) NULL DEFAULT NULL COMMENT '审核编号',
+  PRIMARY KEY (`recruitee_code`) USING BTREE,
   INDEX `recruitee_recruit`(`recruit_code`) USING BTREE,
   INDEX `recruitee_resume`(`resume_file`) USING BTREE,
   INDEX `recruitee_audit`(`audit_serial`) USING BTREE,
   CONSTRAINT `recruitee_audit` FOREIGN KEY (`audit_serial`) REFERENCES `t_audit` (`audit_serial`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `recruitee_recruit` FOREIGN KEY (`recruit_code`) REFERENCES `t_recruit` (`recruit_code`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `recruitee_resume` FOREIGN KEY (`resume_file`) REFERENCES `t_file` (`file_serial`) ON DELETE RESTRICT ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for t_room
@@ -344,8 +345,8 @@ CREATE TABLE `t_recruitee`  (
 DROP TABLE IF EXISTS `t_room`;
 CREATE TABLE `t_room`  (
   `room_num` int(11) NOT NULL COMMENT '房间号',
-  `usage` enum('教室','库房','办公室','茶水间','休息室','卫生间') CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '用途（教室，库房，办公室等）',
-  `available` int(255) NULL DEFAULT NULL COMMENT '是否可用（0：可用 1：占用）',
+  `usage` enum('教室','库房','办公室','茶水间','休息室','卫生间','暂无') CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '用途（教室，库房，办公室等）',
+  `available` int(11) NULL DEFAULT NULL COMMENT '是否可用（0：可用 1：占用）',
   PRIMARY KEY (`room_num`) USING BTREE,
   INDEX `room_num`(`room_num`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
@@ -355,14 +356,14 @@ CREATE TABLE `t_room`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `t_salary`;
 CREATE TABLE `t_salary`  (
-  `salary_serial` int(255) NOT NULL AUTO_INCREMENT COMMENT '工资流水号',
-  `stuff_id` int(255) NULL DEFAULT NULL COMMENT '员工id',
+  `salary_serial` int(11) NOT NULL AUTO_INCREMENT COMMENT '工资流水号',
+  `stuff_id` int(11) NULL DEFAULT NULL COMMENT '员工id',
   `basic_salary` decimal(10, 2) NULL DEFAULT NULL COMMENT '基本工资',
-  `bonus` int(255) NULL DEFAULT NULL COMMENT '奖金',
-  `total_salary` int(10) NULL DEFAULT NULL COMMENT '总工资',
-  `insurance` int(255) NULL DEFAULT NULL COMMENT '五险一金数额',
-  `month` int(255) NULL DEFAULT NULL COMMENT '月份',
-  `year` int(255) NULL DEFAULT NULL COMMENT '年份',
+  `bonus` decimal(10, 0) NULL DEFAULT NULL COMMENT '奖金',
+  `total_salary` decimal(10, 0) NULL DEFAULT NULL COMMENT '总工资',
+  `insurance` decimal(10, 0) NULL DEFAULT NULL COMMENT '五险一金数额',
+  `month` int(11) NULL DEFAULT NULL COMMENT '月份',
+  `year` int(11) NULL DEFAULT NULL COMMENT '年份',
   PRIMARY KEY (`salary_serial`) USING BTREE,
   INDEX `salary_stuff`(`stuff_id`) USING BTREE,
   CONSTRAINT `salary_stuff` FOREIGN KEY (`stuff_id`) REFERENCES `t_user` (`uid`) ON DELETE RESTRICT ON UPDATE CASCADE
@@ -378,7 +379,7 @@ CREATE TABLE `t_schedule`  (
   `start_time` datetime(0) NULL DEFAULT NULL COMMENT '开始时间',
   `end_time` datetime(0) NULL DEFAULT NULL COMMENT '结束时间',
   `week` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '周数',
-  `year` int(255) NULL DEFAULT NULL COMMENT '年份',
+  `year` int(11) NULL DEFAULT NULL COMMENT '年份',
   `semester` enum('春季','夏季','秋季','冬季') CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '季度',
   PRIMARY KEY (`schedule_serial`) USING BTREE,
   INDEX `year`(`year`) USING BTREE
@@ -393,7 +394,7 @@ CREATE TABLE `t_stucourse`  (
   `student_id` int(11) NULL DEFAULT NULL COMMENT '学生id',
   `course_code` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '课程编号',
   `class_code` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '班级编号',
-  `fee` int(255) NULL DEFAULT NULL COMMENT '费用',
+  `fee` int(11) NULL DEFAULT NULL COMMENT '费用',
   `pay` enum('已支付','未支付') CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '是否支付(已支付，未支付)',
   `finance_code` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '收支编号',
   `state` enum('未退课','已退课') CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '是否退课',
@@ -414,7 +415,7 @@ CREATE TABLE `t_stucourse`  (
 DROP TABLE IF EXISTS `t_stuff`;
 CREATE TABLE `t_stuff`  (
   `stuff_id` int(11) NOT NULL COMMENT '职工id',
-  `department_id` int(255) NULL DEFAULT NULL COMMENT '部门id',
+  `department_id` int(11) NULL DEFAULT NULL COMMENT '部门id',
   `position` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '职位',
   PRIMARY KEY (`stuff_id`) USING BTREE,
   INDEX `stuff_department`(`department_id`) USING BTREE,
@@ -427,12 +428,12 @@ CREATE TABLE `t_stuff`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `t_teacourse`;
 CREATE TABLE `t_teacourse`  (
-  `tc_serial` int(255) NOT NULL AUTO_INCREMENT COMMENT 'tc=teacher course流水号',
+  `tc_serial` int(11) NOT NULL AUTO_INCREMENT COMMENT 'tc=teacher course流水号',
   `teacher_id` int(11) NULL DEFAULT NULL COMMENT '教师id',
   `course_code` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '课程编号',
   `class_code` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '班级编号',
-  `percentage` int(255) NULL DEFAULT NULL COMMENT '班级表现(学生均分/满分)',
-  `remain` int(255) NULL DEFAULT NULL COMMENT '学生留存率(实际学生数量/初始学生数量)',
+  `percentage` int(11) NULL DEFAULT NULL COMMENT '班级表现(学生均分/满分)',
+  `remain` int(11) NULL DEFAULT NULL COMMENT '学生留存率(实际学生数量/初始学生数量)',
   `intro` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '教师个人介绍，课程介绍。',
   PRIMARY KEY (`tc_serial`) USING BTREE,
   INDEX `teacourse_id`(`teacher_id`) USING BTREE,
@@ -452,8 +453,8 @@ CREATE TABLE `t_test`  (
   `class_code` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '班级号',
   `tester_id1` int(11) NULL DEFAULT NULL COMMENT '监考人甲',
   `tester_id2` int(11) NULL DEFAULT NULL COMMENT '监考人乙',
-  `test_file` int(255) NULL DEFAULT NULL COMMENT '考试内容文件',
-  `schedule_serial` int(255) NULL DEFAULT NULL COMMENT '日程安排流水号',
+  `test_file` int(11) NULL DEFAULT NULL COMMENT '考试内容文件',
+  `schedule_serial` int(11) NULL DEFAULT NULL COMMENT '日程安排流水号',
   PRIMARY KEY (`test_serial`) USING BTREE,
   INDEX `test_class`(`class_code`) USING BTREE,
   INDEX `test_tester`(`tester_id2`) USING BTREE,
@@ -473,27 +474,26 @@ CREATE TABLE `t_test`  (
 DROP TABLE IF EXISTS `t_user`;
 CREATE TABLE `t_user`  (
   `uid` int(8) NOT NULL AUTO_INCREMENT COMMENT 'id',
-  `name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '名字',
+  `name` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '名字',
   `gender` varchar(2) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '性别',
   `birthday` date NULL DEFAULT NULL COMMENT '生日',
   `position` enum('职工','学生','老师','管理员') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '学生' COMMENT '职位',
-  `tel` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '电话',
-  `enable` int(255) NOT NULL DEFAULT 1 COMMENT '是否可用',
+  `tel` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '电话',
+  `enable` int(2) NOT NULL DEFAULT 1 COMMENT '是否可用',
   `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '密码',
   `state` enum('online','offline') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'offline' COMMENT '登陆状态(oneline,offline)',
   PRIMARY KEY (`uid`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 116193709 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 116193708 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_user
 -- ----------------------------
-INSERT INTO `t_user` VALUES (116193701, '车岚', '女', '1980-03-07', '老师', '13708342137', 1, '666666', 'online');
+INSERT INTO `t_user` VALUES (116193701, '车岚', '女', '1980-03-07', '老师', '13708342137', 1, '666666', 'offline');
 INSERT INTO `t_user` VALUES (116193702, '冷飞', '男', '2000-08-26', '职工', '15923343188', 1, '666666', 'offline');
 INSERT INTO `t_user` VALUES (116193703, '俞溪', '女', '1959-11-22', '管理员', '18990769422', 1, '666666', 'offline');
 INSERT INTO `t_user` VALUES (116193704, '蔺霓霓', '女', '2004-07-08', '学生', '17649322369', 1, '666666', 'offline');
 INSERT INTO `t_user` VALUES (116193705, '罗兮', '女', '1998-08-04', '职工', '19823476431', 1, '666666', 'offline');
 INSERT INTO `t_user` VALUES (116193706, '林梨', '女', '1998-07-17', '学生', '16756733409', 1, '666666', 'offline');
-INSERT INTO `t_user` VALUES (116193707, '王缤', NULL, NULL, '学生', NULL, 1, '666666', 'offline');
-INSERT INTO `t_user` VALUES (116193708, '1', NULL, NULL, '学生', NULL, 1, '666666', 'offline');
+INSERT INTO `t_user` VALUES (116193707, '王缤', '男', '2001-08-13', '学生', '19967584367', 1, '666666', 'offline');
 
 SET FOREIGN_KEY_CHECKS = 1;
