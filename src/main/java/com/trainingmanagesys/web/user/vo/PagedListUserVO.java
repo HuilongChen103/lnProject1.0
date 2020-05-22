@@ -23,11 +23,11 @@ public class PagedListUserVO implements Serializable {
 
     private Integer limit;
 
-    @NotNull
+    @NotNull(message = "请指明当前页面")
     @Range(min = 1, max = 999)
     private Integer currentPage;
 
-    @NotNull
+    @NotNull(message = "请指明当前页面")
     @Range(min = 1, max = 999)
     private Integer pageSize;
 }

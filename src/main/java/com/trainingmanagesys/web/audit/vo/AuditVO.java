@@ -70,14 +70,10 @@ public class AuditVO implements Serializable {
 
     private Integer limit;
 
-    @NotNull(groups = basicNotNullGroup.class, message = "请指明当前页面")
+    @NotNull(message = "请指明当前页面")
     private Integer currentPage;
 
-    @NotNull(groups = basicNotNullGroup.class, message = "请指明页面大小")
+    @NotNull(message = "请指明页面大小")
     private Integer pageSize;
 
-
-    public interface basicNotNullGroup{
-
-    }
 }

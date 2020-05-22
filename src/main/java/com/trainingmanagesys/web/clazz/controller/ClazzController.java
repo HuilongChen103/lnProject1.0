@@ -1,8 +1,10 @@
 package com.trainingmanagesys.web.clazz.controller;
 
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.trainingmanagesys.web.clazz.entity.Clazz;
 import com.trainingmanagesys.web.clazz.service.IClazzService;
+import com.trainingmanagesys.web.clazz.vo.ClazzVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 /**
  * <p>
@@ -45,7 +48,7 @@ public class ClazzController {
     })
     @PostMapping("/addClazz")
     @Transactional(rollbackFor = Exception.class)
-    public String addClazz(@RequestBody @Validated Clazz clazz){
+    public String addClazz(@RequestBody Clazz clazz){
         return clazzService.addClazz(clazz);
     }
 
@@ -76,8 +79,33 @@ public class ClazzController {
     @ApiOperation(value = "获取班级")
     @ApiImplicitParam(name = "classCode", value = "班级号",  dataType = "String", required = true)
     @PostMapping("/getClazz")
-    @Transactional(rollbackFor = Exception.class)
     public Clazz getClazz(@NotNull(message = "请输入班级号") String classCode){
         return clazzService.getClazz(classCode);
+    }
+
+    @ApiOperation(value = "列班级")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "courseCode", value = "课程号",  dataType = "String", required = false),
+            @ApiImplicitParam(name = "teacherId", value = "教师id",  dataType = "Long", required = false),
+            @ApiImplicitParam(name = "classNum", value = "班级在对应课程中的序号",  dataType = "Long", required = false),
+            @ApiImplicitParam(name = "limit", value = "数量",  dataType = "Integer", required = false)
+    })
+    @PostMapping("/listClazz")
+    public List<Clazz> listClazz(@RequestBody ClazzVO vo){
+        return clazzService.listClazz(vo);
+    }
+
+    @ApiOperation(value = "分页列班级")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "courseCode", value = "课程号",  dataType = "String", required = false),
+            @ApiImplicitParam(name = "teacherId", value = "教师id",  dataType = "Long", required = false),
+            @ApiImplicitParam(name = "classNum", value = "班级在对应课程中的序号",  dataType = "Long", required = false),
+            @ApiImplicitParam(name = "limit", value = "数量",  dataType = "Integer", required = false),
+            @ApiImplicitParam(name = "currentPage", value = "当前页面",  dataType = "Integer", required = true),
+            @ApiImplicitParam(name = "pageSize", value = "页面数量",  dataType = "Integer", required = true)
+    })
+    @PostMapping("/pagedListClazz")
+    public IPage<Clazz> pagedListClazz(@RequestBody @Validated(ClazzVO.listKeyGroup.class) ClazzVO vo){
+        return clazzService.pagedListClazz(vo);
     }
 }

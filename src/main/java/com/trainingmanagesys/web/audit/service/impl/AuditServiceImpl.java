@@ -3,6 +3,7 @@ package com.trainingmanagesys.web.audit.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.trainingmanagesys.conf.exception.APIException;
 import com.trainingmanagesys.web.audit.entity.Audit;
 import com.trainingmanagesys.web.audit.dao.AuditMapper;
 import com.trainingmanagesys.web.audit.service.IAuditService;
@@ -23,6 +24,15 @@ import java.util.List;
 @Service
 public class AuditServiceImpl extends ServiceImpl<AuditMapper, Audit> implements IAuditService {
 
+    public Audit checkAuditExistence(Long auditSerial){
+        Audit tempAudit = getAudit(auditSerial);
+        if (tempAudit == null){
+            APIException apiException = new APIException("该审计不存在");
+            throw apiException;
+        }
+        return tempAudit;
+    }
+
     @Override
     public String addAudit(Audit audit) {
         String result = "添加审计失败";
@@ -34,6 +44,7 @@ public class AuditServiceImpl extends ServiceImpl<AuditMapper, Audit> implements
 
     @Override
     public String updateAudit(Audit audit) {
+        checkAuditExistence(audit.getAuditSerial());
         String result = "更新审计失败";
         int code = baseMapper.updateById(audit);
         if (code == 1)
@@ -43,11 +54,13 @@ public class AuditServiceImpl extends ServiceImpl<AuditMapper, Audit> implements
 
     @Override
     public Audit getAudit(Long auditSerial) {
+        checkAuditExistence(auditSerial);
         return baseMapper.selectById(auditSerial);
     }
 
     @Override
     public String deleteAudit(Long auditSerial) {
+        checkAuditExistence(auditSerial);
         String result = "删除审计失败";
         int code = baseMapper.deleteById(auditSerial);
         if (code == 1)

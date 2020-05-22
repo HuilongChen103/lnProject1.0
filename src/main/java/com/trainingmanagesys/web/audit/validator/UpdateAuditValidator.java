@@ -16,7 +16,7 @@ public class UpdateAuditValidator implements DefaultGroupSequenceProvider<Audit>
 
         if (null != audit){
             if (audit.getAuditSerial() == null){
-                defaultGroupSequence.add(Audit.basicNotNullGroup.class);
+                defaultGroupSequence.add(Audit.addKeyGroup.class);
                 return defaultGroupSequence;
             }
 
@@ -25,7 +25,7 @@ public class UpdateAuditValidator implements DefaultGroupSequenceProvider<Audit>
                 null == audit.getEventCode() && null == audit.getEvent() &&
                 null == audit.getApplyDate() && null == audit.getAuditDate() &&
                 null == audit.getState() && null == audit.getComment()){
-                defaultGroupSequence.add(Audit.notAllNullGroup.class);
+                defaultGroupSequence.add(Audit.updateGroup.class);
             }
         }
         return defaultGroupSequence;

@@ -1,7 +1,11 @@
 package com.trainingmanagesys.web.course.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.trainingmanagesys.web.course.entity.Courseware;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.trainingmanagesys.web.course.vo.CoursewareVO;
+
+import java.util.List;
 
 /**
  * <p>
@@ -20,4 +24,8 @@ public interface ICoursewareService extends IService<Courseware> {
     String deleteCourseware(Long coursewareSerial);
 
     Courseware getCourseware(Long coursewareSerial);
+
+    List<Courseware> listCourseware(CoursewareVO vo);
+
+    IPage<Courseware> pagedListCourseware(CoursewareVO vo);
 }

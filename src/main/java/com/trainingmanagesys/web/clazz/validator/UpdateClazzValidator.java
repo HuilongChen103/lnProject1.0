@@ -16,7 +16,7 @@ public class UpdateClazzValidator implements DefaultGroupSequenceProvider<Clazz>
 
         if (null != clazz){
             if (clazz.getClassCode() == null){
-                defaultGroupSequence.add(Clazz.basicNotNullGroup.class);
+                defaultGroupSequence.add(Clazz.addKeyGroup.class);
                 return defaultGroupSequence;
             }
 
@@ -24,7 +24,7 @@ public class UpdateClazzValidator implements DefaultGroupSequenceProvider<Clazz>
             if (null == clazz.getCourseCode() && null == clazz.getStudentNum() &&
                 null == clazz.getRealNum() && null == clazz.getTeacherId() &&
                 null == clazz.getClassNum() && null == clazz.getScheduleSerial()){
-                defaultGroupSequence.add(Clazz.notAllNullGroup.class);
+                defaultGroupSequence.add(Clazz.updateGroup.class);
             }
         }
         return defaultGroupSequence;

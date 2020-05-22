@@ -1,6 +1,4 @@
-package com.trainingmanagesys.web.course.entity;
-
-import java.io.Serializable;
+package com.trainingmanagesys.web.course.vo;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -13,6 +11,7 @@ import lombok.experimental.Accessors;
 import org.hibernate.validator.group.GroupSequenceProvider;
 
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 /**
  * <p>
@@ -25,33 +24,30 @@ import javax.validation.constraints.NotNull;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("t_courseware")
-@GroupSequenceProvider(UpdateCoursewareValidator.class)
-public class Courseware implements Serializable, ValidationGroup {
+public class CoursewareVO implements Serializable, ValidationGroup {
 
     private static final long serialVersionUID = 1L;
 
     /**
-     * 课件流水号
-     */
-    @TableId(value = "courseware_serial", type = IdType.AUTO)
-    @NotNull(groups = addKeyGroup.class, message = "请指明课件流水号")
-    private Long coursewareSerial;
-
-    /**
      * 班级号
      */
-    @NotNull(groups = addAdditionGroup.class, message = "请指明班级号")
     private String classCode;
 
     /**
      * 标题
      */
-    @NotNull(groups = updateGroup.class, message = "请输入信息，不能全部为空")
     private String title;
 
     /**
      * 文件序号
      */
     private Long fileSerial;
+
+    private Integer limit;
+
+    @NotNull(groups = listKeyGroup.class, message = "请输入当前页面")
+    private Integer currentPage;
+
+    @NotNull(groups = listKeyGroup.class, message = "请输入页面大小")
+    private Integer pageSize;
 }

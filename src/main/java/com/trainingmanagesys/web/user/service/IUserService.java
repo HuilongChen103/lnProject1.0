@@ -17,7 +17,7 @@ import java.util.List;
 public interface IUserService extends IService<User> {
     Long addUser(User user);
 
-    User updateUser(User user);
+    String updateUser(User user);
 
     User getUser(Long uid, Integer enable);
 

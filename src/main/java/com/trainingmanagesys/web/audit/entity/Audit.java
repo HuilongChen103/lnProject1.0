@@ -8,6 +8,7 @@ import java.util.Date;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.trainingmanagesys.utils.ValidationGroup;
 import com.trainingmanagesys.web.finance.validator.UpdateFinanceValidator;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -29,7 +30,7 @@ import javax.validation.constraints.NotNull;
 @Accessors(chain = true)
 @TableName("t_audit")
 @GroupSequenceProvider(UpdateFinanceValidator.class)
-public class Audit implements Serializable {
+public class Audit implements Serializable, ValidationGroup {
 
     private static final long serialVersionUID = 1L;
 
@@ -37,13 +38,13 @@ public class Audit implements Serializable {
      * 审核编号
      */
     @TableId(value = "audit_serial", type = IdType.AUTO)
-    @NotNull(groups = basicNotNullGroup.class, message = "请输入审核编号")
+    @NotNull(groups = addKeyGroup.class, message = "请输入审核编号")
     private Long auditSerial;
 
     /**
      * 审核人id
      */
-    @NotNull(groups = notAllNullGroup.class, message = "请输入信息，不能全部为空")
+    @NotNull(groups = updateGroup.class, message = "请输入信息，不能全部为空")
     private Long auditorId;
 
     /**
@@ -82,15 +83,4 @@ public class Audit implements Serializable {
      * 备注
      */
     private String comment;
-
-
-    public interface basicNotNullGroup{
-
-    }
-
-    public interface notAllNullGroup{
-
-    }
-
-
 }

@@ -38,7 +38,18 @@ public class ExceptionControllerAdvice {
     public ResultVO<String> ConstraintViolationExceptionHandler(ConstraintViolationException e) {
         // 整条错误信息实例："getUserById.uid: uid不能为空"
         String messageAll = e.getMessage();
-        System.out.println("所有的错误信息：" + e.getMessage());
+        // 对错误信息进行剪切，取后半段
+        String[] message = messageAll.split(" ");
+        // 然后提取错误提示信息进行返回
+        return new ResultVO<>(ResultCode.VALIDATE_FAILED, message[1]);
+    }
+
+    // 捕获前端传递参数过来时的错误
+    @ExceptionHandler(NullPointerException.class)
+    public ResultVO<String> NullPointerExceptionHandler(NullPointerException e) {
+        // 整条错误信息实例："getUserById.uid: uid不能为空"
+        String messageAll = e.getMessage();
+        System.out.println("显示所有的错误信息: " + messageAll);
         // 对错误信息进行剪切，取后半段
         String[] message = messageAll.split(" ");
         // 然后提取错误提示信息进行返回

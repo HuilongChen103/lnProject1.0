@@ -45,7 +45,7 @@ public class CourseController {
     })
     @PostMapping("/addCourse")
     @Transactional(rollbackFor = Exception.class)
-    public String addCourse(@RequestBody @Validated Course course){
+    public String addCourse(@RequestBody @Validated(Course.addKeyGroup.class) Course course){
         return courseService.addCourse(course);
     }
 
@@ -88,7 +88,7 @@ public class CourseController {
             @ApiImplicitParam(name = "limit", value = "数量",  dataType = "Integer", required = false)
     })
     @PostMapping("/listCourse")
-    public List<Course> listCourse(@RequestBody @Validated CourseVO courseVO){
+    public List<Course> listCourse(@RequestBody CourseVO courseVO){
         return courseService.listCourse(courseVO);
     }
 
@@ -103,7 +103,7 @@ public class CourseController {
             @ApiImplicitParam(name = "pageSize", value = "页面大小",  dataType = "Integer", required = true),
     })
     @PostMapping("/pagedListCourse")
-    public IPage<Course> pagedListCourse(@RequestBody @Validated CourseVO courseVO){
+    public IPage<Course> pagedListCourse(@RequestBody @Validated(CourseVO.addKeyGroup.class) CourseVO courseVO){
         return courseService.pagedListCourse(courseVO);
     }
 }

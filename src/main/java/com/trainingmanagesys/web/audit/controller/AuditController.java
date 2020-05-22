@@ -10,6 +10,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -44,8 +45,9 @@ public class AuditController {
             @ApiImplicitParam(name = "state", value = "审核状态", dataType = "String", required = false),
             @ApiImplicitParam(name = "comment", value = "备注", dataType = "String", required = false)
     })
+    @Transactional(rollbackFor = Exception.class)
     @PostMapping("/addAudit")
-    public String addAudit(@RequestBody @Validated Audit audit){
+    public String addAudit(@RequestBody Audit audit){
         return auditService.addAudit(audit);
     }
 
@@ -61,6 +63,7 @@ public class AuditController {
             @ApiImplicitParam(name = "state", value = "审核状态", dataType = "String", required = false),
             @ApiImplicitParam(name = "comment", value = "备注", dataType = "String", required = false)
     })
+    @Transactional(rollbackFor = Exception.class)
     @PostMapping("/updateAudit")
     public String updateAudit(@RequestBody @Validated Audit audit){
         return auditService.updateAudit(audit);
@@ -75,6 +78,7 @@ public class AuditController {
 
     @ApiOperation(value = "删除审计信息")
     @ApiImplicitParam(name = "auditSerial", value = "审核编号", dataType = "Long", required = true)
+    @Transactional(rollbackFor = Exception.class)
     @DeleteMapping("/deleteAudit")
     public String deleteAudit(@NotNull(message = "请声明审核编号") Long auditSerial){
         return auditService.deleteAudit(auditSerial);
@@ -110,7 +114,7 @@ public class AuditController {
             @ApiImplicitParam(name = "pageSize", value = "页面大小", dataType = "Integer", required = true)
     })
     @PostMapping("/pagedListAudit")
-    public IPage<Audit> pagedListAudit(@RequestBody @Validated(AuditVO.basicNotNullGroup.class) AuditVO audit){
+    public IPage<Audit> pagedListAudit(@RequestBody @Validated AuditVO audit){
         return auditService.pagedListAudit(audit);
     }
 

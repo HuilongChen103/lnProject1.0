@@ -1,7 +1,6 @@
 package com.trainingmanagesys.web.finance.validator;
 
 import com.trainingmanagesys.web.finance.entity.Finance;
-import com.trainingmanagesys.web.user.vo.UpdateUserVO;
 import org.hibernate.validator.spi.group.DefaultGroupSequenceProvider;
 
 import java.util.ArrayList;

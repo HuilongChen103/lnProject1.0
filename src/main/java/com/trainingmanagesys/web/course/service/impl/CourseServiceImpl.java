@@ -2,7 +2,9 @@ package com.trainingmanagesys.web.course.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.exceptions.ApiException;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.trainingmanagesys.conf.exception.APIException;
 import com.trainingmanagesys.web.course.entity.Course;
 import com.trainingmanagesys.web.course.dao.CourseMapper;
 import com.trainingmanagesys.web.course.service.ICourseService;
@@ -23,18 +25,24 @@ import java.util.List;
 @Service
 public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> implements ICourseService {
 
+    private Course checkCourseExistence(String courseCode){
+        Course tempCourse = getCourse(courseCode);
+        if (tempCourse == null)
+            throw new APIException("该课程不存在");
+        return tempCourse;
+    }
+
     @Override
     public String addCourse(Course course) {
-        String result = "该课程已经存在";
-        Course resultCourse = baseMapper.selectById(course.getCourseCode());
-        if (resultCourse != null)
-            return result;
+        if (getCourse(course.getCourseCode()) != null)
+            throw new APIException("该课程已存在，请更换课程号");
         baseMapper.insert(course);
         return course.getCourseCode();
     }
 
     @Override
     public String updateCourse(Course course) {
+        checkCourseExistence(course.getCourseCode());
         String result = "更新课程失败";
         int code = baseMapper.updateById(course);
         if (code == 1)
@@ -44,6 +52,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 
     @Override
     public String deleteCourse(String courseCode) {
+        checkCourseExistence(courseCode);
         String result = "删除课程失败";
         int code = baseMapper.deleteById(courseCode);
         if (code == 1)
@@ -59,7 +68,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     @Override
     public List<Course> listCourse(CourseVO courseVO) {
         QueryWrapper<Course> queryWrapper = new QueryWrapper<>();
-        if (courseVO.getCourseName() != null) queryWrapper.eq("course_name", courseVO.getCourseName());
+        if (courseVO.getCourseName() != null) queryWrapper.like("course_name", courseVO.getCourseName());
         if (courseVO.getStudentMaxMax() != null) queryWrapper.le("student_max", courseVO.getStudentMaxMax());
         if (courseVO.getStudentMaxMin() != null) queryWrapper.ge("student_max", courseVO.getStudentMaxMin());
         if (courseVO.getType() != null) queryWrapper.eq("type", courseVO.getType());
@@ -70,7 +79,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     @Override
     public IPage<Course> pagedListCourse(CourseVO courseVO) {
         QueryWrapper<Course> queryWrapper = new QueryWrapper<>();
-        if (courseVO.getCourseName() != null) queryWrapper.eq("course_name", courseVO.getCourseName());
+        if (courseVO.getCourseName() != null) queryWrapper.like("course_name", courseVO.getCourseName());
         if (courseVO.getStudentMaxMax() != null) queryWrapper.le("student_max", courseVO.getStudentMaxMax());
         if (courseVO.getStudentMaxMin() != null) queryWrapper.ge("student_max", courseVO.getStudentMaxMin());
         if (courseVO.getType() != null) queryWrapper.eq("type", courseVO.getType());

@@ -1,7 +1,7 @@
 package com.trainingmanagesys.web.schedule.validator;
 
 import com.trainingmanagesys.web.schedule.entity.Schedule;
-import com.trainingmanagesys.web.user.vo.UpdateUserVO;
+import com.trainingmanagesys.web.user.entity.User;
 import org.hibernate.validator.spi.group.DefaultGroupSequenceProvider;
 
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ public class UpdateScheduleValidator implements DefaultGroupSequenceProvider<Sch
 
         if (null != schedule){
             if (schedule.getScheduleSerial() == null){
-                defaultGroupSequence.add(UpdateUserVO.userIdRequiredGroup.class);
+                defaultGroupSequence.add(User.addKeyGroup.class);
                 return defaultGroupSequence;
             }
 

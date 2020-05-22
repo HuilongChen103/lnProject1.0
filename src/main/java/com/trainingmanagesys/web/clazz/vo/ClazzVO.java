@@ -1,17 +1,14 @@
-package com.trainingmanagesys.web.clazz.entity;
-
-import java.io.Serializable;
+package com.trainingmanagesys.web.clazz.vo;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.trainingmanagesys.utils.ValidationGroup;
-import com.trainingmanagesys.web.clazz.validator.UpdateClazzValidator;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
-import org.hibernate.validator.group.GroupSequenceProvider;
 
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 /**
  * <p>
@@ -24,23 +21,13 @@ import javax.validation.constraints.NotNull;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("t_class")
-@GroupSequenceProvider(UpdateClazzValidator.class)
-public class Clazz implements Serializable, ValidationGroup {
+public class ClazzVO implements Serializable, ValidationGroup {
 
     private static final long serialVersionUID = 1L;
 
     /**
-     * 班级号
-     */
-    @TableId(value = "class_code")
-    @NotNull(groups = addKeyGroup.class, message = "请指明班级号")
-    private String classCode;
-
-    /**
      * 课程号
      */
-    @NotNull(groups = updateGroup.class, message = "请输入信息，不能全部为空")
     private String courseCode;
 
     /**
@@ -67,4 +54,12 @@ public class Clazz implements Serializable, ValidationGroup {
      * 日程安排编号
      */
     private Long scheduleSerial;
+
+    private Integer limit;
+
+    @NotNull(groups = listKeyGroup.class, message = "请指明当前页面")
+    private Integer currentPage;
+
+    @NotNull(groups = listKeyGroup.class, message = "请指明页面大小")
+    private Integer pageSize;
 }

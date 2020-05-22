@@ -17,6 +17,8 @@ public enum ResultCode {
 
     Login_FAILED(1003, "登录失败"),
 
+    //NOTFOUND_FAILED(1004, "请求目标不存在"),
+
     ERROR(5000, "未知错误");
 
     private int code;

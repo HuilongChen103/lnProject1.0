@@ -2,19 +2,23 @@ package com.trainingmanagesys.utils;
 
 public interface ValidationGroup {
 
-    public interface addKeyGroup{
+    interface addKeyGroup{
 
     }
 
-    public interface addAdditionGroup{
+    interface addAdditionGroup{
 
     }
 
-    public interface updateGroup{
+    interface updateGroup{
 
     }
 
-    public interface yearNotNullGroup{
+    interface listKeyGroup{
+
+    }
+
+    interface yearNotNullGroup{
 
     }
 }

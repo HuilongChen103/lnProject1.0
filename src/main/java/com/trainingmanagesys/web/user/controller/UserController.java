@@ -6,10 +6,8 @@ import com.trainingmanagesys.conf.exception.APIException;
 import com.trainingmanagesys.utils.BaseConst;
 import com.trainingmanagesys.web.user.entity.User;
 import com.trainingmanagesys.web.user.service.IUserService;
-import com.trainingmanagesys.web.user.vo.AddUserVO;
 import com.trainingmanagesys.web.user.vo.LoginVO;
 import com.trainingmanagesys.web.user.vo.PagedListUserVO;
-import com.trainingmanagesys.web.user.vo.UpdateUserVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -51,7 +49,7 @@ public class UserController {
     })
     @Transactional(rollbackFor = Exception.class)
     @PostMapping("/addUser")
-    public Long addUser(@RequestBody @Validated User user){
+    public Long addUser(@RequestBody @Validated(User.addAdditionGroup.class) User user){
         return userService.addUser(user);
     }
 
@@ -66,8 +64,7 @@ public class UserController {
             @ApiImplicitParam(name = "tel", value = "电话号码", dataType = "String", required = false)
     })
     @PostMapping("/updateUser")
-    public User updateUser(@RequestBody @Validated UpdateUserVO vo){
-        User user = UpdateUserVO.notAllNullUserVO2User(vo);
+    public String updateUser(@RequestBody @Validated User user){
         return userService.updateUser(user);
     }
 

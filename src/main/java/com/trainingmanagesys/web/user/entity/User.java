@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.trainingmanagesys.web.user.validator.AddUserValidator;
+import com.trainingmanagesys.utils.ValidationGroup;
 import com.trainingmanagesys.web.user.validator.UpdateUserValidator;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -29,17 +29,19 @@ import javax.validation.constraints.Past;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("t_user")
-public class User implements Serializable {
+@GroupSequenceProvider(UpdateUserValidator.class)
+public class User implements Serializable, ValidationGroup {
 
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "uid", type = IdType.AUTO)
-    @NotNull(groups = userIdRequiredGroup.class, message = "请提供uid")
+    @NotNull(groups = addKeyGroup.class, message = "请提供uid")
     private Long uid;
 
-    @NotNull(groups = allNotNullGroup.class, message = "请输入信息，不能全部为空")
+    @NotNull(groups = addAdditionGroup.class, message = "请输入姓名")
     private String name;
 
+    @NotNull(groups = updateGroup.class, message = "请输入信息，不能全部为空")
     private String gender;
 
     @Past(message = "日期输入错误")   // 生日日期必须在当前时间之前
@@ -48,6 +50,7 @@ public class User implements Serializable {
 
     private String position;
 
+    @NotNull(groups = addAdditionGroup.class, message = "请输入密码")
     private String password;
 
     private String state;
@@ -56,14 +59,4 @@ public class User implements Serializable {
 
     private String tel;
 
-    /**
-     * 定义专属验证逻辑分组
-     */
-    public interface userIdRequiredGroup{
-
-    }
-
-    public interface allNotNullGroup{
-
-    }
 }

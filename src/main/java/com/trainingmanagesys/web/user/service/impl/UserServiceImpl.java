@@ -3,6 +3,7 @@ package com.trainingmanagesys.web.user.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.trainingmanagesys.conf.exception.APIException;
 import com.trainingmanagesys.utils.BaseConst;
 import com.trainingmanagesys.web.user.entity.User;
 import com.trainingmanagesys.web.user.dao.UserMapper;
@@ -24,6 +25,19 @@ import java.util.List;
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
 
+    /**
+     * 判断用户是否存在，不存在则抛出异常
+     * @param uid
+     */
+    public User checkUserExistance(Long uid){
+        User tempUser = getUser(uid, BaseConst.DATA_ENABLE);
+        if (tempUser == null){
+            APIException apiException = new APIException("该用户不存在");
+            throw apiException;
+        }
+        return tempUser;
+    }
+
     @Override
     public Long addUser(User user) {
         String result = "添加用户失败";
@@ -33,37 +47,33 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     }
 
     @Override
-    public User updateUser(User user) {
+    public String updateUser(User user) {
+        checkUserExistance(user.getUid());
         baseMapper.updateById(user);
-        Long uid = user.getUid();
-        User returnUser = getUser(uid, BaseConst.DATA_ENABLE);
-        return returnUser;
+        return "更新用户成功";
     }
 
     @Override
     public User getUser(Long uid, Integer enable) {
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("uid", uid);
+        queryWrapper.eq("enable", enable);
         return baseMapper.selectOne(queryWrapper);
     }
 
     @Override
     public String deleteUser(Long uid) {
         String result = "删除失败";
-        User tempUser = getUser(uid, BaseConst.DATA_ENABLE);
-        if (tempUser.getEnable() != 1){
-            result = "用户不存在";
-            return result;
-        }else {
-            tempUser.setEnable(BaseConst.DATA_DISABLE);
-            updateUser(tempUser);
-            result = "删除成功";
-        }
+        User tempUser = checkUserExistance(uid);
+        tempUser.setEnable(BaseConst.DATA_DISABLE);
+        updateUser(tempUser);
+        result = "删除成功";
         return result;
     }
 
     @Override
     public String getPosition(Long uid) {
+        checkUserExistance(uid);
         String position = baseMapper.getPosition(uid);
         return position;
     }
@@ -99,11 +109,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
     @Override
     public String logIn(Long uid, String password) {
-        User user = getUser(uid, BaseConst.DATA_ENABLE);
-
-        if (user == null){
-            return "该用户不存在";
-        }
+        User user = checkUserExistance(uid);
         if (user.getPassword().compareTo(password) != 0){
             return "密码错误";
         }
@@ -114,15 +120,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
     @Override
     public String logOut(Long uid) {
-        User user = getUser(uid, BaseConst.DATA_ENABLE);
-
-        if (user == null){
-            return "该用户不存在";
-        }
+        User user = checkUserExistance(uid);
         user.setState("offline");
         updateUser(user);
         return "登出成功";
     }
-
-
 }

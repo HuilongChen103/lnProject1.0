@@ -15,14 +15,13 @@ public class UpdateCoursewareValidator implements DefaultGroupSequenceProvider<C
         defaultGroupSequence.add(Courseware.class);
 
         if (null != courseware){
-            if (courseware.getCoursewareSerial() == null ||
-                courseware.getClassCode() == null){
-                defaultGroupSequence.add(Courseware.basicNotNullGroup.class);
+            if (courseware.getCoursewareSerial() == null){
+                defaultGroupSequence.add(Courseware.addKeyGroup.class);
                 return defaultGroupSequence;
             }
 
             if (null == courseware.getFileSerial() && null == courseware.getTitle()){
-                defaultGroupSequence.add(Courseware.notAllNullGroup.class);
+                defaultGroupSequence.add(Courseware.updateGroup.class);
             }
         }
         return defaultGroupSequence;
