@@ -24,6 +24,7 @@ public class UpdateUserValidator implements DefaultGroupSequenceProvider<User> {
                 null == user.getPosition() && null == user.getBirthday() &&
                 null == user.getPassword() && null == user.getTel()){
                 defaultGroupSequence.add(User.updateGroup.class);
+                System.out.println("Function the updateGroup addintion");
             }
         }
         return defaultGroupSequence;

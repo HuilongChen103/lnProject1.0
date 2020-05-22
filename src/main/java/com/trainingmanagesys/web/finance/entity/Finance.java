@@ -10,6 +10,7 @@ import java.util.Date;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.trainingmanagesys.utils.ValidationGroup;
 import com.trainingmanagesys.web.finance.validator.UpdateFinanceValidator;
 import com.trainingmanagesys.web.user.validator.UpdateUserValidator;
 import lombok.Data;
@@ -32,7 +33,7 @@ import javax.validation.constraints.NotNull;
 @Accessors(chain = true)
 @TableName("t_finance")
 @GroupSequenceProvider(UpdateFinanceValidator.class)
-public class Finance implements Serializable {
+public class Finance implements Serializable, ValidationGroup {
 
     private static final long serialVersionUID = 1L;
 
@@ -40,26 +41,26 @@ public class Finance implements Serializable {
      * 开支流水号
      */
     @TableId(value = "finance_code", type = IdType.AUTO)
-    @NotNull(groups = basicNotNullGroup.class, message = "请声明开支流水号")
+    @NotNull(groups = addKeyGroup.class, message = "请声明开支流水号")
     private String financeCode;
 
     /**
      * EXP:支出 REV支出
      */
-    @NotNull(groups = basicNotNullGroup.class, message = "请注明是收入还是支出")
+    @NotNull(groups = addAdditionGroup.class, message = "请注明是收入还是支出")
     private String inOut;
 
     /**
      * 负责人
      */
     @TableField("PIC_id")
-    @NotNull(groups = basicNotNullGroup.class, message = "请指明负责人")
+    @NotNull(groups = addAdditionGroup.class, message = "请指明负责人")
     private Long picId;
 
     /**
      * 付款账户
      */
-    @NotNull(groups = notAllNullGroup.class, message = "请输入信息，不能全部为空")
+    @NotNull(groups = updateGroup.class, message = "请输入信息，不能全部为空")
     private String payAccount;
 
     /**
@@ -92,17 +93,5 @@ public class Finance implements Serializable {
      * 备注
      */
     private String comment;
-
-
-    /**
-     * 校验逻辑组
-     */
-    public interface basicNotNullGroup{
-
-    }
-
-    public interface notAllNullGroup{
-
-    }
 
 }

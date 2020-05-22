@@ -16,7 +16,7 @@ public class UpdateCourseValidator implements DefaultGroupSequenceProvider<Cours
 
         if (null != course){
             if (course.getCourseCode() == null){
-                defaultGroupSequence.add(Course.basicNotNullGroup.class);
+                defaultGroupSequence.add(Course.addKeyGroup.class);
                 return defaultGroupSequence;
             }
 
@@ -24,7 +24,7 @@ public class UpdateCourseValidator implements DefaultGroupSequenceProvider<Cours
             if (null == course.getCourseName() && null == course.getComment() &&
                 null == course.getDuration() && null == course.getStudentMax() &&
                 null == course.getType()){
-                defaultGroupSequence.add(Course.notAllNullGroup.class);
+                defaultGroupSequence.add(Course.addAdditionGroup.class);
             }
         }
         return defaultGroupSequence;

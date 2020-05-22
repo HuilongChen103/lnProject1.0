@@ -1,5 +1,6 @@
 package com.trainingmanagesys.web.goods.service.impl;
 
+import com.trainingmanagesys.conf.exception.APIException;
 import com.trainingmanagesys.web.goods.entity.Goodsusage;
 import com.trainingmanagesys.web.goods.dao.GoodsusageMapper;
 import com.trainingmanagesys.web.goods.service.IGoodsusageService;
@@ -17,17 +18,22 @@ import org.springframework.stereotype.Service;
 @Service
 public class GoodsusageServiceImpl extends ServiceImpl<GoodsusageMapper, Goodsusage> implements IGoodsusageService {
 
+    private void checkGoodsUsageExistence(String usageCode){
+        Goodsusage temp = getGoodsusage(usageCode);
+        if (temp == null)
+            throw new APIException("该物资管理不存在");
+    }
+
     @Override
     public String addGoodsusage(Goodsusage goodsusage) {
-        String result = "该用户已经存在";
-        if (baseMapper.selectById(goodsusage.getUsageCode()) != null)
-            return result;
+        checkGoodsUsageExistence(goodsusage.getUsageCode());
         baseMapper.insert(goodsusage);
         return goodsusage.getUsageCode();
     }
 
     @Override
     public String updateGoodsusage(Goodsusage goodsusage) {
+        checkGoodsUsageExistence(goodsusage.getUsageCode());
         String result = "更新物资使用失败";
         int code = baseMapper.updateById(goodsusage);
         if (code == 1)
@@ -37,6 +43,7 @@ public class GoodsusageServiceImpl extends ServiceImpl<GoodsusageMapper, Goodsus
 
     @Override
     public String deleteGoodsusage(String usageCode) {
+        getGoodsusage(usageCode);
         String result = "删除物资使用失败";
         int code = baseMapper.deleteById(usageCode);
         if (code == 1)

@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.trainingmanagesys.utils.ValidationGroup;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -23,7 +24,7 @@ import javax.validation.constraints.NotNull;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("t_assessment")
-public class Assessment implements Serializable {
+public class Assessment implements Serializable, ValidationGroup {
 
     private static final long serialVersionUID = 1L;
 
@@ -31,19 +32,19 @@ public class Assessment implements Serializable {
      * 测评流水号
      */
     @TableId(value = "assess_serial", type = IdType.AUTO)
-    @NotNull(groups = basicNotNullGroup.class, message = "请声明测评流水号")
+    @NotNull(groups = addKeyGroup.class, message = "请声明测评流水号")
     private Long assessSerial;
 
     /**
      * 被测者id
      */
-    @NotNull(groups = basicNotNullGroup.class, message = "请声明被测者id")
+    @NotNull(groups = addAdditionGroup.class, message = "请声明被测者id")
     private Long targetId;
 
     /**
      * 测评者id
      */
-    @NotNull(groups = notAllNullGroup.class, message = "请输入信息，不能全部为空")
+    @NotNull(groups = updateGroup.class, message = "请输入信息，不能全部为空")
     private Long assessorId;
 
     /**
@@ -54,7 +55,6 @@ public class Assessment implements Serializable {
     /**
      * 学年
      */
-    @NotNull(groups = semesterWithYearGroup.class, message = "请声明学年")
     private Integer year;
 
     /**
@@ -65,23 +65,10 @@ public class Assessment implements Serializable {
     /**
      * 分数
      */
-    private Long grade;
+    private Double grade;
 
     /**
      * 评价
      */
     private String comment;
-
-
-    public interface basicNotNullGroup{
-
-    }
-
-    public interface notAllNullGroup{
-
-    }
-
-    public interface semesterWithYearGroup{
-
-    }
 }

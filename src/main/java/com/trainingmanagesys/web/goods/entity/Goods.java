@@ -9,9 +9,13 @@ import java.util.Date;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.trainingmanagesys.utils.ValidationGroup;
+import com.trainingmanagesys.web.goods.validator.UpdateGoodsValidator;
+import com.trainingmanagesys.web.goods.validator.UpdateGoodsusageValidator;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+import org.hibernate.validator.group.GroupSequenceProvider;
 
 import javax.validation.constraints.NotNull;
 
@@ -27,7 +31,8 @@ import javax.validation.constraints.NotNull;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("t_goods")
-public class Goods implements Serializable {
+@GroupSequenceProvider(UpdateGoodsValidator.class)
+public class Goods implements Serializable, ValidationGroup {
 
     private static final long serialVersionUID = 1L;
 
@@ -35,26 +40,26 @@ public class Goods implements Serializable {
      * 物资编号
      */
     @TableId(value = "goods_code")
-    @NotNull(groups = basicNotNullGroup.class, message = "请指明物资编号")
+    @NotNull(groups = addKeyGroup.class, message = "请指明物资编号")
     private String goodsCode;
 
     /**
      * 采办人id(person in charge)
      */
     @TableField("PIC_id")
-    @NotNull(groups = notAllNullGroup.class, message = "请输入信息，不能全部为空")
+    @NotNull(groups = updateGroup.class, message = "请输入信息，不能全部为空")
     private Long picId;
 
     /**
      * 物资名称
      */
-    @NotNull(groups = basicNotNullGroup.class, message = "请指明物资名称")
+    @NotNull(groups = addAdditionGroup.class, message = "请指明物资名称")
     private String name;
 
     /**
      * 类目
      */
-    @NotNull(groups = basicNotNullGroup.class, message = "请指明物资类目")
+    @NotNull(groups = addAdditionGroup.class, message = "请指明物资类目")
     private String catagory;
 
     /**
@@ -72,7 +77,7 @@ public class Goods implements Serializable {
     /**
      * 价格
      */
-    private BigDecimal price;
+    private Double price;
 
     /**
      * 现在的地点（房间号）
@@ -83,13 +88,4 @@ public class Goods implements Serializable {
      * 备注
      */
     private String comment;
-
-
-    public interface basicNotNullGroup{
-
-    }
-
-    public interface notAllNullGroup{
-
-    }
 }

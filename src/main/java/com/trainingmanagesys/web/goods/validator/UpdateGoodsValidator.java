@@ -16,7 +16,7 @@ public class UpdateGoodsValidator implements DefaultGroupSequenceProvider<Goods>
 
         if (null != goods){
             if (goods.getGoodsCode() == null){
-                defaultGroupSequence.add(Goods.basicNotNullGroup.class);
+                defaultGroupSequence.add(Goods.addKeyGroup.class);
                 return defaultGroupSequence;
             }
 
@@ -24,7 +24,7 @@ public class UpdateGoodsValidator implements DefaultGroupSequenceProvider<Goods>
                 null == goods.getPicId() && null == goods.getStockInDate() &&
                 null == goods.getStockOutDate() && null == goods.getPrice() &&
                 null == goods.getRoomNum() && null == goods.getComment()){
-                defaultGroupSequence.add(Goods.notAllNullGroup.class);
+                defaultGroupSequence.add(Goods.updateGroup.class);
             }
         }
         return defaultGroupSequence;

@@ -16,7 +16,7 @@ public class UpdateBenefitevaluationValidator implements DefaultGroupSequencePro
 
         if (null != benefitevaluation){
             if (benefitevaluation.getBenefitSerial() == null){
-                defaultGroupSequence.add(Benefitevaluation.basicNotNullGroup.class);
+                defaultGroupSequence.add(Benefitevaluation.addKeyGroup.class);
                 return defaultGroupSequence;
             }
 
@@ -24,7 +24,7 @@ public class UpdateBenefitevaluationValidator implements DefaultGroupSequencePro
             if (null == benefitevaluation.getStuffId() && null == benefitevaluation.getYear() &&
                 null == benefitevaluation.getMonth() && null == benefitevaluation.getBenefit() &&
                 null == benefitevaluation.getAssessment()){
-                defaultGroupSequence.add(Benefitevaluation.notAllNullGroup.class);
+                defaultGroupSequence.add(Benefitevaluation.updateGroup.class);
             }
 
             if (null == benefitevaluation.getYear() && null != benefitevaluation.getMonth())

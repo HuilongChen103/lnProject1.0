@@ -1,8 +1,10 @@
 package com.trainingmanagesys.web.grade.controller;
 
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.trainingmanagesys.web.grade.entity.Grade;
 import com.trainingmanagesys.web.grade.service.IGradeService;
+import com.trainingmanagesys.web.grade.vo.GradeVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 /**
  * <p>
@@ -71,5 +74,29 @@ public class GradeController {
     @PostMapping("/getGrade")
     public Grade getGrade(@NotNull(message = "请输入分数流水号") Long gradeSerial){
         return gradeService.getGrade(gradeSerial);
+    }
+
+    @ApiOperation(value = "列成绩")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "testSerial", value = "考试号", dataType = "Long", required = false),
+            @ApiImplicitParam(name = "studentId", value = "学生id", dataType = "Long", required = false),
+            @ApiImplicitParam(name = "limit", value = "数量", dataType = "Integer", required = false)
+    })
+    @PostMapping("/listGrade")
+    public List<Grade> listGrade(@RequestBody @Validated GradeVO grade){
+        return gradeService.listGrade(grade);
+    }
+
+    @ApiOperation(value = "分页列成绩")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "testSerial", value = "考试号", dataType = "Long", required = false),
+            @ApiImplicitParam(name = "studentId", value = "学生id", dataType = "Long", required = false),
+            @ApiImplicitParam(name = "limit", value = "数量", dataType = "Integer", required = false),
+            @ApiImplicitParam(name = "currentPage", value = "当前页面", dataType = "Integer", required = true),
+            @ApiImplicitParam(name = "pageSize", value = "页面容量", dataType = "Integer", required = true)
+    })
+    @PostMapping("/pagedListGrade")
+    public IPage<Grade> pagedListGrade(@RequestBody @Validated GradeVO grade){
+        return gradeService.pagedListGrade(grade);
     }
 }

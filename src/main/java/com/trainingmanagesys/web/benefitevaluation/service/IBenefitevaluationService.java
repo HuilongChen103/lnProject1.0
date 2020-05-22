@@ -3,6 +3,7 @@ package com.trainingmanagesys.web.benefitevaluation.service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.trainingmanagesys.web.benefitevaluation.entity.Benefitevaluation;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.trainingmanagesys.web.benefitevaluation.vo.AddBenefitevaluationVO;
 import com.trainingmanagesys.web.benefitevaluation.vo.BenefitevaluationVO;
 
 import java.util.List;
@@ -17,7 +18,7 @@ import java.util.List;
  */
 public interface IBenefitevaluationService extends IService<Benefitevaluation> {
 
-    Long addBenefitevaluation(Benefitevaluation benefitevaluation);
+    Long addBenefitevaluation(AddBenefitevaluationVO addBenefitevaluationVO);
 
     String updateBenefitevaluation(Benefitevaluation benefitevaluation);
 

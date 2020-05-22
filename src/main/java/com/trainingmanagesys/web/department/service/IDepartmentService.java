@@ -3,6 +3,8 @@ package com.trainingmanagesys.web.department.service;
 import com.trainingmanagesys.web.department.entity.Department;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务类
@@ -20,4 +22,6 @@ public interface IDepartmentService extends IService<Department> {
     String deleteDepartment(Long departmentId);
 
     Department getDepartment(Long departmentId);
+
+    List<Department> listDepartment();
 }

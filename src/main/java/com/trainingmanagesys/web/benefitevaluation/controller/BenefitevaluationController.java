@@ -4,6 +4,7 @@ package com.trainingmanagesys.web.benefitevaluation.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.trainingmanagesys.web.benefitevaluation.entity.Benefitevaluation;
 import com.trainingmanagesys.web.benefitevaluation.service.IBenefitevaluationService;
+import com.trainingmanagesys.web.benefitevaluation.vo.AddBenefitevaluationVO;
 import com.trainingmanagesys.web.benefitevaluation.vo.BenefitevaluationVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -45,7 +46,7 @@ public class BenefitevaluationController {
             @ApiImplicitParam(name = "assessment", value = "考评（文字说明）", dataType = "String", required = false)
     })
     @PostMapping("/addBenefitevaluation")
-    public Long addBenefitevaluation(@RequestBody @Validated Benefitevaluation benefitevaluation){
+    public Long addBenefitevaluation(@RequestBody @Validated AddBenefitevaluationVO benefitevaluation){
         return benefitevaluationService.addBenefitevaluation(benefitevaluation);
     }
 

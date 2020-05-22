@@ -81,12 +81,4 @@ public class File implements Serializable, ValidationGroup {
      * 上传人id
      */
     private Long uploaderId;
-
-//    public interface basicNotNullGroup{
-//
-//    }
-//
-//    public interface notAllNullGroup{
-//
-//    }
 }

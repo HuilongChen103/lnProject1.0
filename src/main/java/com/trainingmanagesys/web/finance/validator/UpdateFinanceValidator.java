@@ -15,7 +15,7 @@ public class UpdateFinanceValidator implements DefaultGroupSequenceProvider<Fina
 
         if (null != finance){
             if (finance.getFinanceCode() == null){
-                defaultGroupSequence.add(Finance.basicNotNullGroup.class);
+                defaultGroupSequence.add(Finance.addKeyGroup.class);
                 return defaultGroupSequence;
             }
 
@@ -25,7 +25,7 @@ public class UpdateFinanceValidator implements DefaultGroupSequenceProvider<Fina
                 null == finance.getTradeMethod() && null == finance.getAmount() &&
                 null == finance.getDate() && null == finance.getComment() &&
                 null == finance.getCategory()){
-                defaultGroupSequence.add(Finance.notAllNullGroup.class);
+                defaultGroupSequence.add(Finance.addAdditionGroup.class);
             }
 
         }

@@ -46,7 +46,7 @@ public class FinanceController {
         @ApiImplicitParam(name = "comment", value = "备注", dataType = "String", required = false)
     })
     @PostMapping("/addFinance")
-    public String addFinance(@RequestBody @Validated Finance finance){
+    public String addFinance(@RequestBody @Validated({Finance.addKeyGroup.class, Finance.addAdditionGroup.class}) Finance finance){
         return financeService.addFinance(finance);
     }
 
@@ -116,7 +116,7 @@ public class FinanceController {
             @ApiImplicitParam(name = "pageSize", value = "页面大小", dataType = "Integer", required = true),
     })
     @PostMapping("/pagedListFinance")
-    public IPage<Finance> pagedListFinance(@RequestBody @Validated(FinanceVO.basicNotNullGroup.class) FinanceVO finance){
+    public IPage<Finance> pagedListFinance(@RequestBody @Validated(FinanceVO.listKeyGroup.class) FinanceVO finance){
         return financeService.pagedListFinance(finance);
     }
 }

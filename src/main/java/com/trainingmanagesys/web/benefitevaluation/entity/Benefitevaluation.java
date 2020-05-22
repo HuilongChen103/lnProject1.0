@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.trainingmanagesys.utils.ValidationGroup;
 import com.trainingmanagesys.web.benefitevaluation.validator.UpdateBenefitevaluationValidator;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -26,7 +27,7 @@ import javax.validation.constraints.NotNull;
 @Accessors(chain = true)
 @TableName("t_benefitevaluation")
 @GroupSequenceProvider(UpdateBenefitevaluationValidator.class)
-public class Benefitevaluation implements Serializable {
+public class Benefitevaluation implements Serializable, ValidationGroup {
 
     private static final long serialVersionUID = 1L;
 
@@ -34,13 +35,13 @@ public class Benefitevaluation implements Serializable {
      * 绩效考评流水号
      */
     @TableId(value = "benefit_serial", type = IdType.AUTO)
-    @NotNull(groups = basicNotNullGroup.class, message = "请指明绩效考评流水号")
+    @NotNull(groups = addKeyGroup.class, message = "请指明绩效考评流水号")
     private Long benefitSerial;
 
     /**
      * 员工id（职员、教师）
      */
-    @NotNull(groups = notAllNullGroup.class, message = "请输入信息，不能全部为空")
+    @NotNull(groups = updateGroup.class, message = "请输入信息，不能全部为空")
     private Long stuffId;
 
     /**
@@ -63,17 +64,4 @@ public class Benefitevaluation implements Serializable {
      * 考评（文字说明）
      */
     private String assessment;
-
-
-    public interface basicNotNullGroup{
-
-    }
-
-    public interface notAllNullGroup{
-
-    }
-
-    public interface yearNotNullGroup{
-
-    }
 }

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 /**
  * <p>
@@ -50,7 +51,7 @@ public class DepartmentController {
     })
     @PostMapping("/updateDepartment")
     @Transactional(rollbackFor = Exception.class)
-    public String updateDepartment(@RequestBody @Validated(Department.updateGroup.class) Department department){
+    public String updateDepartment(@RequestBody @Validated({Department.updateGroup.class, Department.addKeyGroup.class}) Department department){
         return departmentService.updateDepartment(department);
     }
 
@@ -67,5 +68,11 @@ public class DepartmentController {
     @PostMapping("/getDepartment")
     public Department getDepartment(@NotNull(message = "请指明部门ID") Long departmentId){
         return departmentService.getDepartment(departmentId);
+    }
+
+    @ApiOperation(value = "列所有部门")
+    @PostMapping("/listDepartment")
+    public List<Department> getDepartment(){
+        return departmentService.listDepartment();
     }
 }

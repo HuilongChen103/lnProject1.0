@@ -1,7 +1,11 @@
 package com.trainingmanagesys.web.grade.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.trainingmanagesys.web.grade.entity.Grade;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.trainingmanagesys.web.grade.vo.GradeVO;
+
+import java.util.List;
 
 /**
  * <p>
@@ -20,4 +24,8 @@ public interface IGradeService extends IService<Grade> {
     String deleteGrade(Long gradeSerial);
 
     Grade getGrade(Long gradeSerial);
+
+    List<Grade> listGrade(GradeVO vo);
+
+    IPage<Grade> pagedListGrade(GradeVO vo);
 }
