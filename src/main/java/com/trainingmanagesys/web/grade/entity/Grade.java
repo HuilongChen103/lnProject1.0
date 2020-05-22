@@ -32,13 +32,13 @@ public class Grade implements Serializable, ValidationGroup {
      * 分数流水号
      */
     @TableId(value = "grade_serial", type = IdType.AUTO)
-    @NotNull(groups = basicNotNullGroup.class, message = "请指明分数流水号")
+    @NotNull(groups = addKeyGroup.class, message = "请指明分数流水号")
     private Long gradeSerial;
 
     /**
      * 考试号
      */
-    @NotNull(groups = basicNotNullGroup.class, message = "请指明考试号")
+    @NotNull(groups = addAdditionGroup.class, message = "请指明考试号")
     private Long testSerial;
 
     /**

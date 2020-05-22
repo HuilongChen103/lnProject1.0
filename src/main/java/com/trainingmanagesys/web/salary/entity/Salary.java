@@ -36,13 +36,13 @@ public class Salary implements Serializable, ValidationGroup {
      * 工资流水号
      */
     @TableId(value = "salary_serial", type = IdType.AUTO)
-    @NotNull(groups = basicNotNullGroup.class, message = "请指明工资流水号")
+    @NotNull(groups = addKeyGroup.class, message = "请指明工资流水号")
     private Long salarySerial;
 
     /**
      * 员工id
      */
-    @NotNull(groups = notAllNullGroup.class, message = "请输入信息，不能全部为空")
+    @NotNull(groups = updateGroup.class, message = "请输入信息，不能全部为空")
     private Long stuffId;
 
     /**

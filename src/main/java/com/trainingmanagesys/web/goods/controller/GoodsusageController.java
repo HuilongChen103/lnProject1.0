@@ -47,7 +47,7 @@ public class GoodsusageController {
     })
     @Transactional(rollbackFor = Exception.class)
     @PostMapping("/addGoodsusage")
-    public String addGoodsusage(@RequestBody @Validated Goodsusage goodsusage){
+    public String addGoodsusage(@RequestBody @Validated({Goodsusage.addKeyGroup.class, Goodsusage.addAdditionGroup.class}) Goodsusage goodsusage){
         return goodsusageService.addGoodsusage(goodsusage);
     }
 

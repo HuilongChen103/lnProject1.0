@@ -16,13 +16,13 @@ public class UpdateMessageValidator implements DefaultGroupSequenceProvider<Mess
 
         if (null != messageboard){
             if (messageboard.getMessageSerial() == null || messageboard.getUploaderId() == null){
-                defaultGroupSequence.add(Messageboard.basicNotNullGroup.class);
+                defaultGroupSequence.add(Messageboard.addKeyGroup.class);
                 return defaultGroupSequence;
             }
 
             if (null == messageboard.getClassCode() && null == messageboard.getContent() &&
                 null == messageboard.getDate()){
-                defaultGroupSequence.add(Messageboard.notAllNullGroup.class);
+                defaultGroupSequence.add(Messageboard.updateGroup.class);
             }
         }
         return defaultGroupSequence;

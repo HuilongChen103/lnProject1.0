@@ -37,13 +37,13 @@ public class File implements Serializable, ValidationGroup {
      * 文件流水号
      */
     @TableId(value = "file_serial", type = IdType.AUTO)
-    @NotNull(groups = basicNotNullGroup.class, message = "请指明文件流水号")
+    @NotNull(groups = addKeyGroup.class, message = "请指明文件流水号")
     private Long fileSerial;
 
     /**
      * 文件名
      */
-    @NotNull(groups = notAllNullGroup.class, message = "请输入信息，不能全部为空")
+    @NotNull(groups = updateGroup.class, message = "请输入信息，不能全部为空")
     private String name;
 
     /**

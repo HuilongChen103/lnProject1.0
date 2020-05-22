@@ -16,13 +16,13 @@ public class UpdateGoodsusageValidator implements DefaultGroupSequenceProvider<G
 
         if (null != goodsusage){
             if (goodsusage.getUsageCode() == null){
-                defaultGroupSequence.add(Goodsusage.basicNotNullGroup.class);
+                defaultGroupSequence.add(Goodsusage.addKeyGroup.class);
                 return defaultGroupSequence;
             }
 
             if (null == goodsusage.getRentorId() && null == goodsusage.getPicId() &&
                 null == goodsusage.getRentDate() && null == goodsusage.getReturnDate()){
-                defaultGroupSequence.add(Goodsusage.notAllNullGroup.class);
+                defaultGroupSequence.add(Goodsusage.updateGroup.class);
             }
         }
         return defaultGroupSequence;

@@ -38,19 +38,19 @@ public class Messageboard implements Serializable, ValidationGroup {
      * 留言流水号
      */
     @TableId(value = "message_serial", type = IdType.AUTO)
-    @NotNull(groups = basicNotNullGroup.class, message = "请指明留言流水号")
+    @NotNull(groups = addKeyGroup.class, message = "请指明留言流水号")
     private Long messageSerial;
 
     /**
      * 上传人id
      */
-    @NotNull(groups = basicNotNullGroup.class, message = "请指明上传人id")
+    @NotNull(groups = addAdditionGroup.class, message = "请指明上传人id")
     private Long uploaderId;
 
     /**
      * 内容
      */
-    @NotNull(groups = notAllNullGroup.class, message = "请输入信息，不能全部为空")
+    @NotNull(groups = updateGroup.class, message = "请输入信息，不能全部为空")
     private String content;
 
     /**

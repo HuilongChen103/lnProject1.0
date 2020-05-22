@@ -16,7 +16,7 @@ public class UpdateFileValidator implements DefaultGroupSequenceProvider<File> {
 
         if (null != file){
             if (file.getFileSerial() == null){
-                defaultGroupSequence.add(File.basicNotNullGroup.class);
+                defaultGroupSequence.add(File.addKeyGroup.class);
                 return defaultGroupSequence;
             }
 
@@ -25,7 +25,7 @@ public class UpdateFileValidator implements DefaultGroupSequenceProvider<File> {
                 null == file.getExtension() && null == file.getContenttype() &&
                 null == file.getFileData() && null == file.getFileSize() &&
                 null == file.getUploadTime() && null == file.getUploaderId()){
-                defaultGroupSequence.add(File.notAllNullGroup.class);
+                defaultGroupSequence.add(File.updateGroup.class);
             }
 
         }

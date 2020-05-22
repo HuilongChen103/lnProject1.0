@@ -16,7 +16,7 @@ public class UpdateSalaryValidator implements DefaultGroupSequenceProvider<Salar
 
         if (null != salary){
             if (salary.getSalarySerial() == null){
-                defaultGroupSequence.add(Salary.basicNotNullGroup.class);
+                defaultGroupSequence.add(Salary.addKeyGroup.class);
                 return defaultGroupSequence;
             }
 
@@ -25,7 +25,7 @@ public class UpdateSalaryValidator implements DefaultGroupSequenceProvider<Salar
                 null == salary.getBonus() && null == salary.getTotalSalary() &&
                 null == salary.getInsurance() && null == salary.getMonth() &&
                 null == salary.getYear()){
-                defaultGroupSequence.add(Salary.notAllNullGroup.class);
+                defaultGroupSequence.add(Salary.updateGroup.class);
             }
         }
         return defaultGroupSequence;
