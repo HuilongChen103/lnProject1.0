@@ -23,7 +23,7 @@ public class UpdateCourseValidator implements DefaultGroupSequenceProvider<Cours
             // 判断updateUser时输入信息是否全部为空
             if (null == course.getCourseName() && null == course.getComment() &&
                 null == course.getDuration() && null == course.getStudentMax() &&
-                null == course.getType()){
+                null == course.getType() && null == course.getFee()){
                 defaultGroupSequence.add(Course.addAdditionGroup.class);
             }
         }

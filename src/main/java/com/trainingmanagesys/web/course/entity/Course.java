@@ -62,4 +62,6 @@ public class Course implements Serializable, ValidationGroup {
      * 备注
      */
     private String comment;
+
+    private Double fee;
 }

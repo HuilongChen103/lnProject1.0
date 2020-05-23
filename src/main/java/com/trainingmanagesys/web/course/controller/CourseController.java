@@ -41,7 +41,8 @@ public class CourseController {
             @ApiImplicitParam(name = "duration", value = "课程时长",  dataType = "String", required = false),
             @ApiImplicitParam(name = "studentMax", value = "最大学生数量",  dataType = "Integer", required = false),
             @ApiImplicitParam(name = "type", value = "类型",  dataType = "String", required = false),
-            @ApiImplicitParam(name = "comment", value = "备注",  dataType = "String", required = false)
+            @ApiImplicitParam(name = "comment", value = "备注",  dataType = "String", required = false),
+            @ApiImplicitParam(name = "fee", value = "费用",  dataType = "Double", required = false)
     })
     @PostMapping("/addCourse")
     @Transactional(rollbackFor = Exception.class)
@@ -56,7 +57,8 @@ public class CourseController {
             @ApiImplicitParam(name = "duration", value = "课程时长",  dataType = "String", required = false),
             @ApiImplicitParam(name = "studentMax", value = "最大学生数量",  dataType = "Integer", required = false),
             @ApiImplicitParam(name = "type", value = "类型",  dataType = "String", required = false),
-            @ApiImplicitParam(name = "comment", value = "备注",  dataType = "String", required = false)
+            @ApiImplicitParam(name = "comment", value = "备注",  dataType = "String", required = false),
+            @ApiImplicitParam(name = "fee", value = "费用",  dataType = "Double", required = false)
     })
     @PostMapping("/updateCourse")
     @Transactional(rollbackFor = Exception.class)
