@@ -49,7 +49,7 @@ public class Grade implements Serializable, ValidationGroup {
     /**
      * 分数
      */
-    private Long grade;
+    private Double grade;
 
     /**
      * 备注
