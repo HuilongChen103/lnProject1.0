@@ -45,7 +45,7 @@ public class User implements Serializable, ValidationGroup {
     private String gender;
 
     @Past(message = "日期输入错误")   // 生日日期必须在当前时间之前
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date birthday;
 
     private String position;
