@@ -1,7 +1,11 @@
 package com.trainingmanagesys.web.homework.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.trainingmanagesys.web.homework.entity.Homework;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.trainingmanagesys.web.homework.vo.HomeworkVO;
+
+import java.util.List;
 
 /**
  * <p>
@@ -20,4 +24,8 @@ public interface IHomeworkService extends IService<Homework> {
     String deleteHomework(Long hwSerial);
 
     Homework getHomework(Long hwSerial);
+
+    List<Homework> listHomework(HomeworkVO vo);
+
+    IPage<Homework> pagedListHomework(HomeworkVO vo);
 }

@@ -16,13 +16,13 @@ public class UpdateHomeworkValidator implements DefaultGroupSequenceProvider<Hom
 
         if (null != homework){
             if (homework.getHwSerial() == null){
-                defaultGroupSequence.add(Homework.basicNotNullGroup.class);
+                defaultGroupSequence.add(Homework.addKeyGroup.class);
                 return defaultGroupSequence;
             }
 
             if (null == homework.getArrangeSerial() && null == homework.getGrade() &&
                 null == homework.getHwFile() && null == homework.getStudentId()){
-                defaultGroupSequence.add(Homework.notAllNullGroup.class);
+                defaultGroupSequence.add(Homework.updateGroup.class);
             }
         }
         return defaultGroupSequence;

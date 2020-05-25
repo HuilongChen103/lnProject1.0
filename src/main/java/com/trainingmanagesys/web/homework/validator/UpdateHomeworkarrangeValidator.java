@@ -16,13 +16,13 @@ public class UpdateHomeworkarrangeValidator implements DefaultGroupSequenceProvi
 
         if (null != homeworkarrange){
             if (homeworkarrange.getArrangeSerial() == null){
-                defaultGroupSequence.add(Homeworkarrange.basicNotNullGroup.class);
+                defaultGroupSequence.add(Homeworkarrange.addKeyGroup.class);
                 return defaultGroupSequence;
             }
 
             if (null == homeworkarrange.getClassCode() && null == homeworkarrange.getArrangeFile() &&
                 null == homeworkarrange.getContent() && null == homeworkarrange.getDeadline()){
-                defaultGroupSequence.add(Homeworkarrange.notAllNullGroup.class);
+                defaultGroupSequence.add(Homeworkarrange.updateGroup.class);
             }
         }
         return defaultGroupSequence;

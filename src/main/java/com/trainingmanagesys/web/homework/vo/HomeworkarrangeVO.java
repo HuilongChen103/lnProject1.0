@@ -1,11 +1,7 @@
-package com.trainingmanagesys.web.homework.entity;
+package com.trainingmanagesys.web.homework.vo;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import java.time.LocalDateTime;
-import java.io.Serializable;
-import java.util.Date;
-
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.trainingmanagesys.utils.ValidationGroup;
@@ -13,9 +9,12 @@ import com.trainingmanagesys.web.homework.validator.UpdateHomeworkarrangeValidat
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.group.GroupSequenceProvider;
 
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  * <p>
@@ -28,23 +27,13 @@ import javax.validation.constraints.NotNull;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("t_homeworkarrange")
-@GroupSequenceProvider(UpdateHomeworkarrangeValidator.class)
-public class Homeworkarrange implements Serializable, ValidationGroup {
+public class HomeworkarrangeVO implements Serializable, ValidationGroup {
 
     private static final long serialVersionUID = 1L;
 
     /**
-     * 作业安排流水号
-     */
-    @TableId(value = "arrange_serial", type = IdType.AUTO)
-    @NotNull(groups = addKeyGroup.class, message = "请指明作业安排流水号")
-    private Long arrangeSerial;
-
-    /**
      * 班级编号
      */
-    @NotNull(groups = updateGroup.class, message = "请输入信息，不能全部为空")
     private String classCode;
 
     /**
@@ -52,14 +41,18 @@ public class Homeworkarrange implements Serializable, ValidationGroup {
      */
     private Long arrangeFile;
 
-    /**
-     * 作业内容文字说明
-     */
-    private String content;
 
     /**
      * 截止时间
      */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date deadline;
+
+    private Integer limit;
+
+    @NotNull(groups = listKeyGroup.class, message = "请指明当前页面")
+    private Integer currentPage;
+
+    @NotNull(groups = listKeyGroup.class, message = "请指明页面容量")
+    private Integer pageSize;
 }

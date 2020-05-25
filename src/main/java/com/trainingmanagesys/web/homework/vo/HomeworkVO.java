@@ -1,6 +1,4 @@
-package com.trainingmanagesys.web.homework.entity;
-
-import java.io.Serializable;
+package com.trainingmanagesys.web.homework.vo;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -13,6 +11,7 @@ import lombok.experimental.Accessors;
 import org.hibernate.validator.group.GroupSequenceProvider;
 
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 /**
  * <p>
@@ -25,23 +24,13 @@ import javax.validation.constraints.NotNull;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("t_homework")
-@GroupSequenceProvider(UpdateHomeworkValidator.class)
-public class Homework implements Serializable, ValidationGroup {
+public class HomeworkVO implements Serializable, ValidationGroup {
 
     private static final long serialVersionUID = 1L;
 
     /**
-     * 作业流水号
-     */
-    @TableId(value = "hw_serial", type = IdType.AUTO)
-    @NotNull(groups = addKeyGroup.class, message = "请指明作业流水号")
-    private Long hwSerial;
-
-    /**
      * 作业安排流水号
      */
-    @NotNull(groups = updateGroup.class, message = "请输入信息，不能全部为空")
     private Long arrangeSerial;
 
     /**
@@ -57,5 +46,15 @@ public class Homework implements Serializable, ValidationGroup {
     /**
      * 分数
      */
-    private Long grade;
+    private Long gradeMax;
+
+    private Long gradeMin;
+
+    private Integer limit;
+
+    @NotNull(groups = listKeyGroup.class, message = "请指明当前页面")
+    private Integer currentPage;
+
+    @NotNull(groups = listKeyGroup.class, message = "请指明页面容量")
+    private Integer pageSize;
 }
