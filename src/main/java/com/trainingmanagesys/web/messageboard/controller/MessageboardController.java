@@ -44,7 +44,7 @@ public class MessageboardController {
             @ApiImplicitParam(name = "reply", value = "回复", dataType = "Long", required = false)
     })
     @PostMapping("/addMessage")
-    public Long addMessage(@RequestBody @Validated Messageboard messageboard){
+    public Long addMessage(@RequestBody @Validated({Messageboard.addAdditionGroup.class}) Messageboard messageboard){
         return messageboardService.addMessage(messageboard);
     }
 

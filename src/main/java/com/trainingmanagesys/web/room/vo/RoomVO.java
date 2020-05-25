@@ -1,6 +1,7 @@
 package com.trainingmanagesys.web.room.vo;
 
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.trainingmanagesys.utils.ValidationGroup;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -19,7 +20,7 @@ import java.io.Serializable;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-public class RoomVO implements Serializable {
+public class RoomVO implements Serializable, ValidationGroup {
 
     private static final long serialVersionUID = 1L;
 
@@ -35,14 +36,9 @@ public class RoomVO implements Serializable {
 
     private Integer limit;
 
-    @NotNull(groups = basicNotNullGroup.class, message = "请指明当前页面")
+    @NotNull(groups = listKeyGroup.class, message = "请指明当前页面")
     private Integer currentPage;
 
-    @NotNull(groups = basicNotNullGroup.class, message = "请指明页面大小")
+    @NotNull(groups = listKeyGroup.class, message = "请指明页面大小")
     private Integer pageSize;
-
-    public interface basicNotNullGroup{
-
-    }
-
 }

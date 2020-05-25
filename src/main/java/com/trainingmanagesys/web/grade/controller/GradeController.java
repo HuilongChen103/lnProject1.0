@@ -45,7 +45,7 @@ public class GradeController {
             @ApiImplicitParam(name = "comment", value = "备注)", dataType = "String", required = false)
     })
     @PostMapping("/addGrade")
-    public Long addGrade(@RequestBody @Validated Grade grade){
+    public Long addGrade(@RequestBody @Validated({Grade.addAdditionGroup.class}) Grade grade){
         return gradeService.addGrade(grade);
     }
 

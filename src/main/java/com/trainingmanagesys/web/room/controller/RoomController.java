@@ -41,7 +41,7 @@ public class RoomController {
     })
     @Transactional(rollbackFor = Exception.class)
     @PostMapping("/addRoom")
-    public Long addRoom(@RequestBody @Validated Room room){
+    public Long addRoom(@RequestBody Room room){
         return roomService.addRoom(room);
     }
 
@@ -53,7 +53,7 @@ public class RoomController {
     })
     @Transactional(rollbackFor = Exception.class)
     @PostMapping("/updateRoom")
-    public String updateRoom(@RequestBody @Validated(Room.basicNotNullGroup.class) Room room){
+    public String updateRoom(@RequestBody @Validated Room room){
         return roomService.updateRoom(room);
     }
 
@@ -85,7 +85,7 @@ public class RoomController {
             @ApiImplicitParam(name = "pageSize", value = "页面容量", dataType = "Integer", required = true)
     })
     @GetMapping("/pagedListRoom")
-    public IPage<Room> pagedListRoom(@RequestBody @Validated({RoomVO.basicNotNullGroup.class}) RoomVO roomVO){
+    public IPage<Room> pagedListRoom(@RequestBody @Validated({RoomVO.listKeyGroup.class}) RoomVO roomVO){
         return roomService.pagedListRoom(roomVO);
     }
 

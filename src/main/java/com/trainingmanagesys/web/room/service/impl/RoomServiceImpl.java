@@ -3,6 +3,7 @@ package com.trainingmanagesys.web.room.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.trainingmanagesys.conf.exception.APIException;
 import com.trainingmanagesys.web.room.entity.Room;
 import com.trainingmanagesys.web.room.dao.RoomMapper;
 import com.trainingmanagesys.web.room.service.IRoomService;
@@ -23,6 +24,11 @@ import java.util.List;
 @Service
 public class RoomServiceImpl extends ServiceImpl<RoomMapper, Room> implements IRoomService {
 
+    private void checkRoomExistence(Long roomNum){
+        if (getRoom(roomNum) == null)
+            throw new APIException("该房间不存在");
+    }
+
     @Override
     public Long addRoom(Room room) {
         baseMapper.insert(room);
@@ -31,6 +37,7 @@ public class RoomServiceImpl extends ServiceImpl<RoomMapper, Room> implements IR
 
     @Override
     public String updateRoom(Room room) {
+        checkRoomExistence(room.getRoomNum());
         String result = "更新房间失败";
         int code = baseMapper.updateById(room);
         if (code == 1)
@@ -40,11 +47,17 @@ public class RoomServiceImpl extends ServiceImpl<RoomMapper, Room> implements IR
 
     @Override
     public String deleteRoom(Long roomNum) {
+        checkRoomExistence(roomNum);
         String result = "删除房间失败";
         int code = baseMapper.deleteById(roomNum);
         if (code == 1)
             result = "删除房间成功";
         return result;
+    }
+
+    @Override
+    public Room getRoom(Long roomNum) {
+        return baseMapper.selectById(roomNum);
     }
 
     @Override

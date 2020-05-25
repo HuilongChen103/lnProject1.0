@@ -4,9 +4,12 @@ import java.io.Serializable;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.trainingmanagesys.utils.ValidationGroup;
+import com.trainingmanagesys.web.room.validator.UpdateRoomValidator;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+import org.hibernate.validator.group.GroupSequenceProvider;
 
 import javax.validation.constraints.NotNull;
 
@@ -22,7 +25,8 @@ import javax.validation.constraints.NotNull;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("t_room")
-public class Room implements Serializable {
+@GroupSequenceProvider(UpdateRoomValidator.class)
+public class Room implements Serializable, ValidationGroup {
 
     private static final long serialVersionUID = 1L;
 
@@ -30,12 +34,13 @@ public class Room implements Serializable {
      * 房间号
      */
     @TableId(value = "room_num")
-    @NotNull(groups = basicNotNullGroup.class, message = "请指明房间号")
+    @NotNull(groups = addKeyGroup.class, message = "请指明房间号")
     private Long roomNum;
 
     /**
      * 用途（教室，库房，办公室等）
      */
+    @NotNull(groups = updateGroup.class, message = "请输入信息，不能全部为空")
     private String usage;
 
     /**
@@ -43,8 +48,4 @@ public class Room implements Serializable {
      */
     private Integer available;
 
-
-    public interface basicNotNullGroup{
-
-    }
 }

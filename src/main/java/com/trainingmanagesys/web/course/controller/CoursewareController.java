@@ -46,7 +46,7 @@ public class CoursewareController {
     })
     @PostMapping("/addCourseware")
     @Transactional(rollbackFor = Exception.class)
-    public Long addCourseware(@RequestBody @Validated(Courseware.addKeyGroup.class) Courseware courseware){
+    public Long addCourseware(@RequestBody @Validated(Courseware.addAdditionGroup.class) Courseware courseware){
         return coursewareService.addCourseware(courseware);
     }
 

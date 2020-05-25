@@ -48,7 +48,7 @@ public class ClazzController {
     })
     @PostMapping("/addClazz")
     @Transactional(rollbackFor = Exception.class)
-    public String addClazz(@RequestBody Clazz clazz){
+    public String addClazz(@RequestBody @Validated({Clazz.addKeyGroup.class, Clazz.addAdditionGroup.class}) Clazz clazz){
         return clazzService.addClazz(clazz);
     }
 

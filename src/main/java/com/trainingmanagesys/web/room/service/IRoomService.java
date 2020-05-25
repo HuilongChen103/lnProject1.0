@@ -23,6 +23,8 @@ public interface IRoomService extends IService<Room> {
 
     String deleteRoom(Long roomNum);
 
+    Room getRoom(Long roomNum);
+
     List<Room> listRoom(RoomVO roomVO);
 
     IPage<Room> pagedListRoom(RoomVO roomVO);

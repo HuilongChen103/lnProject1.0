@@ -46,7 +46,7 @@ public class HomeworkController {
     })
     @Transactional(rollbackFor = Exception.class)
     @PostMapping("/addHomework")
-    public Long addHomework(@RequestBody @Validated Homework homework){
+    public Long addHomework(@RequestBody Homework homework){
         return homeworkService.addHomework(homework);
     }
 

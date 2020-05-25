@@ -42,7 +42,7 @@ public class FileController {
             @ApiImplicitParam(name = "uploaderId", value = "上传人id", dataType = "Long", required = false)
     })
     @PostMapping("/addFile")
-    public String addFile(@RequestBody @Validated File file){
+    public String addFile(@RequestBody File file){
         return fileService.addFile(file);
     }
 

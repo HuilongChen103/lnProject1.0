@@ -46,7 +46,7 @@ public class BenefitevaluationController {
             @ApiImplicitParam(name = "assessment", value = "考评（文字说明）", dataType = "String", required = false)
     })
     @PostMapping("/addBenefitevaluation")
-    public Long addBenefitevaluation(@RequestBody @Validated AddBenefitevaluationVO benefitevaluation){
+    public Long addBenefitevaluation(@RequestBody AddBenefitevaluationVO benefitevaluation){
         return benefitevaluationService.addBenefitevaluation(benefitevaluation);
     }
 

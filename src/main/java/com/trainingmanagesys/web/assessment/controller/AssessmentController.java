@@ -51,7 +51,7 @@ public class AssessmentController {
     })
     @Transactional(rollbackFor = Exception.class)
     @PostMapping("/addAssessment")
-    public Long addAssessment(@RequestBody @Validated AddAssessmentVO vo){
+    public Long addAssessment(@RequestBody @Validated(Assessment.addAdditionGroup.class) AddAssessmentVO vo){
         return assessmentService.addAssessment(vo);
     }
 
