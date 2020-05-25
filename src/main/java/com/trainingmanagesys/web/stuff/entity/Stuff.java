@@ -5,9 +5,11 @@ import java.io.Serializable;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.trainingmanagesys.utils.ValidationGroup;
+import com.trainingmanagesys.web.stuff.validator.UpdateStuffValidator;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+import org.hibernate.validator.group.GroupSequenceProvider;
 
 import javax.validation.constraints.NotNull;
 
@@ -23,6 +25,7 @@ import javax.validation.constraints.NotNull;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("t_stuff")
+@GroupSequenceProvider(UpdateStuffValidator.class)
 public class Stuff implements Serializable, ValidationGroup {
 
     private static final long serialVersionUID = 1L;
