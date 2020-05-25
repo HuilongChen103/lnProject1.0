@@ -23,6 +23,8 @@ public interface ITeacourseService extends IService<Teacourse> {
 
     String deleteTeaCourse(Long tcSerial);
 
+    Teacourse getTeaCourse(Long tcSerial);
+
     List<Teacourse> listTeaCourse(TeacourseVO teacourseVO);
 
     IPage<Teacourse> pagedListTeaCourse(TeacourseVO teacourseVO);

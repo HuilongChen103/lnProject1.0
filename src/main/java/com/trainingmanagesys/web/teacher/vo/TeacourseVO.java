@@ -3,6 +3,7 @@ package com.trainingmanagesys.web.teacher.vo;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.trainingmanagesys.utils.ValidationGroup;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -21,7 +22,7 @@ import java.io.Serializable;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-public class TeacourseVO implements Serializable {
+public class TeacourseVO implements Serializable, ValidationGroup {
 
     private static final long serialVersionUID = 1L;
 
@@ -57,18 +58,9 @@ public class TeacourseVO implements Serializable {
 
     private Integer limit;
 
-    @NotNull(groups = pagedListGroup.class, message = "请指明当前页面")
+    @NotNull(groups = listKeyGroup.class, message = "请指明当前页面")
     private Integer currentPage;
 
-    @NotNull(groups = pagedListGroup.class, message = "请指明当前页面大小")
+    @NotNull(groups = listKeyGroup.class, message = "请指明当前页面大小")
     private Integer pageSize;
-
-    /**
-     * 逻辑校验组
-     */
-
-    // 用于分页列数据时的校验
-    public interface pagedListGroup{
-
-    }
 }

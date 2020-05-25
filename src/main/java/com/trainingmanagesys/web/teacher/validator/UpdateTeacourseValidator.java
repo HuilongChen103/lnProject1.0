@@ -16,14 +16,14 @@ public class UpdateTeacourseValidator implements DefaultGroupSequenceProvider<Te
 
         if (null != teacourse){
             if (teacourse.getTcSerial() == null){
-                defaultGroupSequence.add(Teacourse.basicNotNullGroup.class);
+                defaultGroupSequence.add(Teacourse.addKeyGroup.class);
                 return defaultGroupSequence;
             }
 
             if (null == teacourse.getTeacherId() && null == teacourse.getCourseCode() &&
                 null == teacourse.getClassCode() && null == teacourse.getPercentage() &&
                 null == teacourse.getRemain() && null == teacourse.getIntro()){
-                defaultGroupSequence.add(Teacourse.notAllNullGroup.class);
+                defaultGroupSequence.add(Teacourse.updateGroup.class);
             }
         }
         return defaultGroupSequence;

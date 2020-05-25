@@ -3,6 +3,7 @@ package com.trainingmanagesys.web.teacher.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.trainingmanagesys.conf.exception.APIException;
 import com.trainingmanagesys.web.teacher.entity.Teacourse;
 import com.trainingmanagesys.web.teacher.dao.TeacourseMapper;
 import com.trainingmanagesys.web.teacher.service.ITeacourseService;
@@ -24,6 +25,12 @@ import java.util.List;
 @Service
 public class TeacourseServiceImpl extends ServiceImpl<TeacourseMapper, Teacourse> implements ITeacourseService {
 
+    private void checkTeacourseExistence(Long tcSerial){
+        if (getTeaCourse(tcSerial) == null)
+            throw new APIException("该教师课程不存在");
+    }
+
+
     @Override
     public String addTeaCourse(Teacourse teacourse) {
         String result = "添加教师课程失败";
@@ -35,6 +42,7 @@ public class TeacourseServiceImpl extends ServiceImpl<TeacourseMapper, Teacourse
 
     @Override
     public String updateTeaCourse(Teacourse teacourse) {
+        checkTeacourseExistence(teacourse.getTcSerial());
         String result = "更新教师课程失败";
         int code = baseMapper.updateById(teacourse);
         if (code == 1)
@@ -44,11 +52,17 @@ public class TeacourseServiceImpl extends ServiceImpl<TeacourseMapper, Teacourse
 
     @Override
     public String deleteTeaCourse(Long tcSerial) {
+        checkTeacourseExistence(tcSerial);
         String result = "删除教师课程失败";
         int code = baseMapper.deleteById(tcSerial);
         if (code == 1)
             result = "删除教师课程成功";
         return result;
+    }
+
+    @Override
+    public Teacourse getTeaCourse(Long tcSerial) {
+        return baseMapper.selectById(tcSerial);
     }
 
     @Override

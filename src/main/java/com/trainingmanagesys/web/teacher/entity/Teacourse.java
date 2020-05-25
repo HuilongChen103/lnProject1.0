@@ -5,10 +5,13 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.trainingmanagesys.utils.ValidationGroup;
+import com.trainingmanagesys.web.teacher.validator.UpdateTeacourseValidator;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 import org.hibernate.annotations.Table;
+import org.hibernate.validator.group.GroupSequenceProvider;
 
 import javax.validation.constraints.NotNull;
 
@@ -24,7 +27,8 @@ import javax.validation.constraints.NotNull;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("t_teacourse")
-public class Teacourse implements Serializable {
+@GroupSequenceProvider(UpdateTeacourseValidator.class)
+public class Teacourse implements Serializable, ValidationGroup {
 
     private static final long serialVersionUID = 1L;
 
@@ -32,13 +36,13 @@ public class Teacourse implements Serializable {
      * tc=teacher course流水号
      */
     @TableId(value = "tc_serial", type = IdType.AUTO)
-    @NotNull(groups = basicNotNullGroup.class, message = "请指明教师课程流水号")
+    @NotNull(groups = addKeyGroup.class, message = "请指明教师课程流水号")
     private Long tcSerial;
 
     /**
      * 教师id
      */
-    @NotNull(groups = notAllNullGroup.class, message = "请指明信息，不能全部为空")
+    @NotNull(groups = updateGroup.class, message = "请指明信息，不能全部为空")
     private Long teacherId;
 
     /**
@@ -65,14 +69,4 @@ public class Teacourse implements Serializable {
      * 教师个人介绍，课程介绍。
      */
     private String intro;
-
-
-    public interface basicNotNullGroup{
-
-    }
-
-    public interface notAllNullGroup{
-
-    }
-
 }

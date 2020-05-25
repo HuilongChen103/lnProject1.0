@@ -43,7 +43,7 @@ public class TeacourseController {
             @ApiImplicitParam(name = "intro", value = "教师个人介绍，课程介绍。", dataType = "String", required = false)
     })
     @PostMapping("/addTeacourse")
-    public String addTeaCourse(@RequestBody @Validated Teacourse teacourse){
+    public String addTeaCourse(@RequestBody Teacourse teacourse){
         return teacourseService.addTeaCourse(teacourse);
     }
 
@@ -69,6 +69,13 @@ public class TeacourseController {
         return teacourseService.deleteTeaCourse(tcSerial);
     }
 
+    @ApiOperation(value = "获得教师课程")
+    @ApiImplicitParam(name = "tc_serial", value = "teacher course流水号", dataType = "Long", required = true)
+    @DeleteMapping("/getTeacourse")
+    public Teacourse getTeacourse(@NotNull(message = "请指明教师课程流水号") Long tcSerial){
+        return teacourseService.getTeaCourse(tcSerial);
+    }
+
     @ApiOperation(value = "列教师课程")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "teacherId", value = "教师id", dataType = "Long", required = false),
@@ -81,7 +88,7 @@ public class TeacourseController {
             @ApiImplicitParam(name = "limit", value = "数量", dataType = "Integer", required = false)
     })
     @PostMapping("/listTeacourse")
-    public List<Teacourse> listTeaCourse(@RequestBody @Validated TeacourseVO teacourseVO){
+    public List<Teacourse> listTeaCourse(@RequestBody TeacourseVO teacourseVO){
         return teacourseService.listTeaCourse(teacourseVO);
     }
 
@@ -95,11 +102,11 @@ public class TeacourseController {
             @ApiImplicitParam(name = "remainMax", value = "学生留存率(实际学生数量/初始学生数量)最大值", dataType = "Long", required = false),
             @ApiImplicitParam(name = "remainMin", value = "学生留存率(实际学生数量/初始学生数量)最小值", dataType = "Long", required = false),
             @ApiImplicitParam(name = "limit", value = "数量", dataType = "Integer", required = false),
-            @ApiImplicitParam(name = "currentPage", value = "当前页面", dataType = "Integer", required = false),
-            @ApiImplicitParam(name = "pageSize", value = "页面数量", dataType = "Integer", required = false)
+            @ApiImplicitParam(name = "currentPage", value = "当前页面", dataType = "Integer", required = true),
+            @ApiImplicitParam(name = "pageSize", value = "页面数量", dataType = "Integer", required = true)
     })
     @PostMapping("/pagedListTeacourse")
-    public IPage<Teacourse> pagedListTeaCourse(@RequestBody @Validated(TeacourseVO.pagedListGroup.class) TeacourseVO teacourseVO){
+    public IPage<Teacourse> pagedListTeaCourse(@RequestBody @Validated(TeacourseVO.listKeyGroup.class) TeacourseVO teacourseVO){
         return teacourseService.pagedListTeaCourse(teacourseVO);
     }
 }
