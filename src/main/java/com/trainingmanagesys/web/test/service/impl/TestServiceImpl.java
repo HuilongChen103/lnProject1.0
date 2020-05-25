@@ -3,6 +3,7 @@ package com.trainingmanagesys.web.test.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.trainingmanagesys.conf.exception.APIException;
 import com.trainingmanagesys.web.finance.entity.Finance;
 import com.trainingmanagesys.web.test.entity.Test;
 import com.trainingmanagesys.web.test.dao.TestMapper;
@@ -24,6 +25,11 @@ import java.util.List;
 @Service
 public class TestServiceImpl extends ServiceImpl<TestMapper, Test> implements ITestService {
 
+    private void checkTestExistence(Long testId){
+        if (getTest(testId) == null)
+            throw new APIException("该考试不存在");
+    }
+
     @Override
     public Long addTest(Test test) {
         baseMapper.insert(test);
@@ -32,6 +38,7 @@ public class TestServiceImpl extends ServiceImpl<TestMapper, Test> implements IT
 
     @Override
     public String updateTest(Test test) {
+        checkTestExistence(test.getTestSerial());
         String result = "更新考试失败";
         int code = baseMapper.updateById(test);
         if (code == 1)
@@ -41,11 +48,17 @@ public class TestServiceImpl extends ServiceImpl<TestMapper, Test> implements IT
 
     @Override
     public String deleteTest(Long testId) {
+        checkTestExistence(testId);
         String result = "删除考试失败";
         int code = baseMapper.deleteById(testId);
         if (code == 1)
             result = "删除考试成功";
         return result;
+    }
+
+    @Override
+    public Test getTest(Long testId) {
+        return baseMapper.selectById(testId);
     }
 
     @Override

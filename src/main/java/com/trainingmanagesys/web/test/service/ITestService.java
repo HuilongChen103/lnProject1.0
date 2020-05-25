@@ -23,6 +23,8 @@ public interface ITestService extends IService<Test> {
 
     String deleteTest(Long testId);
 
+    Test getTest(Long testId);
+
     List<Test> listTest(TestVO testVO);
 
     IPage<Test> pagedListTest(TestVO testVO);

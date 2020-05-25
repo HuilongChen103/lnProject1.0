@@ -44,7 +44,7 @@ public class TestController {
     })
     @Transactional(rollbackFor = Exception.class)
     @PostMapping("/addTest")
-    public Long addTest(@RequestBody @Validated Test test){
+    public Long addTest(@RequestBody Test test){
         return testService.addTest(test);
     }
 
@@ -71,6 +71,14 @@ public class TestController {
         return testService.deleteTest(testSerial);
     }
 
+    @ApiOperation(value = "获取考试")
+    @ApiImplicitParam(name = "testSerial", value = "考试号", dataType = "Long", required = true)
+    @Transactional(rollbackFor = Exception.class)
+    @DeleteMapping("/getTest")
+    public Test getTest(@NotNull(message = "请指明考试号") Long testSerial){
+        return testService.getTest(testSerial);
+    }
+
     @ApiOperation(value = "列考试", notes = "列考试")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "classCode", value = "班级号", dataType = "String", required = false),
@@ -81,7 +89,7 @@ public class TestController {
     })
     @Transactional(rollbackFor = Exception.class)
     @PostMapping("/listTest")
-    public List<Test> listTest(@RequestBody @Validated TestVO testVO){
+    public List<Test> listTest(@RequestBody TestVO testVO){
         return testService.listTest(testVO);
     }
 
@@ -92,12 +100,12 @@ public class TestController {
             @ApiImplicitParam(name = "testFile", value = "考试内容文件id", dataType = "Long", required = false),
             @ApiImplicitParam(name = "scheduleSerial", value = "日程安排流水号", dataType = "Long", required = false),
             @ApiImplicitParam(name = "limit", value = "数量", dataType = "Integer", required = false),
-            @ApiImplicitParam(name = "currentPage", value = "当前页面", dataType = "Integer", required = false),
-            @ApiImplicitParam(name = "pageSize", value = "页面容量", dataType = "Integer", required = false)
+            @ApiImplicitParam(name = "currentPage", value = "当前页面", dataType = "Integer", required = true),
+            @ApiImplicitParam(name = "pageSize", value = "页面容量", dataType = "Integer", required = true)
     })
     @Transactional(rollbackFor = Exception.class)
     @PostMapping("/pagedListTest")
-    public IPage<Test> pagedListTest(@RequestBody @Validated TestVO testVO){
+    public IPage<Test> pagedListTest(@RequestBody @Validated(TestVO.listKeyGroup.class) TestVO testVO){
         return testService.pagedListTest(testVO);
     }
 

@@ -3,10 +3,12 @@ package com.trainingmanagesys.web.test.vo;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.trainingmanagesys.utils.ValidationGroup;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -20,7 +22,7 @@ import java.io.Serializable;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-public class TestVO implements Serializable {
+public class TestVO implements Serializable, ValidationGroup {
 
     private static final long serialVersionUID = 1L;
 
@@ -46,12 +48,9 @@ public class TestVO implements Serializable {
 
     private Integer limit;
 
+    @NotNull(groups = listKeyGroup.class, message = "请指明当前页面")
     private Integer currentPage;
 
+    @NotNull(groups = listKeyGroup.class, message = "请指明页面容量")
     private Integer pageSize;
-
-
-    public interface basicNotNullGroup{
-
-    }
 }
