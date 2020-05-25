@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.trainingmanagesys.utils.ValidationGroup;
 import com.trainingmanagesys.web.student.validator.UpdateStucourseValidator;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -26,7 +27,7 @@ import javax.validation.constraints.NotNull;
 @Accessors(chain = true)
 @TableName("t_stucourse")
 @GroupSequenceProvider(UpdateStucourseValidator.class)
-public class Stucourse implements Serializable {
+public class Stucourse implements Serializable, ValidationGroup {
 
     private static final long serialVersionUID = 1L;
 
@@ -34,13 +35,13 @@ public class Stucourse implements Serializable {
      * sc=student course流水号
      */
     @TableId(value = "sc_serial", type = IdType.AUTO)
-    @NotNull(groups = basicNotNullGroup.class, message = "请指明学生课程流水号")
+    @NotNull(groups = addKeyGroup.class, message = "请指明学生课程流水号")
     private Long scSerial;
 
     /**
      * 学生id
      */
-    @NotNull(groups = notAllNullGroup.class, message = "请输入信息，不能全部为空")
+    @NotNull(groups = updateGroup.class, message = "请输入信息，不能全部为空")
     private Long studentId;
 
     /**
@@ -67,14 +68,4 @@ public class Stucourse implements Serializable {
      * 收支编号
      */
     private String financeCode;
-
-
-    public interface basicNotNullGroup{
-
-    }
-
-    public interface notAllNullGroup{
-
-    }
-
 }

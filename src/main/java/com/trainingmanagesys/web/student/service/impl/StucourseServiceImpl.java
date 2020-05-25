@@ -3,6 +3,7 @@ package com.trainingmanagesys.web.student.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.trainingmanagesys.conf.exception.APIException;
 import com.trainingmanagesys.web.student.entity.Stucourse;
 import com.trainingmanagesys.web.student.dao.StucourseMapper;
 import com.trainingmanagesys.web.student.service.IStucourseService;
@@ -23,6 +24,11 @@ import java.util.List;
 @Service
 public class StucourseServiceImpl extends ServiceImpl<StucourseMapper, Stucourse> implements IStucourseService {
 
+    private void checkStucourseExistence(Long scSerial){
+        if (getStuCourse(scSerial) == null)
+            throw new APIException("该学生课程不存在");
+    }
+
     @Override
     public String addStuCourse(Stucourse stucourse) {
         String result = "添加学生课程失败";
@@ -34,6 +40,7 @@ public class StucourseServiceImpl extends ServiceImpl<StucourseMapper, Stucourse
 
     @Override
     public String updateStuCourse(Stucourse stucourse) {
+        checkStucourseExistence(stucourse.getScSerial());
         String result = "更新学生课程失败";
         int code = baseMapper.updateById(stucourse);
         if (code == 1)
@@ -43,11 +50,17 @@ public class StucourseServiceImpl extends ServiceImpl<StucourseMapper, Stucourse
 
     @Override
     public String deleteStuCourse(Long scSerial) {
+        checkStucourseExistence(scSerial);
         String result = "删除学生课程失败";
         int code = baseMapper.deleteById(scSerial);
         if (code == 1)
             result = "删除学生课程成功";
         return result;
+    }
+
+    @Override
+    public Stucourse getStuCourse(Long scSerial) {
+        return baseMapper.selectById(scSerial);
     }
 
     @Override

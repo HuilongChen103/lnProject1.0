@@ -16,7 +16,7 @@ public class UpdateStucourseValidator implements DefaultGroupSequenceProvider<St
 
         if (null != stucourse){
             if (stucourse.getScSerial() == null){
-                defaultGroupSequence.add(Stucourse.basicNotNullGroup.class);
+                defaultGroupSequence.add(Stucourse.addKeyGroup.class);
                 return defaultGroupSequence;
             }
 
@@ -24,7 +24,7 @@ public class UpdateStucourseValidator implements DefaultGroupSequenceProvider<St
             if (null == stucourse.getStudentId() && null == stucourse.getCourseCode() &&
                 null == stucourse.getClassCode() && null == stucourse.getFee() &&
                 null == stucourse.getFinanceCode() && null == stucourse.getPay()){
-                defaultGroupSequence.add(Stucourse.notAllNullGroup.class);
+                defaultGroupSequence.add(Stucourse.updateGroup.class);
             }
         }
         return defaultGroupSequence;

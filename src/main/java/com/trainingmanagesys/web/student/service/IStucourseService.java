@@ -23,6 +23,8 @@ public interface IStucourseService extends IService<Stucourse> {
 
     String deleteStuCourse(Long scSerial);
 
+    Stucourse getStuCourse(Long scSerial);
+
     List<Stucourse> listStuCourse(StucourseVO stucourseVO);
 
     IPage<Stucourse> pagedListStuCourse(StucourseVO stucourseVO);

@@ -43,7 +43,7 @@ public class StucourseController {
             @ApiImplicitParam(name = "financeCode", value = "收支编号", dataType = "String", required = false)
     })
     @PostMapping("/addStucourse")
-    public String addStucourse(@RequestBody @Validated Stucourse stucourse){
+    public String addStucourse(@RequestBody Stucourse stucourse){
         return stucourseService.addStuCourse(stucourse);
     }
 
@@ -69,6 +69,13 @@ public class StucourseController {
         return stucourseService.deleteStuCourse(scSerial);
     }
 
+    @ApiOperation(value = "获取学生课程")
+    @ApiImplicitParam(name = "scSerial", value = "学生课程流水号", dataType = "Long", required = true)
+    @DeleteMapping("/getStucourse")
+    public Stucourse getStucourse(@NotNull(message = "请指明学生课程流水号") Long scSerial){
+        return stucourseService.getStuCourse(scSerial);
+    }
+
     @ApiOperation(value = "列学生课程")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "scSerial", value = "学生课程流水号", dataType = "Long", required = false),
@@ -81,7 +88,7 @@ public class StucourseController {
             @ApiImplicitParam(name = "limit", value = "数量", dataType = "Integer", required = false)
     })
     @PostMapping("/listStucourse")
-    public List<Stucourse> listStucourse(@RequestBody @Validated StucourseVO stucourseVO){
+    public List<Stucourse> listStucourse(@RequestBody StucourseVO stucourseVO){
         return stucourseService.listStuCourse(stucourseVO);
     }
 
@@ -99,7 +106,7 @@ public class StucourseController {
             @ApiImplicitParam(name = "pageSize", value = "数量", dataType = "Integer", required = true)
     })
     @PostMapping("/pageListStucourse")
-    public IPage<Stucourse> pagedListStucourse(@RequestBody @Validated(StucourseVO.pageListGroup.class) StucourseVO stucourseVO){
+    public IPage<Stucourse> pagedListStucourse(@RequestBody @Validated(StucourseVO.listKeyGroup.class) StucourseVO stucourseVO){
         return stucourseService.pagedListStuCourse(stucourseVO);
     }
 }
