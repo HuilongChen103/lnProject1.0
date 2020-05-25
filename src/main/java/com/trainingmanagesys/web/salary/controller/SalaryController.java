@@ -1,9 +1,13 @@
 package com.trainingmanagesys.web.salary.controller;
 
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.trainingmanagesys.utils.ValidationGroup;
 import com.trainingmanagesys.web.salary.entity.Salary;
 import com.trainingmanagesys.web.salary.service.ISalaryService;
+import com.trainingmanagesys.web.salary.vo.AddSalaryVO;
+import com.trainingmanagesys.web.salary.vo.ListSalaryVO;
+import com.trainingmanagesys.web.salary.vo.SalaryVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -17,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 /**
  * <p>
@@ -46,8 +51,8 @@ public class SalaryController {
             @ApiImplicitParam(name = "year", value = "年份", dataType = "Integer", required = false)
     })
     @PostMapping("/addSalary")
-    public Long addSalary(@RequestBody @Validated(ValidationGroup.yearNotNullGroup.class) Salary salary){
-        return salaryService.addSalary(salary);
+    public Long addSalary(@RequestBody @Validated AddSalaryVO vo){
+        return salaryService.addSalary(vo);
     }
 
     @ApiOperation(value = "编辑工资流水")
@@ -78,5 +83,31 @@ public class SalaryController {
     @PostMapping("/getSalary")
     public Salary getSalary(@NotNull(message = "请指明工资流水号") Long salarySerial){
         return salaryService.getSalary(salarySerial);
+    }
+
+    @ApiOperation(value = "列工资流水")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "stuffId", value = "员工id", dataType = "Long", required = false),
+            @ApiImplicitParam(name = "month", value = "月份", dataType = "Integer", required = false),
+            @ApiImplicitParam(name = "year", value = "年份", dataType = "Integer", required = false),
+            @ApiImplicitParam(name = "limit", value = "数量", dataType = "Integer", required = false)
+    })
+    @PostMapping("/listSalary")
+    public List<Salary> listSalary(@RequestBody @Validated ListSalaryVO salary){
+        return salaryService.listSalary(salary);
+    }
+
+    @ApiOperation(value = "分页列工资流水")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "stuffId", value = "员工id", dataType = "Long", required = false),
+            @ApiImplicitParam(name = "month", value = "月份", dataType = "Integer", required = false),
+            @ApiImplicitParam(name = "year", value = "年份", dataType = "Integer", required = false),
+            @ApiImplicitParam(name = "limit", value = "数量", dataType = "Integer", required = false),
+            @ApiImplicitParam(name = "currentPage", value = "当前页面", dataType = "Integer", required = true),
+            @ApiImplicitParam(name = "pageSize", value = "页面容量", dataType = "Integer", required = true)
+    })
+    @PostMapping("/pagedListSalary")
+    public IPage<Salary> pagedListSalary(@RequestBody @Validated SalaryVO salary){
+        return salaryService.pagedListSalary(salary);
     }
 }

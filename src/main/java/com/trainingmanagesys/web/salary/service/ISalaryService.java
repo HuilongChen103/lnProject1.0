@@ -1,7 +1,13 @@
 package com.trainingmanagesys.web.salary.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.trainingmanagesys.web.salary.entity.Salary;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.trainingmanagesys.web.salary.vo.AddSalaryVO;
+import com.trainingmanagesys.web.salary.vo.ListSalaryVO;
+import com.trainingmanagesys.web.salary.vo.SalaryVO;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,11 +19,15 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ISalaryService extends IService<Salary> {
 
-    Long addSalary(Salary salary);
+    Long addSalary(AddSalaryVO vo);
 
     String updateSalary(Salary salary);
 
     String deleteSalary(Long salarySerial);
 
     Salary getSalary(Long salarySerial);
+
+    List<Salary> listSalary(ListSalaryVO vo);
+
+    IPage<Salary> pagedListSalary(SalaryVO vo);
 }
