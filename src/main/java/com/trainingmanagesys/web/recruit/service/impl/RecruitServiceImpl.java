@@ -1,10 +1,17 @@
 package com.trainingmanagesys.web.recruit.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.trainingmanagesys.conf.exception.APIException;
 import com.trainingmanagesys.web.recruit.entity.Recruit;
 import com.trainingmanagesys.web.recruit.dao.RecruitMapper;
 import com.trainingmanagesys.web.recruit.service.IRecruitService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.trainingmanagesys.web.recruit.vo.RecruitVO;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -17,6 +24,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class RecruitServiceImpl extends ServiceImpl<RecruitMapper, Recruit> implements IRecruitService {
 
+    private void checkRecruitExistence(String recruitCode){
+        if (getRecruit(recruitCode) == null)
+            throw new APIException("该招聘不存在");
+    }
+
     @Override
     public String addRecruit(Recruit recruit) {
         baseMapper.insert(recruit);
@@ -25,6 +37,7 @@ public class RecruitServiceImpl extends ServiceImpl<RecruitMapper, Recruit> impl
 
     @Override
     public String updateRecruit(Recruit recruit) {
+        checkRecruitExistence(recruit.getRecruitCode());
         String result = "更新招聘失败";
         int code = baseMapper.updateById(recruit);
         if (code == 1)
@@ -34,6 +47,7 @@ public class RecruitServiceImpl extends ServiceImpl<RecruitMapper, Recruit> impl
 
     @Override
     public String deleteRecruit(String recruitCode) {
+        checkRecruitExistence(recruitCode);
         String result = "删除招聘失败";
         int code = baseMapper.deleteById(recruitCode);
         if (code == 1)
@@ -41,8 +55,37 @@ public class RecruitServiceImpl extends ServiceImpl<RecruitMapper, Recruit> impl
         return result;
     }
 
+
     @Override
     public Recruit getRecruit(String recruitCode) {
         return baseMapper.selectById(recruitCode);
+    }
+
+    @Override
+    public List<Recruit> listRecruit(RecruitVO vo) {
+        QueryWrapper<Recruit> queryWrapper = new QueryWrapper<>();
+        if (vo.getPicId() != null) queryWrapper.eq("PIC_id", vo.getPicId());
+        if (vo.getDate() != null) queryWrapper.eq("date", vo.getDate());
+        if (vo.getPlace() != null) queryWrapper.like("place", vo.getPlace());
+        if (vo.getMethod() != null) queryWrapper.eq("method", vo.getMethod());
+        if (vo.getCatagory() != null) queryWrapper.eq("category", vo.getCatagory());
+        if (vo.getLimit() != null) queryWrapper.last(" limit " + vo.getLimit());
+        return baseMapper.selectList(queryWrapper);
+    }
+
+    @Override
+    public IPage<Recruit> pagedListRecruit(RecruitVO vo) {
+        QueryWrapper<Recruit> queryWrapper = new QueryWrapper<>();
+        if (vo.getPicId() != null) queryWrapper.eq("PIC_id", vo.getPicId());
+        if (vo.getDate() != null) queryWrapper.eq("date", vo.getDate());
+        if (vo.getPlace() != null) queryWrapper.like("place", vo.getPlace());
+        if (vo.getMethod() != null) queryWrapper.eq("method", vo.getMethod());
+        if (vo.getCatagory() != null) queryWrapper.eq("category", vo.getCatagory());
+        if (vo.getLimit() != null) queryWrapper.last(" limit " + vo.getLimit());
+
+        Page<Recruit> page = new Page<>();
+        page.setCurrent(vo.getCurrentPage());
+        page.setSize(vo.getPageSize());
+        return baseMapper.selectPage(page, queryWrapper);
     }
 }

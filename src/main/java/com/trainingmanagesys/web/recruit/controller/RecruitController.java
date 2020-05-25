@@ -1,8 +1,10 @@
 package com.trainingmanagesys.web.recruit.controller;
 
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.trainingmanagesys.web.recruit.entity.Recruit;
 import com.trainingmanagesys.web.recruit.service.IRecruitService;
+import com.trainingmanagesys.web.recruit.vo.RecruitVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 /**
  * <p>
@@ -64,7 +67,7 @@ public class RecruitController {
     @Transactional(rollbackFor = Exception.class)
     @PostMapping("/updateRecruit")
     public String updateRecruit(@RequestBody @Validated Recruit recruit){
-        return recruitService.addRecruit(recruit);
+        return recruitService.updateRecruit(recruit);
     }
 
     @ApiOperation(value = "删除招聘", notes = "删除招聘")
@@ -80,5 +83,35 @@ public class RecruitController {
     @PostMapping("/getRecruit")
     public Recruit getRecruit(@NotNull(message = "请输入招聘编号") String recruitCode){
         return recruitService.getRecruit(recruitCode);
+    }
+
+    @ApiOperation(value = "列招聘", notes = "列招聘")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "picId", value = "主办人id", dataType = "Long", required = false),
+            @ApiImplicitParam(name = "date", value = "日期", dataType = "Date", required = false),
+            @ApiImplicitParam(name = "place", value = "模糊查找地点", dataType = "Date", required = false),
+            @ApiImplicitParam(name = "method", value = "方式（网络，实地等）", dataType = "String", required = false),
+            @ApiImplicitParam(name = "catagory", value = "招聘对象类型（教师，学生，职工）", dataType = "String", required = false),
+            @ApiImplicitParam(name = "limit", value = "数量", dataType = "Integer", required = false)
+    })
+    @PostMapping("/listRecruit")
+    public List<Recruit> listRecruit(@RequestBody RecruitVO vo){
+        return recruitService.listRecruit(vo);
+    }
+
+    @ApiOperation(value = "分页列招聘", notes = "分页列招聘")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "picId", value = "主办人id", dataType = "Long", required = false),
+            @ApiImplicitParam(name = "date", value = "日期", dataType = "Date", required = false),
+            @ApiImplicitParam(name = "place", value = "模糊地点", dataType = "Date", required = false),
+            @ApiImplicitParam(name = "method", value = "方式（网络，实地等）", dataType = "String", required = false),
+            @ApiImplicitParam(name = "catagory", value = "招聘对象类型（教师，学生，职工）", dataType = "String", required = false),
+            @ApiImplicitParam(name = "limit", value = "数量", dataType = "Integer", required = false),
+            @ApiImplicitParam(name = "currentPage", value = "当前页面", dataType = "Integer", required = true),
+            @ApiImplicitParam(name = "pageSize", value = "页面容量", dataType = "Integer", required = true)
+    })
+    @PostMapping("/pagedListRecruit")
+    public IPage<Recruit> pagedListRecruit(@RequestBody @Validated(RecruitVO.listKeyGroup.class) RecruitVO vo){
+        return recruitService.pagedListRecruit(vo);
     }
 }

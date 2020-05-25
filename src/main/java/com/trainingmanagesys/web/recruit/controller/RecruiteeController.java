@@ -1,9 +1,11 @@
 package com.trainingmanagesys.web.recruit.controller;
 
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.trainingmanagesys.utils.ValidationGroup;
 import com.trainingmanagesys.web.recruit.entity.Recruitee;
 import com.trainingmanagesys.web.recruit.service.IRecruiteeService;
+import com.trainingmanagesys.web.recruit.vo.RecruiteeVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 /**
  * <p>
@@ -79,5 +82,31 @@ public class RecruiteeController {
     @PostMapping("/getRecruitee")
     public Recruitee getRecruitee(@NotNull(message = "请指明受招募人流水号") String recruiteeCode){
         return recruiteeService.getRecruitee(recruiteeCode);
+    }
+
+    @ApiOperation(value = "列受招募人", notes = "列受招募人")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "recruitCode", value = "招聘会编号", dataType = "String", required = false),
+            @ApiImplicitParam(name = "catagory", value = "类型（学生、职员、教师）", dataType = "String", required = false),
+            @ApiImplicitParam(name = "auditSerial", value = "审核编号", dataType = "Long", required = false),
+            @ApiImplicitParam(name = "limit", value = "数量", dataType = "Integer", required = false)
+    })
+    @PostMapping("/listRecruitee")
+    public List<Recruitee> listRecruitee(@RequestBody RecruiteeVO vo){
+        return recruiteeService.listRecruitee(vo);
+    }
+
+    @ApiOperation(value = "分页列受招募人", notes = "分页列受招募人")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "recruitCode", value = "招聘会编号", dataType = "String", required = false),
+            @ApiImplicitParam(name = "catagory", value = "类型（学生、职员、教师）", dataType = "String", required = false),
+            @ApiImplicitParam(name = "auditSerial", value = "审核编号", dataType = "Long", required = false),
+            @ApiImplicitParam(name = "limit", value = "数量", dataType = "Integer", required = false),
+            @ApiImplicitParam(name = "currentPage", value = "当前页面", dataType = "Integer", required = true),
+            @ApiImplicitParam(name = "pageSize", value = "页面容量", dataType = "Integer", required = true)
+    })
+    @PostMapping("/pagedListRecruitee")
+    public IPage<Recruitee> pagedListRecruitee(@RequestBody @Validated(RecruiteeVO.listKeyGroup.class) RecruiteeVO vo){
+        return recruiteeService.pagedListRecruitee(vo);
     }
 }

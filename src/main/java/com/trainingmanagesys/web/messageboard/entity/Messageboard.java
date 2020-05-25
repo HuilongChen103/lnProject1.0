@@ -64,5 +64,8 @@ public class Messageboard implements Serializable, ValidationGroup {
      */
     private String classCode;
 
-
+    /**
+     * 要回复的留言的流水号
+     */
+    private Long reply;
 }

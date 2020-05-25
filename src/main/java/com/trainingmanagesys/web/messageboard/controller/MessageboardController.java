@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 /**
  * <p>
@@ -39,7 +40,8 @@ public class MessageboardController {
             @ApiImplicitParam(name = "uploaderId", value = "上传人id", dataType = "Long", required = true),
             @ApiImplicitParam(name = "content", value = "内容", dataType = "String", required = false),
             @ApiImplicitParam(name = "date", value = "时间", dataType = "Date", required = false),
-            @ApiImplicitParam(name = "classCode", value = "班级号", dataType = "String", required = false)
+            @ApiImplicitParam(name = "classCode", value = "班级号", dataType = "String", required = false),
+            @ApiImplicitParam(name = "reply", value = "回复", dataType = "Long", required = false)
     })
     @PostMapping("/addMessage")
     public Long addMessage(@RequestBody @Validated Messageboard messageboard){
@@ -52,7 +54,8 @@ public class MessageboardController {
             @ApiImplicitParam(name = "uploaderId", value = "上传人id", dataType = "Long", required = false),
             @ApiImplicitParam(name = "content", value = "内容", dataType = "String", required = false),
             @ApiImplicitParam(name = "date", value = "时间", dataType = "Date", required = false),
-            @ApiImplicitParam(name = "classCode", value = "班级号", dataType = "String", required = false)
+            @ApiImplicitParam(name = "classCode", value = "班级号", dataType = "String", required = false),
+            @ApiImplicitParam(name = "reply", value = "回复", dataType = "Long", required = false)
     })
     @PostMapping("/updateMessage")
     public String updateMessage(@RequestBody @Validated Messageboard messageboard){
@@ -73,4 +76,9 @@ public class MessageboardController {
         return messageboardService.getMessage(messageSerial);
     }
 
+    @ApiOperation(value = "列所有留言")
+    @PostMapping("/listMessage")
+    public List<Messageboard> listMessage(){
+        return messageboardService.listMessage();
+    }
 }

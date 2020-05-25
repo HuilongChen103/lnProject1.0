@@ -1,10 +1,6 @@
-package com.trainingmanagesys.web.recruit.entity;
+package com.trainingmanagesys.web.recruit.vo;
 
-import java.time.LocalDateTime;
 import com.baomidou.mybatisplus.annotation.TableField;
-import java.io.Serializable;
-import java.util.Date;
-
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -16,6 +12,8 @@ import lombok.experimental.Accessors;
 import org.hibernate.validator.group.GroupSequenceProvider;
 
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  * <p>
@@ -28,18 +26,10 @@ import javax.validation.constraints.NotNull;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("t_recruit")
-@GroupSequenceProvider(UpdateRecruitValidator.class)
-public class Recruit implements Serializable, ValidationGroup {
+public class RecruitVO implements Serializable, ValidationGroup {
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * 招聘编号
-     */
-    @TableId(value = "recruit_code")
-    @NotNull(groups = addKeyGroup.class, message = "请指明招聘编号")
-    private String recruitCode;
 
     /**
      * 主办人id
@@ -69,10 +59,12 @@ public class Recruit implements Serializable, ValidationGroup {
      */
     private String catagory;
 
-    /**
-     * 备注
-     */
-    private String comment;
+    private Integer limit;
 
+    @NotNull(groups = listKeyGroup.class, message = "请指明当前页面")
+    private Integer currentPage;
+
+    @NotNull(groups = listKeyGroup.class, message = "请指明页面大小")
+    private Integer pageSize;
 
 }
