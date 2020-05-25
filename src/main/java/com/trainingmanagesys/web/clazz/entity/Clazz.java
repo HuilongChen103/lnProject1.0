@@ -59,11 +59,6 @@ public class Clazz implements Serializable, ValidationGroup {
     private Long teacherId;
 
     /**
-     * 班级在对应课程中的序号
-     */
-    private Long classNum;
-
-    /**
      * 日程安排编号
      */
     private Long scheduleSerial;

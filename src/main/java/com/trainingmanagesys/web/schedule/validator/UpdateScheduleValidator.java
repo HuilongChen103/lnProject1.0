@@ -16,7 +16,7 @@ public class UpdateScheduleValidator implements DefaultGroupSequenceProvider<Sch
 
         if (null != schedule){
             if (schedule.getScheduleSerial() == null){
-                defaultGroupSequence.add(User.addKeyGroup.class);
+                defaultGroupSequence.add(Schedule.addKeyGroup.class);
                 return defaultGroupSequence;
             }
 
@@ -24,7 +24,7 @@ public class UpdateScheduleValidator implements DefaultGroupSequenceProvider<Sch
             if (null == schedule.getEventCode() && null == schedule.getTime() &&
                 null == schedule.getWeek() && null == schedule.getYear() &&
                 null == schedule.getSemester()){
-                defaultGroupSequence.add(Schedule.notAllNullGroup.class);
+                defaultGroupSequence.add(Schedule.updateGroup.class);
             }
         }
         return defaultGroupSequence;

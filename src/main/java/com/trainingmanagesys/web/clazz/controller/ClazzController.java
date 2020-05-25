@@ -43,7 +43,6 @@ public class ClazzController {
             @ApiImplicitParam(name = "studentNum", value = "起始学生数量(开学的时候)",  dataType = "Integer", required = false),
             @ApiImplicitParam(name = "realNum", value = "实际学生数量",  dataType = "Integer", required = false),
             @ApiImplicitParam(name = "teacherId", value = "教师id",  dataType = "Long", required = false),
-            @ApiImplicitParam(name = "classNum", value = "班级在对应课程中的序号",  dataType = "Long", required = false),
             @ApiImplicitParam(name = "scheduleSerial", value = "日程安排编号",  dataType = "Long", required = false)
     })
     @PostMapping("/addClazz")
@@ -59,7 +58,6 @@ public class ClazzController {
             @ApiImplicitParam(name = "studentNum", value = "起始学生数量(开学的时候)",  dataType = "Integer", required = false),
             @ApiImplicitParam(name = "realNum", value = "实际学生数量",  dataType = "Integer", required = false),
             @ApiImplicitParam(name = "teacherId", value = "教师id",  dataType = "Long", required = false),
-            @ApiImplicitParam(name = "classNum", value = "班级在对应课程中的序号",  dataType = "Long", required = false),
             @ApiImplicitParam(name = "scheduleSerial", value = "日程安排编号",  dataType = "Long", required = false)
     })
     @PostMapping("/updateClazz")
@@ -87,7 +85,6 @@ public class ClazzController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "courseCode", value = "课程号",  dataType = "String", required = false),
             @ApiImplicitParam(name = "teacherId", value = "教师id",  dataType = "Long", required = false),
-            @ApiImplicitParam(name = "classNum", value = "班级在对应课程中的序号",  dataType = "Long", required = false),
             @ApiImplicitParam(name = "limit", value = "数量",  dataType = "Integer", required = false)
     })
     @PostMapping("/listClazz")
@@ -99,7 +96,6 @@ public class ClazzController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "courseCode", value = "课程号",  dataType = "String", required = false),
             @ApiImplicitParam(name = "teacherId", value = "教师id",  dataType = "Long", required = false),
-            @ApiImplicitParam(name = "classNum", value = "班级在对应课程中的序号",  dataType = "Long", required = false),
             @ApiImplicitParam(name = "limit", value = "数量",  dataType = "Integer", required = false),
             @ApiImplicitParam(name = "currentPage", value = "当前页面",  dataType = "Integer", required = true),
             @ApiImplicitParam(name = "pageSize", value = "页面数量",  dataType = "Integer", required = true)

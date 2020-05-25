@@ -76,7 +76,6 @@ public class ClazzServiceImpl extends ServiceImpl<ClazzMapper, Clazz> implements
 
         if (vo.getCourseCode() != null) queryWrapper.eq("course_code", vo.getCourseCode());
         if (vo.getTeacherId() != null) queryWrapper.eq("teacher_id", vo.getTeacherId());
-        if (vo.getClassNum() != null) queryWrapper.eq("class_num", vo.getClassNum());
         if (vo.getLimit() != null) queryWrapper.last(" limit " + vo.getLimit());
 
         List<Clazz> list = baseMapper.selectList(queryWrapper);
@@ -89,7 +88,6 @@ public class ClazzServiceImpl extends ServiceImpl<ClazzMapper, Clazz> implements
 
         if (vo.getCourseCode() != null) queryWrapper.eq("course_code", vo.getCourseCode());
         if (vo.getTeacherId() != null) queryWrapper.eq("teacher_id", vo.getTeacherId());
-        if (vo.getClassNum() != null) queryWrapper.eq("class_num", vo.getClassNum());
         if (vo.getLimit() != null) queryWrapper.last(" limit " + vo.getLimit());
 
         Page<Clazz> page = new Page<>();
