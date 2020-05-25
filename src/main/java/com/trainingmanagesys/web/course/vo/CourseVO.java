@@ -31,14 +31,6 @@ public class CourseVO implements Serializable, ValidationGroup {
     private String courseName;
 
     /**
-     * 最大学生数量
-     */
-    // 最大学生数量的最小值，用于列出最大学生数量比这个大的
-    private Integer studentMaxMin;
-
-    private Integer studentMaxMax;
-
-    /**
      * 类型
      */
     private String type;

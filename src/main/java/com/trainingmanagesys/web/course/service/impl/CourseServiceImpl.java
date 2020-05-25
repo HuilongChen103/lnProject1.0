@@ -69,8 +69,6 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     public List<Course> listCourse(CourseVO courseVO) {
         QueryWrapper<Course> queryWrapper = new QueryWrapper<>();
         if (courseVO.getCourseName() != null) queryWrapper.like("course_name", courseVO.getCourseName());
-        if (courseVO.getStudentMaxMax() != null) queryWrapper.le("student_max", courseVO.getStudentMaxMax());
-        if (courseVO.getStudentMaxMin() != null) queryWrapper.ge("student_max", courseVO.getStudentMaxMin());
         if (courseVO.getType() != null) queryWrapper.eq("type", courseVO.getType());
         if (courseVO.getLimit() != null) queryWrapper.last(" limit " + courseVO.getLimit());
         return baseMapper.selectList(queryWrapper);
@@ -80,8 +78,6 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     public IPage<Course> pagedListCourse(CourseVO courseVO) {
         QueryWrapper<Course> queryWrapper = new QueryWrapper<>();
         if (courseVO.getCourseName() != null) queryWrapper.like("course_name", courseVO.getCourseName());
-        if (courseVO.getStudentMaxMax() != null) queryWrapper.le("student_max", courseVO.getStudentMaxMax());
-        if (courseVO.getStudentMaxMin() != null) queryWrapper.ge("student_max", courseVO.getStudentMaxMin());
         if (courseVO.getType() != null) queryWrapper.eq("type", courseVO.getType());
         if (courseVO.getLimit() != null) queryWrapper.last(" limit " + courseVO.getLimit());
 

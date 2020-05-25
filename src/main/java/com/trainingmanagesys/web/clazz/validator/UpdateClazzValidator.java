@@ -23,7 +23,7 @@ public class UpdateClazzValidator implements DefaultGroupSequenceProvider<Clazz>
             // 判断updateUser时输入信息是否全部为空
             if (null == clazz.getCourseCode() && null == clazz.getStudentNum() &&
                 null == clazz.getRealNum() && null == clazz.getTeacherId() &&
-                null == clazz.getScheduleSerial()){
+                null == clazz.getScheduleSerial() && null == clazz.getStudentMax()){
                 defaultGroupSequence.add(Clazz.updateGroup.class);
             }
         }

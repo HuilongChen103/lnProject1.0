@@ -49,11 +49,6 @@ public class Course implements Serializable, ValidationGroup {
     private String duration;
 
     /**
-     * 最大学生数量
-     */
-    private Integer studentMax;
-
-    /**
      * 类型
      */
     private String type;

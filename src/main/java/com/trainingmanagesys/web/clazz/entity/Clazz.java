@@ -54,6 +54,11 @@ public class Clazz implements Serializable, ValidationGroup {
     private Integer realNum;
 
     /**
+     * 最大学生数量
+     */
+    private Integer studentMax;
+
+    /**
      * 教师id
      */
     private Long teacherId;

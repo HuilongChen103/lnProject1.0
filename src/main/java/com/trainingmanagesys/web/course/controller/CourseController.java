@@ -84,8 +84,6 @@ public class CourseController {
     @ApiOperation(value = "列课程")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "courseName", value = "课程名称",  dataType = "String", required = false),
-            @ApiImplicitParam(name = "studentMaxMax", value = "最大学生数量的上限",  dataType = "Integer", required = false),
-            @ApiImplicitParam(name = "studentMaxMin", value = "最大学生数量的下限",  dataType = "Integer", required = false),
             @ApiImplicitParam(name = "type", value = "类型",  dataType = "String", required = false),
             @ApiImplicitParam(name = "limit", value = "数量",  dataType = "Integer", required = false)
     })
@@ -97,8 +95,6 @@ public class CourseController {
     @ApiOperation(value = "分页列课程")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "courseName", value = "课程名称",  dataType = "String", required = false),
-            @ApiImplicitParam(name = "studentMaxMax", value = "最大学生数量的上限",  dataType = "Integer", required = false),
-            @ApiImplicitParam(name = "studentMaxMin", value = "最大学生数量的下限",  dataType = "Integer", required = false),
             @ApiImplicitParam(name = "type", value = "类型",  dataType = "String", required = false),
             @ApiImplicitParam(name = "limit", value = "数量",  dataType = "Integer", required = false),
             @ApiImplicitParam(name = "currentPage", value = "当前页面",  dataType = "Integer", required = true),
