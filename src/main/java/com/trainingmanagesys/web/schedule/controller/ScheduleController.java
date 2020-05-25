@@ -2,6 +2,7 @@ package com.trainingmanagesys.web.schedule.controller;
 
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.trainingmanagesys.utils.DateDiff;
 import com.trainingmanagesys.web.schedule.entity.Schedule;
 import com.trainingmanagesys.web.schedule.service.IScheduleService;
 import com.trainingmanagesys.web.schedule.vo.AddScheduleVO;
@@ -21,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.constraints.NotNull;
+import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -112,5 +115,15 @@ public class ScheduleController {
     @PostMapping("/pagedListSchedule")
     public IPage<Schedule> pagedListSchedule(@RequestBody @Validated PagedListScheduleVO schedule){
         return scheduleService.pagedListSchedule(schedule);
+    }
+
+    @ApiOperation(value = "比较日期")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "date1", value = "日期1", dataType = "Date", required = true),
+            @ApiImplicitParam(name = "date2", value = "日期2", dataType = "Date", required = true)
+    })
+    @PostMapping("/compareDate")
+    public Integer compareDate(@NotNull(message = "请输入日期1") Date date1, @NotNull(message = "请输入日期2") Date date2) throws ParseException {
+        return DateDiff.getDayDiffer(date1, date2);
     }
 }
