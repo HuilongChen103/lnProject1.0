@@ -71,6 +71,12 @@ public class Clazz implements Serializable, ValidationGroup {
     private Long teacherId;
 
     /**
+     * 教师名字
+     */
+    @TableField(exist = false)
+    private String name;
+
+    /**
      * 日程安排编号
      */
     private Long scheduleSerial;
