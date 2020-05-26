@@ -67,33 +67,37 @@ public class ClazzServiceImpl extends ServiceImpl<ClazzMapper, Clazz> implements
 
     @Override
     public Clazz getClazz(String classCode) {
-        return baseMapper.selectById(classCode);
+        //return baseMapper.selectById(classCode);
+        return baseMapper.getClazz(classCode);
     }
 
     @Override
     public List<Clazz> listClazz(ClazzVO vo) {
-        QueryWrapper<Clazz> queryWrapper = new QueryWrapper<>();
-
-        if (vo.getCourseCode() != null) queryWrapper.eq("course_code", vo.getCourseCode());
-        if (vo.getTeacherId() != null) queryWrapper.eq("teacher_id", vo.getTeacherId());
-        if (vo.getLimit() != null) queryWrapper.last(" limit " + vo.getLimit());
-
-        List<Clazz> list = baseMapper.selectList(queryWrapper);
-        return list;
+//        QueryWrapper<Clazz> queryWrapper = new QueryWrapper<>();
+//
+//        if (vo.getCourseCode() != null) queryWrapper.eq("course_code", vo.getCourseCode());
+//        if (vo.getTeacherId() != null) queryWrapper.eq("teacher_id", vo.getTeacherId());
+//
+//        if (vo.getLimit() != null) queryWrapper.last(" limit " + vo.getLimit());
+//
+//        List<Clazz> list = baseMapper.selectList(queryWrapper);
+//        return list;
+        return baseMapper.listClazz(vo);
     }
 
     @Override
     public IPage<Clazz> pagedListClazz(ClazzVO vo) {
-        QueryWrapper<Clazz> queryWrapper = new QueryWrapper<>();
-
-        if (vo.getCourseCode() != null) queryWrapper.eq("course_code", vo.getCourseCode());
-        if (vo.getTeacherId() != null) queryWrapper.eq("teacher_id", vo.getTeacherId());
-        if (vo.getLimit() != null) queryWrapper.last(" limit " + vo.getLimit());
+//        QueryWrapper<Clazz> queryWrapper = new QueryWrapper<>();
+//
+//        if (vo.getCourseCode() != null) queryWrapper.eq("course_code", vo.getCourseCode());
+//        if (vo.getTeacherId() != null) queryWrapper.eq("teacher_id", vo.getTeacherId());
+//        if (vo.getLimit() != null) queryWrapper.last(" limit " + vo.getLimit());
 
         Page<Clazz> page = new Page<>();
         page.setCurrent(vo.getCurrentPage());
         page.setSize(vo.getPageSize());
-        IPage<Clazz> pagedList = baseMapper.selectPage(page, queryWrapper);
-        return pagedList;
+        //IPage<Clazz> pagedList = baseMapper.selectPage(page, queryWrapper);
+        //return pagedList;
+        return page.setRecords(baseMapper.pagedListClazz(page, vo));
     }
 }

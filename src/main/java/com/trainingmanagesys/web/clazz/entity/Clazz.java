@@ -2,6 +2,7 @@ package com.trainingmanagesys.web.clazz.entity;
 
 import java.io.Serializable;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.trainingmanagesys.utils.ValidationGroup;
@@ -42,6 +43,12 @@ public class Clazz implements Serializable, ValidationGroup {
      */
     @NotNull(groups = updateGroup.class, message = "请输入信息，不能全部为空")
     private String courseCode;
+
+    /**
+     * 课程名称
+     */
+    @TableField(exist = false)
+    private String courseName;
 
     /**
      * 起始学生数量(开学的时候)

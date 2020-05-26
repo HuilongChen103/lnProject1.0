@@ -2,4 +2,69 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.trainingmanagesys.web.clazz.dao.ClazzMapper">
 
+    <sql id="clazz_column_list">
+        a.class_code, a.course_code, a.student_max, a.student_num, a.real_num,
+        a.schedule_serial, a.teacher_id, b.course_name
+    </sql>
+
+
+    <select id="getClazz" resultType="com.trainingmanagesys.web.clazz.entity.Clazz">
+        select <include refid="clazz_column_list"></include> from t_class a, t_course b
+        <where>
+            a.course_code = b.course_code and a.class_code = #{classCode}
+        </where>
+    </select>
+
+    <select id="listClazz" resultType="com.trainingmanagesys.web.clazz.entity.Clazz" parameterType="com.trainingmanagesys.web.clazz.vo.ClazzVO">
+        select <include refid="clazz_column_list"></include> from t_class a, t_course b
+        <where>
+            a.course_code = b.course_code
+            <if test="courseCode != null">
+                and a.course_code = #{courseCode}
+            </if>
+            <if test="teacherId != null">
+                and a.course_code =(
+                    select course_code from t_class where class_code = (
+                        select class_code from t_class where teacher_id = #{teacherId}
+                    )
+                )
+                and a.class_code = (
+                    select class_code from t_class where teacher_id = #{teacherId}
+                )
+            </if>
+            <if test="courseName != null">
+                and a.course_code in (
+                    select course_code from t_course where course_name like concat('%' ,#{courseName}, '%')
+                )
+            </if>
+        </where>
+    </select>
+
+    <select id="pagedListClazz" resultType="com.trainingmanagesys.web.clazz.entity.Clazz" parameterType="com.trainingmanagesys.web.clazz.vo.ClazzVO">
+        select <include refid="clazz_column_list"></include> from t_class a, t_course b
+        <where>
+            a.course_code = b.course_code
+            <if test="vo.courseCode != null">
+                and a.course_code = #{vo.courseCode}
+            </if>
+            <if test="vo.teacherId != null">
+                and a.course_code =(
+                select course_code from t_class where class_code = (
+                select class_code from t_class where teacher_id = #{vo.teacherId}
+                )
+                )
+                and a.class_code = (
+                select class_code from t_class where teacher_id = #{vo.teacherId}
+                )
+            </if>
+            <if test="vo.courseName != null">
+                and a.course_code in (
+                select course_code from t_course where course_name like concat('%' ,#{vo.courseName}, '%')
+                )
+            </if>
+
+        </where>
+
+    </select>
+
 </mapper>

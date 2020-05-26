@@ -11,7 +11,7 @@
  Target Server Version : 50728
  File Encoding         : 65001
 
- Date: 21/05/2020 15:38:17
+ Date: 26/05/2020 00:05:09
 */
 
 SET NAMES utf8mb4;
@@ -88,10 +88,11 @@ DROP TABLE IF EXISTS `t_class`;
 CREATE TABLE `t_class`  (
   `class_code` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '班级号',
   `course_code` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '课程号',
+  `course_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '课程名',
+  `student_max` int(11) NULL DEFAULT NULL COMMENT '最大学生数量',
   `student_num` int(11) NULL DEFAULT NULL COMMENT '起始学生数量(开学的时候)',
   `real_num` int(11) NULL DEFAULT NULL COMMENT '实际学生数量',
   `teacher_id` int(11) NULL DEFAULT NULL COMMENT '教师id',
-  `class_num` int(11) NULL DEFAULT NULL COMMENT '班级在对应课程中的序号',
   `schedule_serial` int(11) NULL DEFAULT NULL COMMENT '日程安排编号',
   PRIMARY KEY (`class_code`) USING BTREE,
   INDEX `class_course`(`course_code`) USING BTREE,
@@ -103,6 +104,13 @@ CREATE TABLE `t_class`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
+-- Records of t_class
+-- ----------------------------
+INSERT INTO `t_class` VALUES ('BEL101202001', 'BEL101', '美声入门', 30, 1, 1, 116193701, NULL);
+INSERT INTO `t_class` VALUES ('BEL101202002', 'BEL101', '美声入门', 30, 0, 0, 116193707, NULL);
+INSERT INTO `t_class` VALUES ('ZHE101202001', 'ZHE101', '古筝初级', 30, 0, 0, 116193714, NULL);
+
+-- ----------------------------
 -- Table structure for t_course
 -- ----------------------------
 DROP TABLE IF EXISTS `t_course`;
@@ -110,19 +118,27 @@ CREATE TABLE `t_course`  (
   `course_code` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '课程编号',
   `course_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '课程名称',
   `duration` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '课程时长',
-  `student_max` int(255) NULL DEFAULT NULL COMMENT '最大学生数量',
   `type` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '类型',
   `comment` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '备注',
+  `fee` decimal(10, 0) NULL DEFAULT NULL COMMENT '课程费用（/小时）',
   PRIMARY KEY (`course_code`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_course
 -- ----------------------------
-INSERT INTO `t_course` VALUES ('ZHE101', '古筝初级', '1小时', 30, '弦乐器,古典乐器', '古筝1-4级');
-INSERT INTO `t_course` VALUES ('ZHE202', '古筝中级', '1.5小时', 20, '弦乐器,古典乐器', '古筝5-7级');
-INSERT INTO `t_course` VALUES ('ZHE303', '古筝高级', '2小时', 10, '弦乐器,古典乐器', '古筝8-10级');
-INSERT INTO `t_course` VALUES ('ZHE404', '古筝业余', '1.5小时', 10, '弦乐器,古典乐器', '古筝业余');
+INSERT INTO `t_course` VALUES ('BEL101', '美声入门', '1小时', '声乐', '教授美声基本发声技巧和知识，适合美声入门者。', 30);
+INSERT INTO `t_course` VALUES ('BEL102', '美声入门', '1小时', '声乐', '教授美声基本发声技巧和知识，适合美声入门者。(小班教学)', 45);
+INSERT INTO `t_course` VALUES ('BEL202', '美声中级', '1.5小时', '声乐', '教授美声进阶发声技巧和知识，适合有一定基础的学员。', 35);
+INSERT INTO `t_course` VALUES ('BEL303', '美声高级', '2小时', '声乐', '教授美声专业发声技巧和知识，适合专业学员。', 40);
+INSERT INTO `t_course` VALUES ('VOC101', '声乐基础', '1小时', '声乐', '教授基本发声技巧，乐理常识，适合声乐初学者。', 20);
+INSERT INTO `t_course` VALUES ('VOC102', '声乐基础', '1小时', '声乐', '教授基本发声技巧，乐理常识，适合声乐初学者。(小班教学)', 40);
+INSERT INTO `t_course` VALUES ('VOC202', '乐理入门', '1小时', '声乐', '教授乐理知识，适合乐理初学者。', 20);
+INSERT INTO `t_course` VALUES ('ZHE101', '古筝初级', '1小时', '乐器', '教授古筝1-4级技巧及曲目，适合古筝新手。', 20);
+INSERT INTO `t_course` VALUES ('ZHE102', '古筝初级', '1小时', '乐器', '教授古筝1-4级技巧及曲目，适合古筝新手。(小班教学)', 40);
+INSERT INTO `t_course` VALUES ('ZHE202', '古筝中级', '1.5小时', '乐器', '教授古筝5-7级技巧及曲目，适合获得古筝4级证书学员。', 30);
+INSERT INTO `t_course` VALUES ('ZHE303', '古筝高级', '2小时', '乐器', '教授古筝8-10级曲目及内容，适合获得古筝七级证书学员', 40);
+INSERT INTO `t_course` VALUES ('ZHE404', '古筝业余', '1.5小时', '乐器', '教授古筝业余技巧及曲目，难度较大，适合获得古筝10级证书学员。', 50);
 
 -- ----------------------------
 -- Table structure for t_courseware
@@ -182,12 +198,17 @@ CREATE TABLE `t_finance`  (
   `trade_method` enum('支付宝','微信','银行转账') CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '交易方式',
   `amount` int(255) NULL DEFAULT NULL COMMENT '数额',
   `date` timestamp(0) NULL DEFAULT NULL COMMENT '日期时间',
-  `category` enum('员工薪水','器材采购','水电租金','广告宣传') CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '类目',
+  `category` enum('员工薪水','器材采购','水电租金','广告宣传','学员缴费') CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '类目',
   `comment` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`finance_code`) USING BTREE,
   INDEX `exoense_PIC`(`PIC_id`) USING BTREE,
   CONSTRAINT `exoense_PIC` FOREIGN KEY (`PIC_id`) REFERENCES `t_user` (`uid`) ON DELETE RESTRICT ON UPDATE CASCADE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of t_finance
+-- ----------------------------
+INSERT INTO `t_finance` VALUES ('REV202005252353', 'REV', 116193703, '126373282102973', '2343235462321123', '银行转账', 360, '2020-05-25 23:54:49', '学员缴费', NULL);
 
 -- ----------------------------
 -- Table structure for t_goods
@@ -295,10 +316,13 @@ CREATE TABLE `t_messageboard`  (
   `content` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '内容',
   `date` timestamp(0) NULL DEFAULT NULL COMMENT '时间',
   `class_code` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '班级号',
+  `reply` int(255) NULL DEFAULT NULL COMMENT '回复留言',
   PRIMARY KEY (`message_serial`) USING BTREE,
   INDEX `messageboard_class`(`class_code`) USING BTREE,
   INDEX `messageboard_uploader`(`uploader_id`) USING BTREE,
+  INDEX `messageboard_reply`(`reply`) USING BTREE,
   CONSTRAINT `messageboard_class` FOREIGN KEY (`class_code`) REFERENCES `t_class` (`class_code`) ON DELETE RESTRICT ON UPDATE CASCADE,
+  CONSTRAINT `messageboard_reply` FOREIGN KEY (`reply`) REFERENCES `t_messageboard` (`message_serial`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `messageboard_uploader` FOREIGN KEY (`uploader_id`) REFERENCES `t_user` (`uid`) ON DELETE RESTRICT ON UPDATE CASCADE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
@@ -407,7 +431,12 @@ CREATE TABLE `t_stucourse`  (
   CONSTRAINT `stucourse_course` FOREIGN KEY (`course_code`) REFERENCES `t_course` (`course_code`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `stucourse_finance` FOREIGN KEY (`finance_code`) REFERENCES `t_finance` (`finance_code`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `stucourse_id` FOREIGN KEY (`student_id`) REFERENCES `t_user` (`uid`) ON DELETE RESTRICT ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 80597401 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of t_stucourse
+-- ----------------------------
+INSERT INTO `t_stucourse` VALUES (80597400, 116193702, 'BEL101', 'BEL101202001', 30, '未支付', 'REV202005252353', '未退课');
 
 -- ----------------------------
 -- Table structure for t_stuff
@@ -473,17 +502,17 @@ CREATE TABLE `t_test`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `t_user`;
 CREATE TABLE `t_user`  (
-  `uid` int(8) NOT NULL AUTO_INCREMENT COMMENT 'id',
-  `name` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '名字',
-  `gender` varchar(2) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '性别',
+  `uid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '名字',
+  `gender` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '性别',
   `birthday` date NULL DEFAULT NULL COMMENT '生日',
   `position` enum('职工','学生','老师','管理员') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '学生' COMMENT '职位',
-  `tel` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '电话',
-  `enable` int(2) NOT NULL DEFAULT 1 COMMENT '是否可用',
+  `tel` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '电话',
+  `enable` int(11) NOT NULL DEFAULT 1 COMMENT '是否可用',
   `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '密码',
   `state` enum('online','offline') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'offline' COMMENT '登陆状态(oneline,offline)',
   PRIMARY KEY (`uid`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 116193708 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 116193715 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_user
@@ -491,9 +520,16 @@ CREATE TABLE `t_user`  (
 INSERT INTO `t_user` VALUES (116193701, '车岚', '女', '1980-03-07', '老师', '13708342137', 1, '666666', 'offline');
 INSERT INTO `t_user` VALUES (116193702, '冷飞', '男', '2000-08-26', '职工', '15923343188', 1, '666666', 'offline');
 INSERT INTO `t_user` VALUES (116193703, '俞溪', '女', '1959-11-22', '管理员', '18990769422', 1, '666666', 'offline');
-INSERT INTO `t_user` VALUES (116193704, '蔺霓霓', '女', '2004-07-08', '学生', '17649322369', 1, '666666', 'offline');
+INSERT INTO `t_user` VALUES (116193704, '蔺霓霓', '女', '2004-07-08', '学生', '17649322369', 1, '666666', 'online');
 INSERT INTO `t_user` VALUES (116193705, '罗兮', '女', '1998-08-04', '职工', '19823476431', 1, '666666', 'offline');
 INSERT INTO `t_user` VALUES (116193706, '林梨', '女', '1998-07-17', '学生', '16756733409', 1, '666666', 'offline');
-INSERT INTO `t_user` VALUES (116193707, '王缤', '男', '2001-08-13', '学生', '19967584367', 1, '666666', 'offline');
+INSERT INTO `t_user` VALUES (116193707, '王缤', '男', '1975-08-23', '老师', '19967584367', 1, '666666', 'offline');
+INSERT INTO `t_user` VALUES (116193708, '柳儒彦', '男', '1995-10-21', '学生', '17625360495', 1, '666666', 'offline');
+INSERT INTO `t_user` VALUES (116193709, '秋观雪', '女', '1994-04-06', '学生', '17898764588', 1, '666666', 'offline');
+INSERT INTO `t_user` VALUES (116193710, '叶翎', '男', '1987-11-10', '老师', '14926302108', 1, '666666', 'offline');
+INSERT INTO `t_user` VALUES (116193711, '谭筱', '女', '2001-03-12', '学生', '18837482930', 1, '666666', 'offline');
+INSERT INTO `t_user` VALUES (116193712, '韩岳凡', '男', '1990-04-21', '学生', '16627392039', 1, '666666', 'offline');
+INSERT INTO `t_user` VALUES (116193713, '崔昀', '男', '1995-12-14', '学生', '16738392900', 1, '666666', 'offline');
+INSERT INTO `t_user` VALUES (116193714, '兰喃', '女', '1989-05-25', '老师', '18928394778', 1, '666666', 'offline');
 
 SET FOREIGN_KEY_CHECKS = 1;

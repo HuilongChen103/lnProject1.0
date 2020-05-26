@@ -86,6 +86,7 @@ public class ClazzController {
     @ApiOperation(value = "列班级")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "courseCode", value = "课程号",  dataType = "String", required = false),
+            @ApiImplicitParam(name = "courseName", value = "课程名称",  dataType = "String", required = false),
             @ApiImplicitParam(name = "teacherId", value = "教师id",  dataType = "Long", required = false),
             @ApiImplicitParam(name = "limit", value = "数量",  dataType = "Integer", required = false)
     })
@@ -97,8 +98,8 @@ public class ClazzController {
     @ApiOperation(value = "分页列班级")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "courseCode", value = "课程号",  dataType = "String", required = false),
+            @ApiImplicitParam(name = "courseName", value = "课程名称",  dataType = "String", required = false),
             @ApiImplicitParam(name = "teacherId", value = "教师id",  dataType = "Long", required = false),
-            @ApiImplicitParam(name = "limit", value = "数量",  dataType = "Integer", required = false),
             @ApiImplicitParam(name = "currentPage", value = "当前页面",  dataType = "Integer", required = true),
             @ApiImplicitParam(name = "pageSize", value = "页面数量",  dataType = "Integer", required = true)
     })

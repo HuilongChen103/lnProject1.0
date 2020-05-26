@@ -31,19 +31,9 @@ public class ClazzVO implements Serializable, ValidationGroup {
     private String courseCode;
 
     /**
-     * 起始学生数量(开学的时候)
+     * 课程名字(属于外键t_course)
      */
-    private Integer studentNum;
-
-    /**
-     * 实际学生数量
-     */
-    private Integer realNum;
-
-    /**
-     * 最大学生数量
-     */
-    private Integer studentMax;
+    private String courseName;
 
     /**
      * 教师id
