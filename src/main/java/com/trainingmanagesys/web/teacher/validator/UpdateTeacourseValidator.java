@@ -19,7 +19,6 @@ public class UpdateTeacourseValidator implements DefaultGroupSequenceProvider<Te
                 defaultGroupSequence.add(Teacourse.addKeyGroup.class);
                 return defaultGroupSequence;
             }
-
             if (null == teacourse.getTeacherId() && null == teacourse.getCourseCode() &&
                 null == teacourse.getClassCode() && null == teacourse.getPercentage() &&
                 null == teacourse.getRemain() && null == teacourse.getIntro()){

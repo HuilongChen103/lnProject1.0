@@ -108,7 +108,6 @@ public class ScheduleController {
             @ApiImplicitParam(name = "week", value = "周数", dataType = "Integer", required = false),
             @ApiImplicitParam(name = "year", value = "年份", dataType = "Integer", required = false),
             @ApiImplicitParam(name = "semester", value = "季度", dataType = "String", required = false),
-            @ApiImplicitParam(name = "limit", value = "数量", dataType = "Integer", required = false),
             @ApiImplicitParam(name = "currentPage", value = "当前页面", dataType = "Integer", required = true),
             @ApiImplicitParam(name = "pageSize", value = "页面容量", dataType = "Integer", required = true)
     })
