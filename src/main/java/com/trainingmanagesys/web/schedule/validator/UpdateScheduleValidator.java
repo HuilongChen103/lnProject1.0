@@ -21,9 +21,9 @@ public class UpdateScheduleValidator implements DefaultGroupSequenceProvider<Sch
             }
 
             // 判断updateSchedule时输入信息是否全部为空
-            if (null == schedule.getEventCode() && null == schedule.getTime() &&
+            if (null == schedule.getEventCode() && null == schedule.getStartTime() &&
                 null == schedule.getWeek() && null == schedule.getYear() &&
-                null == schedule.getSemester()){
+                null == schedule.getSemester() && null == schedule.getEndTime()){
                 defaultGroupSequence.add(Schedule.updateGroup.class);
             }
         }
