@@ -150,4 +150,16 @@ public class UserController {
         }
         return result;
     }
+
+    @ApiOperation(value = "封禁帐号")
+    @ApiImplicitParam(name = "uid", value = "用户uid", dataType = "Long", required = true)
+    @PostMapping("/prohabitUser")
+    public String prohabitUser(@NotNull(message = "uid不能为空") Long uid){
+        String result = userService.logOut(uid);
+        if (result == "该用户不存在"){
+            APIException apiException = new APIException(1003, result);
+            throw apiException;
+        }
+        return result;
+    }
 }

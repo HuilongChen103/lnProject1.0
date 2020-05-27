@@ -60,9 +60,7 @@
                 select course_code from t_course where course_name like concat('%' ,#{vo.courseName}, '%')
                 )
             </if>
-
         </where>
-
     </select>
 
 </mapper>

@@ -32,8 +32,17 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     public User checkUserExistance(Long uid){
         User tempUser = getUser(uid, BaseConst.DATA_ENABLE);
         if (tempUser == null){
+            if (getUser(uid, BaseConst.ACCOUNT_BANNED) != null){
+                APIException apiException = new APIException("该用户已封禁");
+                throw apiException;
+            }
+            if (getUser(uid, BaseConst.DATA_DISABLE) != null){
+                APIException apiException = new APIException("该用户已被删除");
+                throw apiException;
+            }
             APIException apiException = new APIException("该用户不存在");
             throw apiException;
+
         }
         return tempUser;
     }
@@ -124,5 +133,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         user.setState("offline");
         updateUser(user);
         return "登出成功";
+    }
+
+    @Override
+    public String prohibitUser(Long uid) {
+        User user = checkUserExistance(uid);
+        user.setEnable(2);
+        return "封禁操作成功";
     }
 }
