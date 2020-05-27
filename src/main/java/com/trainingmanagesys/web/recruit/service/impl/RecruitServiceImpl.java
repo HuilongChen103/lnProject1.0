@@ -65,7 +65,7 @@ public class RecruitServiceImpl extends ServiceImpl<RecruitMapper, Recruit> impl
     public List<Recruit> listRecruit(RecruitVO vo) {
         QueryWrapper<Recruit> queryWrapper = new QueryWrapper<>();
         if (vo.getPicId() != null) queryWrapper.eq("PIC_id", vo.getPicId());
-        if (vo.getDate() != null) queryWrapper.eq("date", vo.getDate());
+        if (vo.getScheduleSerial() != null) queryWrapper.eq("schedule_serial", vo.getScheduleSerial());
         if (vo.getPlace() != null) queryWrapper.like("place", vo.getPlace());
         if (vo.getMethod() != null) queryWrapper.eq("method", vo.getMethod());
         if (vo.getCatagory() != null) queryWrapper.eq("category", vo.getCatagory());
@@ -77,7 +77,7 @@ public class RecruitServiceImpl extends ServiceImpl<RecruitMapper, Recruit> impl
     public IPage<Recruit> pagedListRecruit(RecruitVO vo) {
         QueryWrapper<Recruit> queryWrapper = new QueryWrapper<>();
         if (vo.getPicId() != null) queryWrapper.eq("PIC_id", vo.getPicId());
-        if (vo.getDate() != null) queryWrapper.eq("date", vo.getDate());
+        if (vo.getScheduleSerial() != null) queryWrapper.eq("schedule_serial", vo.getScheduleSerial());
         if (vo.getPlace() != null) queryWrapper.like("place", vo.getPlace());
         if (vo.getMethod() != null) queryWrapper.eq("method", vo.getMethod());
         if (vo.getCatagory() != null) queryWrapper.eq("category", vo.getCatagory());

@@ -68,4 +68,6 @@ public class Stucourse implements Serializable, ValidationGroup {
      * 收支编号
      */
     private String financeCode;
+
+    private Integer enable;
 }

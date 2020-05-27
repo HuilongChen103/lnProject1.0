@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.trainingmanagesys.conf.exception.APIException;
+import com.trainingmanagesys.utils.BaseConst;
 import com.trainingmanagesys.web.student.entity.Stucourse;
 import com.trainingmanagesys.web.student.dao.StucourseMapper;
 import com.trainingmanagesys.web.student.service.IStucourseService;
@@ -25,7 +26,8 @@ import java.util.List;
 public class StucourseServiceImpl extends ServiceImpl<StucourseMapper, Stucourse> implements IStucourseService {
 
     private void checkStucourseExistence(Long scSerial){
-        if (getStuCourse(scSerial) == null)
+        Stucourse temp = getStuCourse(scSerial);
+        if (temp == null)
             throw new APIException("该学生课程不存在");
     }
 
@@ -60,7 +62,10 @@ public class StucourseServiceImpl extends ServiceImpl<StucourseMapper, Stucourse
 
     @Override
     public Stucourse getStuCourse(Long scSerial) {
-        return baseMapper.selectById(scSerial);
+        Stucourse temp = baseMapper.selectById(scSerial);
+        if (temp.getEnable() != BaseConst.DATA_ENABLE)
+            throw new APIException("该学生课程不存在");
+        return temp;
     }
 
     @Override
@@ -73,7 +78,12 @@ public class StucourseServiceImpl extends ServiceImpl<StucourseMapper, Stucourse
         if (stucourseVO.getFeeMin() != null) queryWrapper.ge("fee", stucourseVO.getFeeMin());
         if (stucourseVO.getPay() != null) queryWrapper.eq("pay", stucourseVO.getPay());
         if (stucourseVO.getFinanceCode() != null) queryWrapper.eq("finance_code", stucourseVO.getFinanceCode());
+
+        // 只选取enable为1
+        queryWrapper.eq("enable", BaseConst.DATA_ENABLE);
+
         if (stucourseVO.getLimit() != null) queryWrapper.last(" limit " + stucourseVO.getLimit());
+
         return baseMapper.selectList(queryWrapper);
     }
 
@@ -87,7 +97,9 @@ public class StucourseServiceImpl extends ServiceImpl<StucourseMapper, Stucourse
         if (stucourseVO.getFeeMin() != null) queryWrapper.ge("fee", stucourseVO.getFeeMin());
         if (stucourseVO.getPay() != null) queryWrapper.eq("pay", stucourseVO.getPay());
         if (stucourseVO.getFinanceCode() != null) queryWrapper.eq("finance_code", stucourseVO.getFinanceCode());
-        if (stucourseVO.getLimit() != null) queryWrapper.last(" limit " + stucourseVO.getLimit());
+
+        // 只选取enable为1
+        queryWrapper.eq("enable", BaseConst.DATA_ENABLE);
 
         Page<Stucourse> page = new Page<>();
         page.setCurrent(stucourseVO.getCurrentPage());

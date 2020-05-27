@@ -38,12 +38,6 @@ public class PagedListScheduleVO implements Serializable, ValidationGroup {
      */
     private String eventCode;
 
-    /**
-     * 时间段
-     */
-    @Past(message = "输入时间错误")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private Date time;
 
     /**
      * 周数

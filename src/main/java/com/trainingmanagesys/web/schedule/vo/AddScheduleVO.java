@@ -36,11 +36,16 @@ public class AddScheduleVO implements Serializable, ValidationGroup {
     private String eventCode;
 
     /**
-     * 时间段
+     * 开始时间
      */
-    @Past(message = "输入时间错误")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private Date time;
+    private Date startTime;
+
+    /**
+     * 结束时间
+     */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private Date endTime;
 
     /**
      * 周数

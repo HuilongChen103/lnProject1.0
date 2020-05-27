@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.trainingmanagesys.web.recruit.entity.Recruit;
 import com.trainingmanagesys.web.recruit.service.IRecruitService;
 import com.trainingmanagesys.web.recruit.vo.RecruitVO;
+import com.trainingmanagesys.web.schedule.entity.Schedule;
+import com.trainingmanagesys.web.schedule.service.IScheduleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -19,6 +21,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.constraints.NotNull;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -38,11 +43,14 @@ public class RecruitController {
     @Autowired
     IRecruitService recruitService;
 
+    @Autowired
+    IScheduleService scheduleService;
+
     @ApiOperation(value = "添加招聘", notes = "添加招聘")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "recruitCode", value = "招聘编号", dataType = "String", required = true),
             @ApiImplicitParam(name = "picId", value = "主办人id", dataType = "Long", required = false),
-            @ApiImplicitParam(name = "date", value = "日期", dataType = "Date", required = false),
+            @ApiImplicitParam(name = "scheduleSerial", value = "日期安排", dataType = "Long", required = false),
             @ApiImplicitParam(name = "place", value = "地点", dataType = "Date", required = false),
             @ApiImplicitParam(name = "method", value = "方式（网络，实地等）", dataType = "String", required = false),
             @ApiImplicitParam(name = "catagory", value = "招聘对象类型（教师，学生，职工）", dataType = "String", required = false),
@@ -58,7 +66,7 @@ public class RecruitController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "recruitCode", value = "招聘编号", dataType = "String", required = true),
             @ApiImplicitParam(name = "picId", value = "主办人id", dataType = "Long", required = false),
-            @ApiImplicitParam(name = "date", value = "日期", dataType = "Date", required = false),
+            @ApiImplicitParam(name = "scheduleSerial", value = "日期安排", dataType = "Long", required = false),
             @ApiImplicitParam(name = "place", value = "地点", dataType = "Date", required = false),
             @ApiImplicitParam(name = "method", value = "方式（网络，实地等）", dataType = "String", required = false),
             @ApiImplicitParam(name = "catagory", value = "招聘对象类型（教师，学生，职工）", dataType = "String", required = false),
@@ -88,7 +96,7 @@ public class RecruitController {
     @ApiOperation(value = "列招聘", notes = "列招聘")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "picId", value = "主办人id", dataType = "Long", required = false),
-            @ApiImplicitParam(name = "date", value = "日期", dataType = "Date", required = false),
+            @ApiImplicitParam(name = "scheduleSerial", value = "日期安排", dataType = "Long", required = false),
             @ApiImplicitParam(name = "place", value = "模糊查找地点", dataType = "Date", required = false),
             @ApiImplicitParam(name = "method", value = "方式（网络，实地等）", dataType = "String", required = false),
             @ApiImplicitParam(name = "catagory", value = "招聘对象类型（教师，学生，职工）", dataType = "String", required = false),
@@ -102,7 +110,7 @@ public class RecruitController {
     @ApiOperation(value = "分页列招聘", notes = "分页列招聘")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "picId", value = "主办人id", dataType = "Long", required = false),
-            @ApiImplicitParam(name = "date", value = "日期", dataType = "Date", required = false),
+            @ApiImplicitParam(name = "scheduleSerial", value = "日期安排", dataType = "Long", required = false),
             @ApiImplicitParam(name = "place", value = "模糊地点", dataType = "Date", required = false),
             @ApiImplicitParam(name = "method", value = "方式（网络，实地等）", dataType = "String", required = false),
             @ApiImplicitParam(name = "catagory", value = "招聘对象类型（教师，学生，职工）", dataType = "String", required = false),
@@ -113,5 +121,26 @@ public class RecruitController {
     @PostMapping("/pagedListRecruit")
     public IPage<Recruit> pagedListRecruit(@RequestBody @Validated(RecruitVO.listKeyGroup.class) RecruitVO vo){
         return recruitService.pagedListRecruit(vo);
+    }
+
+    @ApiOperation(value = "结束过期招聘", notes = "结束过期招聘")
+    @PostMapping("/endRecruit")
+    public String endRecruit() throws ParseException {
+        RecruitVO recruitVO = null;
+        List<Recruit> list = recruitService.listRecruit(recruitVO);
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+
+        Recruit temp = new Recruit();
+        temp.setEnable(0);
+
+        for (Recruit item : list){
+            Schedule tempSchedule = scheduleService.getSchedule(item.getScheduleSerial());
+            // 获取当前时间并按指定格式输出为Date格式
+            String tempDate1= df.format(new Date());
+            Date tempDate2 = df.parse(tempDate1);
+            if (tempSchedule.getEndTime().before(tempDate2))
+                recruitService.updateRecruit(temp);
+        }
+        return "结束过期招聘成功";
     }
 }

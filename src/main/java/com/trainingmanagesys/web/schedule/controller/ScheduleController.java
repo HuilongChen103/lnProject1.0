@@ -2,6 +2,7 @@ package com.trainingmanagesys.web.schedule.controller;
 
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.trainingmanagesys.conf.exception.APIException;
 import com.trainingmanagesys.utils.DateDiff;
 import com.trainingmanagesys.web.schedule.entity.Schedule;
 import com.trainingmanagesys.web.schedule.service.IScheduleService;
@@ -46,7 +47,8 @@ public class ScheduleController {
     @ApiOperation(value = "添加日程安排", notes = "如果输入周数的话，则需指明年和季度；季度同理")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "eventCode", value = "事件编号", dataType = "String", required = false),
-            @ApiImplicitParam(name = "time", value = "时间段", dataType = "Date", required = false),
+            @ApiImplicitParam(name = "startTime", value = "开始时间", dataType = "Date", required = false),
+            @ApiImplicitParam(name = "endTime", value = "结束时间", dataType = "Date", required = false),
             @ApiImplicitParam(name = "week", value = "周数", dataType = "Integer", required = false),
             @ApiImplicitParam(name = "year", value = "年份", dataType = "Integer", required = false),
             @ApiImplicitParam(name = "semester", value = "季度", dataType = "String", required = false)
@@ -54,6 +56,8 @@ public class ScheduleController {
     @PostMapping("/addSchedule")
     @Transactional(rollbackFor = Exception.class)
     public String addSchedule(@RequestBody @Validated AddScheduleVO schedule){
+        if (schedule.getStartTime().after(schedule.getEndTime()))
+            throw new APIException("时间设置错误，开始时间在结束时间之前");
         return scheduleService.addSchedule(schedule);
     }
 
@@ -61,7 +65,8 @@ public class ScheduleController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "scheduleSerial", value = "日程id", dataType = "Long", required = false),
             @ApiImplicitParam(name = "eventCode", value = "事件编号", dataType = "String", required = false),
-            @ApiImplicitParam(name = "time", value = "时间段", dataType = "Date", required = false),
+            @ApiImplicitParam(name = "startTime", value = "开始时间", dataType = "Date", required = false),
+            @ApiImplicitParam(name = "endTime", value = "结束时间", dataType = "Date", required = false),
             @ApiImplicitParam(name = "week", value = "周数", dataType = "Integer", required = false),
             @ApiImplicitParam(name = "year", value = "年份", dataType = "Integer", required = false),
             @ApiImplicitParam(name = "semester", value = "季度", dataType = "String", required = false)
@@ -69,6 +74,8 @@ public class ScheduleController {
     @PostMapping("/updateSchedule")
     @Transactional(rollbackFor = Exception.class)
     public String updateSchedule(@RequestBody @Validated Schedule schedule){
+        if (schedule.getStartTime().after(schedule.getEndTime()))
+            throw new APIException("时间设置错误，开始时间在结束时间之前");
         return scheduleService.updateSchedule(schedule);
     }
 
@@ -90,7 +97,6 @@ public class ScheduleController {
     @ApiOperation(value = "列日程安排")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "eventCode", value = "事件编号", dataType = "String", required = false),
-            @ApiImplicitParam(name = "time", value = "时间段", dataType = "Date", required = false),
             @ApiImplicitParam(name = "week", value = "周数", dataType = "Integer", required = false),
             @ApiImplicitParam(name = "year", value = "年份", dataType = "Integer", required = false),
             @ApiImplicitParam(name = "semester", value = "季度", dataType = "String", required = false),
@@ -104,7 +110,6 @@ public class ScheduleController {
     @ApiOperation(value = "分页列日程安排")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "eventCode", value = "事件编号", dataType = "String", required = false),
-            @ApiImplicitParam(name = "time", value = "时间段", dataType = "Date", required = false),
             @ApiImplicitParam(name = "week", value = "周数", dataType = "Integer", required = false),
             @ApiImplicitParam(name = "year", value = "年份", dataType = "Integer", required = false),
             @ApiImplicitParam(name = "semester", value = "季度", dataType = "String", required = false),

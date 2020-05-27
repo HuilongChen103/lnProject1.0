@@ -49,10 +49,9 @@ public class Recruit implements Serializable, ValidationGroup {
     private Long picId;
 
     /**
-     * 日期
+     * 日期安排
      */
-    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
-    private Date date;
+    private Long scheduleSerial;
 
     /**
      * 地点
@@ -74,5 +73,5 @@ public class Recruit implements Serializable, ValidationGroup {
      */
     private String comment;
 
-
+    private Integer enable;
 }
