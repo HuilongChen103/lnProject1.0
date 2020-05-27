@@ -71,7 +71,7 @@ public class StucourseController {
 
     @ApiOperation(value = "获取学生课程")
     @ApiImplicitParam(name = "scSerial", value = "学生课程流水号", dataType = "Long", required = true)
-    @DeleteMapping("/getStucourse")
+    @GetMapping("/getStucourse")
     public Stucourse getStucourse(@NotNull(message = "请指明学生课程流水号") Long scSerial){
         return stucourseService.getStuCourse(scSerial);
     }
