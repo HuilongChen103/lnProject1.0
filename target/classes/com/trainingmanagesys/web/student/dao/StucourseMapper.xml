@@ -9,4 +9,12 @@
             and a.course_code = b.course_code
         </where>
     </select>
+
+    <select id="listClazzByStuId" resultType="com.trainingmanagesys.web.clazz.entity.Clazz">
+        select b.* from t_stucourse a, t_class b
+        <where>
+            a.student_id = #{studentId}
+            and a.class_code = b.class_code
+        </where>
+    </select>
 </mapper>

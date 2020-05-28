@@ -2,6 +2,7 @@ package com.trainingmanagesys.web.student.controller;
 
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.trainingmanagesys.web.clazz.entity.Clazz;
 import com.trainingmanagesys.web.course.entity.Course;
 import com.trainingmanagesys.web.student.entity.Stucourse;
 import com.trainingmanagesys.web.student.service.IStucourseService;
@@ -116,5 +117,12 @@ public class StucourseController {
     @GetMapping("/listCourseByStudentID")
     public List<Course> listCourseByStudentID(@NotNull(message = "请指明学生ID") Long studentId){
         return stucourseService.listCourseByStuID(studentId);
+    }
+
+    @ApiOperation(value = "根据学生ID列他/她所在的班级")
+    @ApiImplicitParam(name = "studentId", value = "学生id", dataType = "Long", required = true)
+    @GetMapping("/listClazzByStudentID")
+    public List<Clazz> listClazzByStudentID(@NotNull(message = "请指明学生ID") Long studentId){
+        return stucourseService.listClazzByStuID(studentId);
     }
 }

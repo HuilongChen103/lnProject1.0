@@ -1,5 +1,6 @@
 package com.trainingmanagesys.web.student.dao;
 
+import com.trainingmanagesys.web.clazz.entity.Clazz;
 import com.trainingmanagesys.web.course.entity.Course;
 import com.trainingmanagesys.web.student.entity.Stucourse;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
@@ -18,4 +19,6 @@ import java.util.List;
 public interface StucourseMapper extends BaseMapper<Stucourse> {
 
     List<Course> listCourseByStuId(@Param("studentId") Long studentId);
+
+    List<Clazz> listClazzByStuId(@Param("studentId") Long studentId);
 }
