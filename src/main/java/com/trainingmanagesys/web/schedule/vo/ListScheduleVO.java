@@ -42,7 +42,7 @@ public class ListScheduleVO implements Serializable, ValidationGroup {
     /**
      * 周数
      */
-    private Integer week;
+    private String week;
 
     /**
      * 年份

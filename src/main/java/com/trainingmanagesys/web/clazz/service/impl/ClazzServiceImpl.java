@@ -1,6 +1,5 @@
 package com.trainingmanagesys.web.clazz.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.trainingmanagesys.conf.exception.APIException;
@@ -9,7 +8,11 @@ import com.trainingmanagesys.web.clazz.dao.ClazzMapper;
 import com.trainingmanagesys.web.clazz.service.IClazzService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.trainingmanagesys.web.clazz.vo.ClazzVO;
-import com.trainingmanagesys.web.user.entity.User;
+import com.trainingmanagesys.web.clazz.vo.ReturnedListClazzVO;
+import com.trainingmanagesys.web.schedule.entity.Schedule;
+import com.trainingmanagesys.web.schedule.service.IScheduleService;
+import com.trainingmanagesys.web.schedule.service.impl.ScheduleServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,6 +27,10 @@ import java.util.List;
  */
 @Service
 public class ClazzServiceImpl extends ServiceImpl<ClazzMapper, Clazz> implements IClazzService {
+
+    //private ScheduleServiceImpl scheduleService = new ScheduleServiceImpl();
+    @Autowired
+    IScheduleService scheduleService;
 
     private Clazz checkClazzExistence(String classCode){
         Clazz tempClazz = getClazz(classCode);
@@ -72,7 +79,7 @@ public class ClazzServiceImpl extends ServiceImpl<ClazzMapper, Clazz> implements
     }
 
     @Override
-    public List<Clazz> listClazz(ClazzVO vo) {
+    public List<ReturnedListClazzVO> listClazz(ClazzVO vo) {
 //        QueryWrapper<Clazz> queryWrapper = new QueryWrapper<>();
 //
 //        if (vo.getCourseCode() != null) queryWrapper.eq("course_code", vo.getCourseCode());
@@ -82,22 +89,47 @@ public class ClazzServiceImpl extends ServiceImpl<ClazzMapper, Clazz> implements
 //
 //        List<Clazz> list = baseMapper.selectList(queryWrapper);
 //        return list;
-        return baseMapper.listClazz(vo);
+        List<ReturnedListClazzVO> resultList = baseMapper.listClazz(vo);
+
+        if (scheduleService == null)
+            System.err.println("为空");
+        else
+            System.err.println("不为空");
+
+        for (ReturnedListClazzVO item : resultList){
+            Schedule tempschedule = scheduleService.getSchedule(item.getScheduleSerial());
+            String week = tempschedule.getWeek();
+            String startTime = tempschedule.getStartTime();
+            String endTime = tempschedule.getEndTime();
+            String finalTime = week + " " + startTime + "-" + endTime;
+            item.setScheduleTime(finalTime);
+        }
+        return resultList;
     }
 
     @Override
-    public IPage<Clazz> pagedListClazz(ClazzVO vo) {
+    public IPage<ReturnedListClazzVO> pagedListClazz(ClazzVO vo) {
 //        QueryWrapper<Clazz> queryWrapper = new QueryWrapper<>();
 //
 //        if (vo.getCourseCode() != null) queryWrapper.eq("course_code", vo.getCourseCode());
 //        if (vo.getTeacherId() != null) queryWrapper.eq("teacher_id", vo.getTeacherId());
 //        if (vo.getLimit() != null) queryWrapper.last(" limit " + vo.getLimit());
 
-        Page<Clazz> page = new Page<>();
+        Page<ReturnedListClazzVO> page = new Page<>();
         page.setCurrent(vo.getCurrentPage());
         page.setSize(vo.getPageSize());
         //IPage<Clazz> pagedList = baseMapper.selectPage(page, queryWrapper);
         //return pagedList;
-        return page.setRecords(baseMapper.pagedListClazz(page, vo));
+
+        IPage<ReturnedListClazzVO> resultPage = page.setRecords(baseMapper.pagedListClazz(page, vo));
+        for (ReturnedListClazzVO item : resultPage.getRecords()){
+            Schedule tempschedule = scheduleService.getSchedule(item.getScheduleSerial());
+            String week = tempschedule.getWeek();
+            String startTime = tempschedule.getStartTime();
+            String endTime = tempschedule.getEndTime();
+            String finalTime = week + " " + startTime + "-" + endTime;
+            item.setScheduleTime(finalTime);
+        }
+        return resultPage;
     }
 }

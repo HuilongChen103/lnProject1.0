@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.trainingmanagesys.web.clazz.entity.Clazz;
 import com.trainingmanagesys.web.clazz.service.IClazzService;
 import com.trainingmanagesys.web.clazz.vo.ClazzVO;
+import com.trainingmanagesys.web.clazz.vo.ReturnedListClazzVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -91,7 +92,7 @@ public class ClazzController {
             @ApiImplicitParam(name = "limit", value = "数量",  dataType = "Integer", required = false)
     })
     @PostMapping("/listClazz")
-    public List<Clazz> listClazz(@RequestBody ClazzVO vo){
+    public List<ReturnedListClazzVO> listClazz(@RequestBody ClazzVO vo){
         return clazzService.listClazz(vo);
     }
 
@@ -104,7 +105,7 @@ public class ClazzController {
             @ApiImplicitParam(name = "pageSize", value = "页面数量",  dataType = "Integer", required = true)
     })
     @PostMapping("/pagedListClazz")
-    public IPage<Clazz> pagedListClazz(@RequestBody @Validated(ClazzVO.listKeyGroup.class) ClazzVO vo){
+    public IPage<ReturnedListClazzVO> pagedListClazz(@RequestBody @Validated(ClazzVO.listKeyGroup.class) ClazzVO vo){
         return clazzService.pagedListClazz(vo);
     }
 }

@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.trainingmanagesys.web.clazz.entity.Clazz;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.trainingmanagesys.web.clazz.vo.ClazzVO;
+import com.trainingmanagesys.web.clazz.vo.ReturnedListClazzVO;
 
 import java.util.List;
 
@@ -25,7 +26,7 @@ public interface IClazzService extends IService<Clazz> {
 
     Clazz getClazz(String classCode);
 
-    List<Clazz> listClazz(ClazzVO clazzVO);
+    List<ReturnedListClazzVO> listClazz(ClazzVO clazzVO);
 
-    IPage<Clazz> pagedListClazz(ClazzVO clazzVO);
+    IPage<ReturnedListClazzVO> pagedListClazz(ClazzVO clazzVO);
 }

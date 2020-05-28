@@ -7,13 +7,12 @@
          a.student_max, a.teacher_id, c.name, a.schedule_serial
     </sql>
 
-
     <select id="getClazz" resultType="com.trainingmanagesys.web.clazz.entity.Clazz">
         select <include refid="clazz_column_list"></include> from t_class a, t_course b, t_user c
             where a.course_code = b.course_code and a.class_code = #{classCode} and a.teacher_id = c.uid
     </select>
 
-    <select id="listClazz" resultType="com.trainingmanagesys.web.clazz.entity.Clazz" parameterType="com.trainingmanagesys.web.clazz.vo.ClazzVO">
+    <select id="listClazz" resultType="com.trainingmanagesys.web.clazz.vo.ReturnedListClazzVO" parameterType="com.trainingmanagesys.web.clazz.vo.ClazzVO">
         select <include refid="clazz_column_list"></include> from t_class a, t_course b, t_user c
         <where>
             a.course_code = b.course_code and a.teacher_id = c.uid
@@ -38,7 +37,7 @@
         </where>
     </select>
 
-    <select id="pagedListClazz" resultType="com.trainingmanagesys.web.clazz.entity.Clazz" parameterType="com.trainingmanagesys.web.clazz.vo.ClazzVO">
+    <select id="pagedListClazz" resultType="com.trainingmanagesys.web.clazz.vo.ReturnedListClazzVO" parameterType="com.trainingmanagesys.web.clazz.vo.ClazzVO">
         select <include refid="clazz_column_list"></include> from t_class a, t_course b, t_user c
         <where>
             a.course_code = b.course_code and a.teacher_id = c.uid

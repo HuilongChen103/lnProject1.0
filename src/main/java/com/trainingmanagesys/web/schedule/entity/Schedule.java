@@ -68,9 +68,9 @@ public class Schedule implements Serializable, ValidationGroup {
     private String endDate;
 
     /**
-     * 周数
+     * 周几
      */
-    private Integer week;
+    private String week;
 
     /**
      * 年份
