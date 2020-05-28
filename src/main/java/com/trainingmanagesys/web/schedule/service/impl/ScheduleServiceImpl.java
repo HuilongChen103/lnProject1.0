@@ -43,6 +43,8 @@ public class ScheduleServiceImpl extends ServiceImpl<ScheduleMapper, Schedule> i
         temp.setYear(schedule.getYear());
         temp.setSemester(schedule.getSemester());
         temp.setWeek(schedule.getWeek());
+        temp.setStartDate(schedule.getStartDate());
+        temp.setEndDate(schedule.getEndDate());
         String result = "添加日程安排失败";
         int code = baseMapper.insert(temp);
         if (code == 1)
@@ -62,32 +64,32 @@ public class ScheduleServiceImpl extends ServiceImpl<ScheduleMapper, Schedule> i
         if (temp.getYear() != null && temp.getSemester() == null && schedule.getWeek() != null)
             throw new APIException("请指明学期");
 
-        Date passedStartTime = schedule.getStartTime();
-        Date passedEndTime = schedule.getEndTime();
-        Date originStartTime = temp.getStartTime();
-        Date originEndTime = temp.getEndTime();
-
-        // 判断开始时间和结束时间之间的关系
-        // 如果传过来的包含有开始时间，没有结束时间
-        if (passedStartTime != null && passedEndTime == null){
-            // 如果数据库里的这条数据没有endTime
-            if (originEndTime == null)
-                throw new APIException("该数据没有结束时间，请设置结束时间");
-            if (originEndTime.before(passedStartTime))
-                throw new APIException("设置的开始时间错误，比结束时间早");
-        }
-        // 如果传过来的包含有结束时间没有开始时间
-        if (passedStartTime == null && passedEndTime != null){
-            // 如果数据库里面这条数据没有开始时间
-            if (originStartTime == null)
-                throw new APIException("该数据没有开始时间，请设置开始时间");
-            // 如果数据库里面这条数据开始时间比结束时间玩
-            if (originStartTime.after(passedEndTime))
-                throw new APIException("设置的结束时间错误，比开始时间早");
-        }
-
-        if (temp.getStartTime().after(temp.getEndTime()))
-            throw new APIException("时间设置错误，开始时间晚于结束时间");
+//        Date passedStartTime = schedule.getStartTime();
+//        Date passedEndTime = schedule.getEndTime();
+//        Date originStartTime = temp.getStartTime();
+//        Date originEndTime = temp.getEndTime();
+//
+//        // 判断开始时间和结束时间之间的关系
+//        // 如果传过来的包含有开始时间，没有结束时间
+//        if (passedStartTime != null && passedEndTime == null){
+//            // 如果数据库里的这条数据没有endTime
+//            if (originEndTime == null)
+//                throw new APIException("该数据没有结束时间，请设置结束时间");
+//            if (originEndTime.before(passedStartTime))
+//                throw new APIException("设置的开始时间错误，比结束时间早");
+//        }
+//        // 如果传过来的包含有结束时间没有开始时间
+//        if (passedStartTime == null && passedEndTime != null){
+//            // 如果数据库里面这条数据没有开始时间
+//            if (originStartTime == null)
+//                throw new APIException("该数据没有开始时间，请设置开始时间");
+//            // 如果数据库里面这条数据开始时间比结束时间玩
+//            if (originStartTime.after(passedEndTime))
+//                throw new APIException("设置的结束时间错误，比开始时间早");
+//        }
+//
+//        if (temp.getStartTime().after(temp.getEndTime()))
+//            throw new APIException("时间设置错误，开始时间晚于结束时间");
         String result = "更新日程安排失败";
         int code = baseMapper.updateById(schedule);
         if (code == 1)

@@ -49,6 +49,8 @@ public class ScheduleController {
             @ApiImplicitParam(name = "eventCode", value = "事件编号", dataType = "String", required = false),
             @ApiImplicitParam(name = "startTime", value = "开始时间", dataType = "Date", required = false),
             @ApiImplicitParam(name = "endTime", value = "结束时间", dataType = "Date", required = false),
+            @ApiImplicitParam(name = "startDate", value = "开始日期", dataType = "Date", required = false),
+            @ApiImplicitParam(name = "endDate", value = "结束日期", dataType = "Date", required = false),
             @ApiImplicitParam(name = "week", value = "周数", dataType = "Integer", required = false),
             @ApiImplicitParam(name = "year", value = "年份", dataType = "Integer", required = false),
             @ApiImplicitParam(name = "semester", value = "季度", dataType = "String", required = false)
@@ -56,8 +58,8 @@ public class ScheduleController {
     @PostMapping("/addSchedule")
     @Transactional(rollbackFor = Exception.class)
     public String addSchedule(@RequestBody @Validated AddScheduleVO schedule){
-        if (schedule.getStartTime().after(schedule.getEndTime()))
-            throw new APIException("时间设置错误，开始时间在结束时间之前");
+//        if (schedule.getStartTime().after(schedule.getEndTime()))
+//            throw new APIException("时间设置错误，开始时间在结束时间之前");
         return scheduleService.addSchedule(schedule);
     }
 
@@ -67,6 +69,8 @@ public class ScheduleController {
             @ApiImplicitParam(name = "eventCode", value = "事件编号", dataType = "String", required = false),
             @ApiImplicitParam(name = "startTime", value = "开始时间", dataType = "Date", required = false),
             @ApiImplicitParam(name = "endTime", value = "结束时间", dataType = "Date", required = false),
+            @ApiImplicitParam(name = "startDate", value = "开始日期", dataType = "Date", required = false),
+            @ApiImplicitParam(name = "endDate", value = "结束日期", dataType = "Date", required = false),
             @ApiImplicitParam(name = "week", value = "周数", dataType = "Integer", required = false),
             @ApiImplicitParam(name = "year", value = "年份", dataType = "Integer", required = false),
             @ApiImplicitParam(name = "semester", value = "季度", dataType = "String", required = false)
@@ -74,8 +78,8 @@ public class ScheduleController {
     @PostMapping("/updateSchedule")
     @Transactional(rollbackFor = Exception.class)
     public String updateSchedule(@RequestBody @Validated Schedule schedule){
-        if (schedule.getStartTime().after(schedule.getEndTime()))
-            throw new APIException("时间设置错误，开始时间在结束时间之前");
+//        if (schedule.getStartTime().after(schedule.getEndTime()))
+//            throw new APIException("时间设置错误，开始时间在结束时间之前");
         return scheduleService.updateSchedule(schedule);
     }
 
@@ -94,32 +98,32 @@ public class ScheduleController {
         return scheduleService.getSchedule(scheduleSerial);
     }
 
-    @ApiOperation(value = "列日程安排")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "eventCode", value = "事件编号", dataType = "String", required = false),
-            @ApiImplicitParam(name = "week", value = "周数", dataType = "Integer", required = false),
-            @ApiImplicitParam(name = "year", value = "年份", dataType = "Integer", required = false),
-            @ApiImplicitParam(name = "semester", value = "季度", dataType = "String", required = false),
-            @ApiImplicitParam(name = "limit", value = "数量", dataType = "Integer", required = false)
-    })
-    @PostMapping("/listSchedule")
-    public List<Schedule> listSchedule(@RequestBody @Validated ListScheduleVO schedule){
-        return scheduleService.listSchedule(schedule);
-    }
-
-    @ApiOperation(value = "分页列日程安排")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "eventCode", value = "事件编号", dataType = "String", required = false),
-            @ApiImplicitParam(name = "week", value = "周数", dataType = "Integer", required = false),
-            @ApiImplicitParam(name = "year", value = "年份", dataType = "Integer", required = false),
-            @ApiImplicitParam(name = "semester", value = "季度", dataType = "String", required = false),
-            @ApiImplicitParam(name = "currentPage", value = "当前页面", dataType = "Integer", required = true),
-            @ApiImplicitParam(name = "pageSize", value = "页面容量", dataType = "Integer", required = true)
-    })
-    @PostMapping("/pagedListSchedule")
-    public IPage<Schedule> pagedListSchedule(@RequestBody @Validated PagedListScheduleVO schedule){
-        return scheduleService.pagedListSchedule(schedule);
-    }
+//    @ApiOperation(value = "列日程安排")
+//    @ApiImplicitParams({
+//            @ApiImplicitParam(name = "eventCode", value = "事件编号", dataType = "String", required = false),
+//            @ApiImplicitParam(name = "week", value = "周数", dataType = "Integer", required = false),
+//            @ApiImplicitParam(name = "year", value = "年份", dataType = "Integer", required = false),
+//            @ApiImplicitParam(name = "semester", value = "季度", dataType = "String", required = false),
+//            @ApiImplicitParam(name = "limit", value = "数量", dataType = "Integer", required = false)
+//    })
+//    @PostMapping("/listSchedule")
+//    public List<Schedule> listSchedule(@RequestBody @Validated ListScheduleVO schedule){
+//        return scheduleService.listSchedule(schedule);
+//    }
+//
+//    @ApiOperation(value = "分页列日程安排")
+//    @ApiImplicitParams({
+//            @ApiImplicitParam(name = "eventCode", value = "事件编号", dataType = "String", required = false),
+//            @ApiImplicitParam(name = "week", value = "周数", dataType = "Integer", required = false),
+//            @ApiImplicitParam(name = "year", value = "年份", dataType = "Integer", required = false),
+//            @ApiImplicitParam(name = "semester", value = "季度", dataType = "String", required = false),
+//            @ApiImplicitParam(name = "currentPage", value = "当前页面", dataType = "Integer", required = true),
+//            @ApiImplicitParam(name = "pageSize", value = "页面容量", dataType = "Integer", required = true)
+//    })
+//    @PostMapping("/pagedListSchedule")
+//    public IPage<Schedule> pagedListSchedule(@RequestBody @Validated PagedListScheduleVO schedule){
+//        return scheduleService.pagedListSchedule(schedule);
+//    }
 
     @ApiOperation(value = "比较日期")
     @ApiImplicitParams({
