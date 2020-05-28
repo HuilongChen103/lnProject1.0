@@ -1,6 +1,7 @@
 package com.trainingmanagesys.web.student.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.trainingmanagesys.web.course.entity.Course;
 import com.trainingmanagesys.web.student.entity.Stucourse;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.trainingmanagesys.web.student.vo.StucourseVO;
@@ -28,4 +29,6 @@ public interface IStucourseService extends IService<Stucourse> {
     List<Stucourse> listStuCourse(StucourseVO stucourseVO);
 
     IPage<Stucourse> pagedListStuCourse(StucourseVO stucourseVO);
+
+    List<Course> listCourseByStuID(Long studentId);
 }

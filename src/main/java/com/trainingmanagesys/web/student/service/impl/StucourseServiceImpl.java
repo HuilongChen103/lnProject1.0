@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.trainingmanagesys.conf.exception.APIException;
 import com.trainingmanagesys.utils.BaseConst;
+import com.trainingmanagesys.web.course.entity.Course;
 import com.trainingmanagesys.web.student.entity.Stucourse;
 import com.trainingmanagesys.web.student.dao.StucourseMapper;
 import com.trainingmanagesys.web.student.service.IStucourseService;
@@ -106,5 +107,10 @@ public class StucourseServiceImpl extends ServiceImpl<StucourseMapper, Stucourse
         page.setSize(stucourseVO.getPageSize());
         IPage<Stucourse> pagedList = baseMapper.selectPage(page, queryWrapper);
         return pagedList;
+    }
+
+    @Override
+    public List<Course> listCourseByStuID(Long studentId) {
+        return baseMapper.listCourseByStuId(studentId);
     }
 }

@@ -2,6 +2,7 @@ package com.trainingmanagesys.web.student.controller;
 
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.trainingmanagesys.web.course.entity.Course;
 import com.trainingmanagesys.web.student.entity.Stucourse;
 import com.trainingmanagesys.web.student.service.IStucourseService;
 import com.trainingmanagesys.web.student.vo.StucourseVO;
@@ -108,5 +109,12 @@ public class StucourseController {
     @PostMapping("/pageListStucourse")
     public IPage<Stucourse> pagedListStucourse(@RequestBody @Validated(StucourseVO.listKeyGroup.class) StucourseVO stucourseVO){
         return stucourseService.pagedListStuCourse(stucourseVO);
+    }
+
+    @ApiOperation(value = "根据学生ID列他/她选取的课程")
+    @ApiImplicitParam(name = "studentId", value = "学生id", dataType = "Long", required = true)
+    @GetMapping("/listCourseByStudentID")
+    public List<Course> listCourseByStudentID(@NotNull(message = "请指明学生ID") Long studentId){
+        return stucourseService.listCourseByStuID(studentId);
     }
 }

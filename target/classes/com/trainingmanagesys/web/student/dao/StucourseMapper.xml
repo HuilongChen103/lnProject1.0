@@ -2,4 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.trainingmanagesys.web.student.dao.StucourseMapper">
 
+    <select id="listCourseByStuId" resultType="com.trainingmanagesys.web.course.entity.Course">
+        select b.* from t_stucourse a, t_course b
+        <where>
+            a.student_id = #{studentId}
+            and a.course_code = b.course_code
+        </where>
+    </select>
 </mapper>
