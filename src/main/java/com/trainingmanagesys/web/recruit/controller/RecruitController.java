@@ -128,17 +128,25 @@ public class RecruitController {
     public String endRecruit() throws ParseException {
         RecruitVO recruitVO = null;
         List<Recruit> list = recruitService.listRecruit(recruitVO);
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");//设置日期格式
 
         Recruit temp = new Recruit();
         temp.setEnable(0);
 
         for (Recruit item : list){
             Schedule tempSchedule = scheduleService.getSchedule(item.getScheduleSerial());
+
+            Integer tempYear = tempSchedule.getYear();
+            String year = tempYear.toString();
+            String endDate = tempSchedule.getEndDate();
+            String endTime = tempSchedule.getEndTime();
+            String plannedEndDateString = year + "-" + endDate + " " + endTime;
+
             // 获取当前时间并按指定格式输出为Date格式
-            String tempDate1= df.format(new Date());
-            Date tempDate2 = df.parse(tempDate1);
-            if (tempSchedule.getEndTime().before(tempDate2))
+            String nowString= df.format(new Date());
+            Date nowDate = df.parse(nowString);
+            Date plannededEndDate = df.parse(plannedEndDateString);
+            if (plannededEndDate.before(nowDate))
                 recruitService.updateRecruit(temp);
         }
         return "结束过期招聘成功";

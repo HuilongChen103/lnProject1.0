@@ -24,7 +24,8 @@ public class UpdateScheduleValidator implements DefaultGroupSequenceProvider<Sch
             if (null == schedule.getEventCode() && null == schedule.getStartTime() &&
                 null == schedule.getWeek() && null == schedule.getYear() &&
                 null == schedule.getSemester() && null == schedule.getEndTime() &&
-                null == schedule.getStartDate() && null == schedule.getEndDate()){
+                null == schedule.getStartDate() && null == schedule.getEndDate() &&
+                null == schedule.getSemester() && null == schedule.getEndTime()){
                 defaultGroupSequence.add(Schedule.updateGroup.class);
             }
         }

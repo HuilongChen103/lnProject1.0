@@ -22,7 +22,7 @@ public class UpdateRecruitValidator implements DefaultGroupSequenceProvider<Recr
 
             if (null == recruit.getPicId() && null == recruit.getPlace() &&
                 null == recruit.getCatagory() && null == recruit.getComment() &&
-                null == recruit.getDate() && null == recruit.getMethod()){
+                null == recruit.getScheduleSerial() && null == recruit.getMethod()){
                 defaultGroupSequence.add(Recruit.updateGroup.class);
             }
         }
