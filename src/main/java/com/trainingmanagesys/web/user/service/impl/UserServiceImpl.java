@@ -149,7 +149,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         if (user == null)
             throw new APIException("该账号未被封禁或不存在");
         user.setEnable(BaseConst.DATA_ENABLE);
-        updateUser(user);
+        baseMapper.updateById(user);
         return "解封账号成功";
     }
 
