@@ -73,8 +73,8 @@ public class UserController {
             @ApiImplicitParam(name = "uid", value = "用户id", dataType = "String", required = true)
     })
     @GetMapping("/getUserById")
-    public User getUserById(@NotNull(message = "uid不能为空") Long uid){
-        return userService.getUser(uid, BaseConst.DATA_ENABLE);
+    public User getUserById(@NotNull(message = "uid不能为空") Long uid, @NotNull(message = "请设置用户账号使用状态") Integer enable){
+        return userService.getUser(uid, enable);
     }
 
     @ApiOperation(value = "根据id获取用户身份", notes = "根据id获取用户身份")
