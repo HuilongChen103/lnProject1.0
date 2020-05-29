@@ -139,6 +139,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     public String prohibitUser(Long uid) {
         User user = checkUserExistance(uid);
         user.setEnable(2);
+        updateUser(user);
         return "封禁操作成功";
     }
 }

@@ -153,9 +153,9 @@ public class UserController {
 
     @ApiOperation(value = "封禁帐号")
     @ApiImplicitParam(name = "uid", value = "用户uid", dataType = "Long", required = true)
-    @PostMapping("/prohabitUser")
+    @PostMapping("/prohibitUser")
     public String prohabitUser(@NotNull(message = "uid不能为空") Long uid){
-        String result = userService.logOut(uid);
+        String result = userService.prohibitUser(uid);
         if (result == "该用户不存在"){
             APIException apiException = new APIException(1003, result);
             throw apiException;
