@@ -138,8 +138,28 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     @Override
     public String prohibitUser(Long uid) {
         User user = checkUserExistance(uid);
-        user.setEnable(2);
+        user.setEnable(BaseConst.ACCOUNT_BANNED);
         updateUser(user);
         return "封禁操作成功";
     }
+
+    @Override
+    public String recoverUser(Long uid) {
+        User user = getUser(uid, BaseConst.ACCOUNT_BANNED);
+        if (user == null)
+            throw new APIException("该账号未被封禁或不存在");
+        user.setEnable(BaseConst.DATA_ENABLE);
+        updateUser(user);
+        return "解封账号成功";
+    }
+
+    @Override
+    public String cancelUser(Long uid) {
+        User user = checkUserExistance(uid);
+        user.setEnable(BaseConst.DATA_DISABLE);
+        updateUser(user);
+        return "注销账号成功";
+    }
+
+
 }

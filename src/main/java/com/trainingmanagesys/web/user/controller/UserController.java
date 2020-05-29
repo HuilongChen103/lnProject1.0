@@ -156,10 +156,22 @@ public class UserController {
     @PostMapping("/prohibitUser")
     public String prohabitUser(@NotNull(message = "uid不能为空") Long uid){
         String result = userService.prohibitUser(uid);
-        if (result == "该用户不存在"){
-            APIException apiException = new APIException(1003, result);
-            throw apiException;
-        }
+        return result;
+    }
+
+    @ApiOperation(value = "解封帐号")
+    @ApiImplicitParam(name = "uid", value = "用户uid", dataType = "Long", required = true)
+    @PostMapping("/reactiveUser")
+    public String reactiveUser(@NotNull(message = "uid不能为空") Long uid){
+        String result = userService.recoverUser(uid);
+        return result;
+    }
+
+    @ApiOperation(value = "注销帐号")
+    @ApiImplicitParam(name = "uid", value = "用户uid", dataType = "Long", required = true)
+    @PostMapping("/cancelUser")
+    public String cancelUser(@NotNull(message = "uid不能为空") Long uid){
+        String result = userService.cancelUser(uid);
         return result;
     }
 }

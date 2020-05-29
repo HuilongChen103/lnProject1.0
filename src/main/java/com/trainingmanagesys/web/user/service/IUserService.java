@@ -34,4 +34,8 @@ public interface IUserService extends IService<User> {
     String logOut(Long uid);
 
     String prohibitUser(Long uid);
+
+    String recoverUser(Long uid);
+
+    String cancelUser(Long uid);
 }
