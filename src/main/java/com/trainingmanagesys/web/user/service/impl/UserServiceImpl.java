@@ -66,7 +66,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     public User getUser(Long uid, Integer enable) {
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("uid", uid);
-        queryWrapper.eq("enable", enable);
+        if (enable != null) queryWrapper.eq("enable", enable);
         return baseMapper.selectOne(queryWrapper);
     }
 
