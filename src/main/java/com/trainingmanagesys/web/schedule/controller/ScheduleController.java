@@ -107,7 +107,7 @@ public class ScheduleController {
             @ApiImplicitParam(name = "limit", value = "数量", dataType = "Integer", required = false)
     })
     @PostMapping("/listSchedule")
-    public List<Schedule> listSchedule(@RequestBody @Validated ListScheduleVO schedule){
+    public List<Schedule> listSchedule(@RequestBody ListScheduleVO schedule){
         return scheduleService.listSchedule(schedule);
     }
 //

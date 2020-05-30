@@ -11,7 +11,7 @@
  Target Server Version : 50728
  File Encoding         : 65001
 
- Date: 27/05/2020 11:14:00
+ Date: 30/05/2020 22:33:03
 */
 
 SET NAMES utf8mb4;
@@ -63,7 +63,12 @@ CREATE TABLE `t_audit`  (
   CONSTRAINT `audit_event_finance` FOREIGN KEY (`event_code`) REFERENCES `t_finance` (`finance_code`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `audit_event_goods` FOREIGN KEY (`event_code`) REFERENCES `t_goodsusage` (`usage_code`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `audit_event_recruit` FOREIGN KEY (`event_code`) REFERENCES `t_recruit` (`recruit_code`) ON DELETE RESTRICT ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 31467801 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of t_audit
+-- ----------------------------
+INSERT INTO `t_audit` VALUES (31467800, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for t_benefitevaluation
@@ -94,6 +99,7 @@ CREATE TABLE `t_class`  (
   `real_num` int(11) NULL DEFAULT NULL COMMENT '实际学生数量',
   `teacher_id` int(11) NULL DEFAULT NULL COMMENT '教师id',
   `schedule_serial` int(11) NULL DEFAULT NULL COMMENT '日程安排编号',
+  `enable` int(11) NULL DEFAULT 1,
   PRIMARY KEY (`class_code`) USING BTREE,
   INDEX `class_course`(`course_code`) USING BTREE,
   INDEX `class_teacher`(`teacher_id`) USING BTREE,
@@ -106,9 +112,10 @@ CREATE TABLE `t_class`  (
 -- ----------------------------
 -- Records of t_class
 -- ----------------------------
-INSERT INTO `t_class` VALUES ('BEL101202001', 'BEL101', '美声入门', 40, 1, 1, 116193701, NULL);
-INSERT INTO `t_class` VALUES ('BEL101202002', 'BEL101', '美声入门', 20, 0, 0, 116193707, NULL);
-INSERT INTO `t_class` VALUES ('ZHE101202001', 'ZHE101', '古筝初级', 40, 0, 0, 116193714, NULL);
+INSERT INTO `t_class` VALUES ('BEL10120200301', 'BEL101', '美声入门', 40, 1, 1, 116193701, NULL, 1);
+INSERT INTO `t_class` VALUES ('BEL10120200302', 'BEL102', '美声入门', 20, 0, 0, 116193701, NULL, 1);
+INSERT INTO `t_class` VALUES ('ZHE10120200301', 'ZHE101', '古筝初级', 40, 0, 0, 116193714, NULL, 1);
+INSERT INTO `t_class` VALUES ('ZHE10120200302', 'ZHE102', '古筝初级', 20, 0, 0, 116193714, NULL, 1);
 
 -- ----------------------------
 -- Table structure for t_course
@@ -127,18 +134,36 @@ CREATE TABLE `t_course`  (
 -- ----------------------------
 -- Records of t_course
 -- ----------------------------
+INSERT INTO `t_course` VALUES ('ARR101', '编曲初级', '1小时', '声乐', '教授编曲初级知识技巧，适合初学者。', 30);
+INSERT INTO `t_course` VALUES ('ARR201', '编曲中级', '1.5小时', '声乐', '教授编曲初级知识技巧，适合有所学习的学员。', 40);
+INSERT INTO `t_course` VALUES ('ARR301', '编曲高级', '2小时', '声乐', '教授编曲高级知识技巧，适合熟悉编曲的学员。', 50);
+INSERT INTO `t_course` VALUES ('ARR401', '编曲业余', '2小时', '声乐', '教授编曲业余知识', 60);
 INSERT INTO `t_course` VALUES ('BEL101', '美声入门', '1小时', '声乐', '教授美声基本发声技巧和知识，适合美声入门者。', 30);
 INSERT INTO `t_course` VALUES ('BEL102', '美声入门', '1小时', '声乐', '教授美声基本发声技巧和知识，适合美声入门者。(小班教学)', 45);
-INSERT INTO `t_course` VALUES ('BEL202', '美声中级', '1.5小时', '声乐', '教授美声进阶发声技巧和知识，适合有一定基础的学员。', 35);
-INSERT INTO `t_course` VALUES ('BEL303', '美声高级', '2小时', '声乐', '教授美声专业发声技巧和知识，适合专业学员。', 40);
-INSERT INTO `t_course` VALUES ('VOC101', '声乐基础', '1小时', '声乐', '教授基本发声技巧，乐理常识，适合声乐初学者。', 20);
-INSERT INTO `t_course` VALUES ('VOC102', '声乐基础', '1小时', '声乐', '教授基本发声技巧，乐理常识，适合声乐初学者。(小班教学)', 40);
-INSERT INTO `t_course` VALUES ('VOC202', '乐理入门', '1小时', '声乐', '教授乐理知识，适合乐理初学者。', 20);
+INSERT INTO `t_course` VALUES ('BEL201', '美声中级', '1.5小时', '声乐', '教授美声进阶发声技巧和知识，适合有一定基础的学员。', 35);
+INSERT INTO `t_course` VALUES ('BEL202', '美声中级', '1.5小时', '声乐', '教授美声进阶发声技巧和知识，适合有一定基础的学员。（小班教学）', 45);
+INSERT INTO `t_course` VALUES ('BEL301', '美声高级', '2小时', '声乐', '教授美声专业发声技巧和知识，适合专业学员。', 40);
+INSERT INTO `t_course` VALUES ('BEL401', '美声业余', '2小时', '声乐', '教授美声专业发声技巧和知识，适合专业学员。', 50);
+INSERT INTO `t_course` VALUES ('PIA101', '钢琴初级', '1小时', '乐器', '教授钢琴1-4级技巧及曲目，适合钢琴新手。', 30);
+INSERT INTO `t_course` VALUES ('PIA102', '钢琴初级', '1小时', '乐器', '教授钢琴1-4级技巧及曲目，适合钢琴新手。（小班教学）', 45);
+INSERT INTO `t_course` VALUES ('PIA201', '钢琴中级', '1.5小时', '乐器', '教授钢琴5-7级技巧及曲目，适合获得钢琴4级证书学员。', 45);
+INSERT INTO `t_course` VALUES ('PIA202', '钢琴中级', '1.5小时', '乐器', '教授钢琴5-7级技巧及曲目，适合钢琴新手。（小班教学）', 60);
+INSERT INTO `t_course` VALUES ('PIA301', '钢琴高级', '2小时', '乐器', '教授钢琴8-10级技巧及曲目，适合获得钢琴7级证书学员。', 60);
+INSERT INTO `t_course` VALUES ('PIA401', '钢琴业余', '2小时', '乐器', '教授钢琴业余技巧及曲目，适合获得钢琴10级证书学员。', 75);
+INSERT INTO `t_course` VALUES ('VOC101', '演唱基础', '1小时', '声乐', '教授基本发声技巧，乐理常识，适合声乐初学者。', 20);
+INSERT INTO `t_course` VALUES ('VOC102', '演唱基础', '1小时', '声乐', '教授基本发声技巧，乐理常识，适合声乐初学者。(小班教学)', 40);
+INSERT INTO `t_course` VALUES ('VOC201', '乐理入门', '1小时', '声乐', '教授乐理知识，适合乐理初学者。', 20);
+INSERT INTO `t_course` VALUES ('VOC202', '乐理入门', '1小时', '声乐', '教授乐理知识，适合乐理初学者。（小班教学）', 30);
+INSERT INTO `t_course` VALUES ('VOL101', '小提琴初级', '1小时', '乐器', '教授小提琴1-4级技巧及曲目，适合小提琴新手。', 20);
+INSERT INTO `t_course` VALUES ('VOL102', '小提琴初级', '1小时', '乐器', '教授小提琴1-4级技巧及曲目，适合小提琴新手。（小班教学）', 30);
+INSERT INTO `t_course` VALUES ('VOL201', '小提琴中级', '1.5小时', '乐器', '教授小提琴5-7级技巧及曲目，适合获得小提琴4级证书学员。', 30);
+INSERT INTO `t_course` VALUES ('VOL301', '小提琴高级', '2小时', '乐器', '教授小提琴8-10级技巧及曲目，适合获得小提琴7级证书学员。', 40);
 INSERT INTO `t_course` VALUES ('ZHE101', '古筝初级', '1小时', '乐器', '教授古筝1-4级技巧及曲目，适合古筝新手。', 20);
 INSERT INTO `t_course` VALUES ('ZHE102', '古筝初级', '1小时', '乐器', '教授古筝1-4级技巧及曲目，适合古筝新手。(小班教学)', 40);
-INSERT INTO `t_course` VALUES ('ZHE202', '古筝中级', '1.5小时', '乐器', '教授古筝5-7级技巧及曲目，适合获得古筝4级证书学员。', 30);
-INSERT INTO `t_course` VALUES ('ZHE303', '古筝高级', '2小时', '乐器', '教授古筝8-10级曲目及内容，适合获得古筝七级证书学员', 40);
-INSERT INTO `t_course` VALUES ('ZHE404', '古筝业余', '1.5小时', '乐器', '教授古筝业余技巧及曲目，难度较大，适合获得古筝10级证书学员。', 50);
+INSERT INTO `t_course` VALUES ('ZHE201', '古筝中级', '1.5小时', '乐器', '教授古筝5-7级技巧及曲目，适合获得古筝4级证书学员。', 30);
+INSERT INTO `t_course` VALUES ('ZHE202', '古筝中级', '1.5小时', '乐器', '教授古筝5-7级技巧及曲目，适合获得古筝4级证书学员。（小班教学）', 45);
+INSERT INTO `t_course` VALUES ('ZHE301', '古筝高级', '2小时', '乐器', '教授古筝8-10级曲目及内容，适合获得古筝七级证书学员', 40);
+INSERT INTO `t_course` VALUES ('ZHE401', '古筝业余', '1.5小时', '乐器', '教授古筝业余技巧及曲目，难度较大，适合获得古筝10级证书学员。', 50);
 
 -- ----------------------------
 -- Table structure for t_courseware
@@ -208,10 +233,9 @@ CREATE TABLE `t_finance`  (
 -- ----------------------------
 -- Records of t_finance
 -- ----------------------------
-INSERT INTO `t_finance` VALUES ('REV202005252353', 'REV', 116193703, '126373282102973', '2343235462321123', '银行转账', 360, '2020-05-25 23:54:49', '学员缴费', NULL);
-INSERT INTO `t_finance` VALUES ('REV202005270049', 'REV', 116193704, NULL, NULL, NULL, NULL, NULL, '学员缴费', NULL);
-INSERT INTO `t_finance` VALUES ('REV202005270052', 'REV', 116193704, NULL, NULL, NULL, NULL, NULL, '学员缴费', NULL);
-INSERT INTO `t_finance` VALUES ('REV202005271039', 'REV', 116193704, NULL, NULL, NULL, NULL, NULL, '学员缴费', NULL);
+INSERT INTO `t_finance` VALUES ('REV202005252353', 'REV', 116193706, '12637328210', '1010101010101', '银行转账', 360, '2020-05-25 23:54:49', '学员缴费', NULL);
+INSERT INTO `t_finance` VALUES ('REV202005271621', 'REV', 116193704, '182930472523', '1010101010101', '支付宝', 240, NULL, '学员缴费', NULL);
+INSERT INTO `t_finance` VALUES ('REV202005271624', 'REV', 116193704, '2124782394', '1010101010101', '支付宝', 240, NULL, '学员缴费', NULL);
 
 -- ----------------------------
 -- Table structure for t_goods
@@ -406,14 +430,21 @@ DROP TABLE IF EXISTS `t_schedule`;
 CREATE TABLE `t_schedule`  (
   `schedule_serial` int(11) NOT NULL AUTO_INCREMENT COMMENT '日程id',
   `event_code` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '事件编号',
-  `start_time` datetime(0) NULL DEFAULT NULL COMMENT '开始时间',
-  `end_time` datetime(0) NULL DEFAULT NULL COMMENT '结束时间',
+  `start_time` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '开始时间',
+  `end_time` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '结束时间',
   `week` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '周数',
   `year` int(11) NULL DEFAULT NULL COMMENT '年份',
   `semester` enum('春季','夏季','秋季','冬季') CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '季度',
+  `start_date` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '开始日期',
+  `end_date` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '结束日期',
   PRIMARY KEY (`schedule_serial`) USING BTREE,
   INDEX `year`(`year`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 691874001 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of t_schedule
+-- ----------------------------
+INSERT INTO `t_schedule` VALUES (691874000, 'ZHE101202002', '09：00', '10：00', '星期三', 2020, '春季', '3.1', '6.1');
 
 -- ----------------------------
 -- Table structure for t_stucourse
@@ -438,13 +469,14 @@ CREATE TABLE `t_stucourse`  (
   CONSTRAINT `stucourse_course` FOREIGN KEY (`course_code`) REFERENCES `t_course` (`course_code`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `stucourse_finance` FOREIGN KEY (`finance_code`) REFERENCES `t_finance` (`finance_code`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `stucourse_id` FOREIGN KEY (`student_id`) REFERENCES `t_user` (`uid`) ON DELETE RESTRICT ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 80597402 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 80597407 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_stucourse
 -- ----------------------------
-INSERT INTO `t_stucourse` VALUES (80597400, 116193702, 'BEL101', 'BEL101202001', 30, '未支付', 'REV202005252353', '未退课', NULL);
-INSERT INTO `t_stucourse` VALUES (80597401, 116193704, 'BEL101', 'BEL101202001', NULL, '未支付', 'REV202005271039', '未退课', NULL);
+INSERT INTO `t_stucourse` VALUES (80597400, 116193706, 'BEL101', 'BEL10120200301', 360, '已支付', 'REV202005252353', '未退课', 1);
+INSERT INTO `t_stucourse` VALUES (80597405, 116193704, 'ZHE101', 'ZHE10120200301', 240, '未支付', 'REV202005271621', '未退课', 1);
+INSERT INTO `t_stucourse` VALUES (80597406, 116193704, 'BEL101', 'BEL10120200301', 240, '已支付', 'REV202005271624', '未退课', 1);
 
 -- ----------------------------
 -- Table structure for t_stuff
@@ -521,12 +553,12 @@ CREATE TABLE `t_user`  (
   `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '密码',
   `state` enum('online','offline') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'offline' COMMENT '登陆状态(oneline,offline)',
   PRIMARY KEY (`uid`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 116193715 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 116193716 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_user
 -- ----------------------------
-INSERT INTO `t_user` VALUES (116193701, '车岚', '女', '1980-03-07', '老师', '13708342137', 1, '666666', 'online');
+INSERT INTO `t_user` VALUES (116193701, '车岚', '女', '1980-03-07', '老师', '13708342137', 1, '666666', 'offline');
 INSERT INTO `t_user` VALUES (116193702, '冷飞', '男', '2000-08-26', '职工', '15923343188', 1, '666666', 'offline');
 INSERT INTO `t_user` VALUES (116193703, '俞溪', '女', '1959-11-22', '管理员', '18990769422', 1, '666666', 'offline');
 INSERT INTO `t_user` VALUES (116193704, '蔺霓霓', '女', '2004-07-08', '学生', '17649322369', 1, '666666', 'online');
@@ -540,5 +572,6 @@ INSERT INTO `t_user` VALUES (116193711, '谭筱', '女', '2001-03-12', '学生',
 INSERT INTO `t_user` VALUES (116193712, '韩岳凡', '男', '1990-04-21', '学生', '16627392039', 1, '666666', 'offline');
 INSERT INTO `t_user` VALUES (116193713, '崔昀', '男', '1995-12-14', '学生', '16738392900', 1, '666666', 'offline');
 INSERT INTO `t_user` VALUES (116193714, '兰喃', '女', '1989-05-25', '老师', '18928394778', 1, '666666', 'offline');
+INSERT INTO `t_user` VALUES (116193715, '陈晖', '男', '1997-04-01', '管理员', '15878652667', 1, '666666', 'offline');
 
 SET FOREIGN_KEY_CHECKS = 1;
