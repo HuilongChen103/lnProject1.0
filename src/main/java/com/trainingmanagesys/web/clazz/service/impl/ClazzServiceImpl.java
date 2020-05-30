@@ -97,12 +97,16 @@ public class ClazzServiceImpl extends ServiceImpl<ClazzMapper, Clazz> implements
             System.err.println("不为空");
 
         for (ReturnedListClazzVO item : resultList){
-            Schedule tempschedule = scheduleService.getSchedule(item.getScheduleSerial());
-            String week = tempschedule.getWeek();
-            String startTime = tempschedule.getStartTime();
-            String endTime = tempschedule.getEndTime();
-            String finalTime = week + " " + startTime + "-" + endTime;
-            item.setScheduleTime(finalTime);
+            if (item.getScheduleSerial() != null){
+                Schedule tempschedule = scheduleService.getSchedule(item.getScheduleSerial());
+                String week = tempschedule.getWeek();
+                String startTime = tempschedule.getStartTime();
+                String endTime = tempschedule.getEndTime();
+                String finalTime = week + " " + startTime + "-" + endTime;
+                item.setScheduleTime(finalTime);
+            }
+
+
         }
         return resultList;
     }
