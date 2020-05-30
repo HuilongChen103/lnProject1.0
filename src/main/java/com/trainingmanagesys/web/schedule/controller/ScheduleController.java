@@ -98,18 +98,18 @@ public class ScheduleController {
         return scheduleService.getSchedule(scheduleSerial);
     }
 
-//    @ApiOperation(value = "列日程安排")
-//    @ApiImplicitParams({
-//            @ApiImplicitParam(name = "eventCode", value = "事件编号", dataType = "String", required = false),
-//            @ApiImplicitParam(name = "week", value = "周数", dataType = "Integer", required = false),
-//            @ApiImplicitParam(name = "year", value = "年份", dataType = "Integer", required = false),
-//            @ApiImplicitParam(name = "semester", value = "季度", dataType = "String", required = false),
-//            @ApiImplicitParam(name = "limit", value = "数量", dataType = "Integer", required = false)
-//    })
-//    @PostMapping("/listSchedule")
-//    public List<Schedule> listSchedule(@RequestBody @Validated ListScheduleVO schedule){
-//        return scheduleService.listSchedule(schedule);
-//    }
+    @ApiOperation(value = "列日程安排")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "eventCode", value = "事件编号", dataType = "String", required = false),
+            @ApiImplicitParam(name = "week", value = "周数", dataType = "Integer", required = false),
+            @ApiImplicitParam(name = "year", value = "年份", dataType = "Integer", required = false),
+            @ApiImplicitParam(name = "semester", value = "季度", dataType = "String", required = false),
+            @ApiImplicitParam(name = "limit", value = "数量", dataType = "Integer", required = false)
+    })
+    @PostMapping("/listSchedule")
+    public List<Schedule> listSchedule(@RequestBody @Validated ListScheduleVO schedule){
+        return scheduleService.listSchedule(schedule);
+    }
 //
 //    @ApiOperation(value = "分页列日程安排")
 //    @ApiImplicitParams({
