@@ -78,10 +78,17 @@ public class ClazzController {
     }
 
     @ApiOperation(value = "获取班级")
-    @ApiImplicitParam(name = "classCode", value = "班级号",  dataType = "String", required = true)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "classCode", value = "班级号",  dataType = "String", required = true),
+            @ApiImplicitParam(name = "enable", value = "enable",  dataType = "Integer", required = true)
+    })
     @PostMapping("/getClazz")
-    public Clazz getClazz(@NotNull(message = "请输入班级号") String classCode){
-        return clazzService.getClazz(classCode);
+    public Clazz getClazz(@RequestBody Clazz clazz){
+        String classCode = clazz.getClassCode();
+        Integer enable = clazz.getEnable();
+        System.out.println(classCode);
+        System.out.println(enable);
+        return clazzService.getClazz(classCode, enable);
     }
 
     @ApiOperation(value = "列班级")

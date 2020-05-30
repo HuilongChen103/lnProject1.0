@@ -4,18 +4,18 @@
 
     <sql id="clazz_column_list">
         a.class_code, a.course_code, b.course_name, a.student_num, a.real_num,
-         a.student_max, a.teacher_id, c.name, a.schedule_serial
+         a.student_max, a.teacher_id, c.name, a.schedule_serial, a.enable
     </sql>
 
     <select id="getClazz" resultType="com.trainingmanagesys.web.clazz.entity.Clazz">
         select <include refid="clazz_column_list"></include> from t_class a, t_course b, t_user c
-            where a.course_code = b.course_code and a.class_code = #{classCode} and a.teacher_id = c.uid
+            where a.course_code = b.course_code and a.class_code = #{classCode} and a.teacher_id = c.uid and a.enable = #{enable}
     </select>
 
     <select id="listClazz" resultType="com.trainingmanagesys.web.clazz.vo.ReturnedListClazzVO" parameterType="com.trainingmanagesys.web.clazz.vo.ClazzVO">
         select <include refid="clazz_column_list"></include> from t_class a, t_course b, t_user c
         <where>
-            a.course_code = b.course_code and a.teacher_id = c.uid
+            a.course_code = b.course_code and a.teacher_id = c.uid and a.enable = #{enable}
             <if test="courseCode != null">
                 and a.course_code = #{courseCode}
             </if>
@@ -40,7 +40,7 @@
     <select id="pagedListClazz" resultType="com.trainingmanagesys.web.clazz.vo.ReturnedListClazzVO" parameterType="com.trainingmanagesys.web.clazz.vo.ClazzVO">
         select <include refid="clazz_column_list"></include> from t_class a, t_course b, t_user c
         <where>
-            a.course_code = b.course_code and a.teacher_id = c.uid
+            a.course_code = b.course_code and a.teacher_id = c.uid and a.enable = #{enable}
             <if test="vo.courseCode != null">
                 and a.course_code = #{vo.courseCode}
             </if>

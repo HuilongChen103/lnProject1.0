@@ -3,6 +3,7 @@ package com.trainingmanagesys.web.clazz.service.impl;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.trainingmanagesys.conf.exception.APIException;
+import com.trainingmanagesys.utils.BaseConst;
 import com.trainingmanagesys.web.clazz.entity.Clazz;
 import com.trainingmanagesys.web.clazz.dao.ClazzMapper;
 import com.trainingmanagesys.web.clazz.service.IClazzService;
@@ -33,7 +34,7 @@ public class ClazzServiceImpl extends ServiceImpl<ClazzMapper, Clazz> implements
     IScheduleService scheduleService;
 
     private Clazz checkClazzExistence(String classCode){
-        Clazz tempClazz = getClazz(classCode);
+        Clazz tempClazz = getClazz(classCode, BaseConst.DATA_ENABLE);
         if (tempClazz == null){
             APIException apiException = new APIException("该班级不存在");
             throw apiException;
@@ -44,7 +45,7 @@ public class ClazzServiceImpl extends ServiceImpl<ClazzMapper, Clazz> implements
 
     @Override
     public String addClazz(Clazz clazz) {
-        if (getClazz(clazz.getClassCode()) != null){
+        if (getClazz(clazz.getClassCode(), BaseConst.DATA_ENABLE) != null){
             APIException apiException = new APIException("该班级已存在，请更换班级号");
             throw apiException;
         }
@@ -73,9 +74,12 @@ public class ClazzServiceImpl extends ServiceImpl<ClazzMapper, Clazz> implements
     }
 
     @Override
-    public Clazz getClazz(String classCode) {
+    public Clazz getClazz(String classCode, Integer enable) {
         //return baseMapper.selectById(classCode);
-        return baseMapper.getClazz(classCode);
+        Clazz result = baseMapper.getClazz(classCode, enable);
+        System.out.println(result);
+            return result;
+
     }
 
     @Override

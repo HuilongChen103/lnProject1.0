@@ -24,7 +24,7 @@ public interface IClazzService extends IService<Clazz> {
 
     String deleteClazz(String classCode);
 
-    Clazz getClazz(String classCode);
+    Clazz getClazz(String classCode, Integer enable);
 
     List<ReturnedListClazzVO> listClazz(ClazzVO clazzVO);
 

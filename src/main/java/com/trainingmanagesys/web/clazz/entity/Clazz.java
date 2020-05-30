@@ -80,4 +80,6 @@ public class Clazz implements Serializable, ValidationGroup {
      * 日程安排编号
      */
     private Long scheduleSerial;
+
+    private Integer enable;
 }

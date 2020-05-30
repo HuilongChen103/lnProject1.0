@@ -21,7 +21,7 @@ import java.util.List;
  */
 public interface ClazzMapper extends BaseMapper<Clazz> {
 
-    Clazz getClazz(@Param("classCode") String classCode);
+    Clazz getClazz(@Param("classCode") String classCode, @Param("enable") Integer enable);
 
     List<ReturnedListClazzVO> listClazz(ClazzVO vo);
 
