@@ -2,6 +2,9 @@ package com.trainingmanagesys.web.messageboard.dao;
 
 import com.trainingmanagesys.web.messageboard.entity.Messageboard;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.trainingmanagesys.web.messageboard.vo.ReturnedListMessageboardVO;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface MessageboardMapper extends BaseMapper<Messageboard> {
 
+    List<ReturnedListMessageboardVO> listMessageWithName(String classCode);
 }

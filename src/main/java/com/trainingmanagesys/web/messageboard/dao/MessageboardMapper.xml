@@ -2,4 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.trainingmanagesys.web.messageboard.dao.MessageboardMapper">
 
+    <select id="listMessageWithName" resultType="com.trainingmanagesys.web.messageboard.vo.ReturnedListMessageboardVO">
+        select a.*, b.name from t_messageboard a, t_user b
+        <where>
+            a.class_code = #{classCode} and b.uid = a.uploader_id
+        </where>
+    </select>
 </mapper>

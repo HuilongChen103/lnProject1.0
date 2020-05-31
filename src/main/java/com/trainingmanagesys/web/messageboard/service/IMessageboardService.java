@@ -2,6 +2,7 @@ package com.trainingmanagesys.web.messageboard.service;
 
 import com.trainingmanagesys.web.messageboard.entity.Messageboard;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.trainingmanagesys.web.messageboard.vo.ReturnedListMessageboardVO;
 
 import java.util.List;
 
@@ -23,5 +24,5 @@ public interface IMessageboardService extends IService<Messageboard> {
 
     Messageboard getMessage(Long messageSerial);
 
-    List<Messageboard> listMessage(String classCode);
+    List<ReturnedListMessageboardVO> listMessage(String classCode);
 }

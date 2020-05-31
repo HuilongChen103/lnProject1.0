@@ -3,6 +3,7 @@ package com.trainingmanagesys.web.messageboard.controller;
 
 import com.trainingmanagesys.web.messageboard.entity.Messageboard;
 import com.trainingmanagesys.web.messageboard.service.IMessageboardService;
+import com.trainingmanagesys.web.messageboard.vo.ReturnedListMessageboardVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -77,10 +78,9 @@ public class MessageboardController {
     }
 
     @ApiOperation(value = "列所有留言")
-    @ApiImplicitParam(name = "classCode", value = "班级号", dataType = "String" +
-            "", required = true)
+    @ApiImplicitParam(name = "classCode", value = "班级号", dataType = "String", required = true)
     @PostMapping("/listMessage")
-    public List<Messageboard> listMessage(@NotNull(message = "请指明班级") String classCode){
+    public List<ReturnedListMessageboardVO> listMessage(@NotNull(message = "请指明班级") String classCode){
         return messageboardService.listMessage(classCode);
     }
 }

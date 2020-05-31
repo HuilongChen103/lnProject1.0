@@ -6,6 +6,7 @@ import com.trainingmanagesys.web.messageboard.entity.Messageboard;
 import com.trainingmanagesys.web.messageboard.dao.MessageboardMapper;
 import com.trainingmanagesys.web.messageboard.service.IMessageboardService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.trainingmanagesys.web.messageboard.vo.ReturnedListMessageboardVO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -58,9 +59,7 @@ public class MessageboardServiceImpl extends ServiceImpl<MessageboardMapper, Mes
     }
 
     @Override
-    public List<Messageboard> listMessage(String classCode) {
-        QueryWrapper<Messageboard> queryWrapper = new QueryWrapper<>();
-        if (classCode != null) queryWrapper.eq("class_code", classCode);
-        return baseMapper.selectList(queryWrapper);
+    public List<ReturnedListMessageboardVO> listMessage(String classCode) {
+        return baseMapper.listMessageWithName(classCode);
     }
 }
