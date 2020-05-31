@@ -93,6 +93,8 @@ public class ClazzServiceImpl extends ServiceImpl<ClazzMapper, Clazz> implements
 //
 //        List<Clazz> list = baseMapper.selectList(queryWrapper);
 //        return list;
+        if (vo.getEnable() == null)
+            vo.setEnable(BaseConst.DATA_ENABLE);
         List<ReturnedListClazzVO> resultList = baseMapper.listClazz(vo);
 
         if (scheduleService == null)
@@ -129,6 +131,8 @@ public class ClazzServiceImpl extends ServiceImpl<ClazzMapper, Clazz> implements
         //IPage<Clazz> pagedList = baseMapper.selectPage(page, queryWrapper);
         //return pagedList;
 
+        if (vo.getEnable() == null)
+            vo.setEnable(BaseConst.DATA_ENABLE);
         IPage<ReturnedListClazzVO> resultPage = page.setRecords(baseMapper.pagedListClazz(page, vo));
         for (ReturnedListClazzVO item : resultPage.getRecords()){
             Schedule tempschedule = scheduleService.getSchedule(item.getScheduleSerial());
