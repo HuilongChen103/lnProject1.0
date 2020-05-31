@@ -2,4 +2,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.trainingmanagesys.web.stuff.dao.StuffMapper">
 
+    <select id="listSpecializedStuff"  parameterType="com.trainingmanagesys.web.stuff.entity.Stuff" resultType="com.trainingmanagesys.web.stuff.vo.ReturnedSpecialListStuffVO">
+        select a.stuff_id, b.name, c.department_id, c.department_name, a.position from t_stuff a, t_user b, t_department c
+        <where>
+            a.stuff_id = b.uid and a.department_id = c.department_id
+            <if test="position != null">
+               and a.position = #{position}
+            </if>
+            <if test="departmentId != null">
+                and a.department_id = #{departmentId}
+            </if>
+            <if test="stuffId != null">
+                and a.stuff_id = #{stuffId}
+            </if>
+        </where>
+    </select>
+
+
 </mapper>

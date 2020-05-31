@@ -23,5 +23,5 @@ public interface IMessageboardService extends IService<Messageboard> {
 
     Messageboard getMessage(Long messageSerial);
 
-    List<Messageboard> listMessage();
+    List<Messageboard> listMessage(String classCode);
 }

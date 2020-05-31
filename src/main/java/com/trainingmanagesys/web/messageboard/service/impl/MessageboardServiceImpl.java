@@ -58,8 +58,9 @@ public class MessageboardServiceImpl extends ServiceImpl<MessageboardMapper, Mes
     }
 
     @Override
-    public List<Messageboard> listMessage() {
+    public List<Messageboard> listMessage(String classCode) {
         QueryWrapper<Messageboard> queryWrapper = new QueryWrapper<>();
+        if (classCode != null) queryWrapper.eq("class_code", classCode);
         return baseMapper.selectList(queryWrapper);
     }
 }

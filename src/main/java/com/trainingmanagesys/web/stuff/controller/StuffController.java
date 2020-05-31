@@ -4,6 +4,7 @@ package com.trainingmanagesys.web.stuff.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.trainingmanagesys.web.stuff.entity.Stuff;
 import com.trainingmanagesys.web.stuff.service.IStuffService;
+import com.trainingmanagesys.web.stuff.vo.ReturnedSpecialListStuffVO;
 import com.trainingmanagesys.web.stuff.vo.StuffVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -95,5 +96,19 @@ public class StuffController {
     @PostMapping("/pagedListStuff")
     public IPage<Stuff> pagedListStuff(@RequestBody StuffVO stuff){
         return stuffService.pagedListStuff(stuff);
+    }
+
+    @ApiOperation(value = "多表联查列职工")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "departmentId", value = "部门id", dataType = "Long", required = false),
+            @ApiImplicitParam(name = "position", value = "职位", dataType = "String", required = false),
+            @ApiImplicitParam(name = "stuffId", value = "职工id", dataType = "Long", required = false)
+    })
+    @PostMapping("/listSpecializedStuff")
+    public List<ReturnedSpecialListStuffVO> listSpecializedStuff(@RequestBody Stuff stuff){
+        System.out.println("here");
+        System.out.println(stuff);
+        System.out.println("End");
+        return stuffService.listSpecializedStuff(stuff);
     }
 }

@@ -11,7 +11,7 @@
  Target Server Version : 50728
  File Encoding         : 65001
 
- Date: 30/05/2020 22:33:03
+ Date: 31/05/2020 13:22:36
 */
 
 SET NAMES utf8mb4;
@@ -112,10 +112,10 @@ CREATE TABLE `t_class`  (
 -- ----------------------------
 -- Records of t_class
 -- ----------------------------
-INSERT INTO `t_class` VALUES ('BEL10120200301', 'BEL101', '美声入门', 40, 1, 1, 116193701, NULL, 1);
-INSERT INTO `t_class` VALUES ('BEL10120200302', 'BEL102', '美声入门', 20, 0, 0, 116193701, NULL, 1);
+INSERT INTO `t_class` VALUES ('BEL10120200301', 'BEL101', '美声入门', 40, 1, 1, 116193701, 691874000, 1);
+INSERT INTO `t_class` VALUES ('BEL10220200301', 'BEL102', '美声入门', 20, 0, 0, 116193701, 691874001, 1);
 INSERT INTO `t_class` VALUES ('ZHE10120200301', 'ZHE101', '古筝初级', 40, 0, 0, 116193714, NULL, 1);
-INSERT INTO `t_class` VALUES ('ZHE10120200302', 'ZHE102', '古筝初级', 20, 0, 0, 116193714, NULL, 1);
+INSERT INTO `t_class` VALUES ('ZHE10220200301', 'ZHE102', '古筝初级', 20, 0, 0, 116193714, NULL, 1);
 
 -- ----------------------------
 -- Table structure for t_course
@@ -187,9 +187,18 @@ CREATE TABLE `t_courseware`  (
 DROP TABLE IF EXISTS `t_department`;
 CREATE TABLE `t_department`  (
   `department_id` int(11) NOT NULL COMMENT '部门id',
-  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '部门名称',
+  `department_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '部门名称',
   PRIMARY KEY (`department_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of t_department
+-- ----------------------------
+INSERT INTO `t_department` VALUES (45000, '销售-宣传');
+INSERT INTO `t_department` VALUES (45001, '销售-招生');
+INSERT INTO `t_department` VALUES (45002, '管理');
+INSERT INTO `t_department` VALUES (47000, '教育-声乐');
+INSERT INTO `t_department` VALUES (47001, '教育-乐器');
 
 -- ----------------------------
 -- Table structure for t_file
@@ -351,7 +360,15 @@ CREATE TABLE `t_messageboard`  (
   CONSTRAINT `messageboard_class` FOREIGN KEY (`class_code`) REFERENCES `t_class` (`class_code`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `messageboard_reply` FOREIGN KEY (`reply`) REFERENCES `t_messageboard` (`message_serial`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `messageboard_uploader` FOREIGN KEY (`uploader_id`) REFERENCES `t_user` (`uid`) ON DELETE RESTRICT ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 789004006 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of t_messageboard
+-- ----------------------------
+INSERT INTO `t_messageboard` VALUES (789004002, 116193704, 'hello world！', '2020-05-31 00:54:19', 'ZHE10120200301', NULL);
+INSERT INTO `t_messageboard` VALUES (789004003, 116193704, 'What is the homework today?', '2020-05-31 01:02:55', 'ZHE10120200301', NULL);
+INSERT INTO `t_messageboard` VALUES (789004004, 116193704, 'Is there going to be a test tomorrow?', '2020-05-31 01:03:53', 'ZHE10120200301', NULL);
+INSERT INTO `t_messageboard` VALUES (789004005, 116193704, 'Today‘s lecture is fairly hard, could it be a little easier next time?', '2020-05-31 01:06:38', 'ZHE10120200301', NULL);
 
 -- ----------------------------
 -- Table structure for t_recruit
@@ -421,7 +438,13 @@ CREATE TABLE `t_salary`  (
   PRIMARY KEY (`salary_serial`) USING BTREE,
   INDEX `salary_stuff`(`stuff_id`) USING BTREE,
   CONSTRAINT `salary_stuff` FOREIGN KEY (`stuff_id`) REFERENCES `t_user` (`uid`) ON DELETE RESTRICT ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 370749002 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of t_salary
+-- ----------------------------
+INSERT INTO `t_salary` VALUES (370749000, 116193701, 5000.00, 0, 4800, 200, 5, 2020);
+INSERT INTO `t_salary` VALUES (370749001, 116193714, 5000.00, 0, 4800, 200, 5, 2020);
 
 -- ----------------------------
 -- Table structure for t_schedule
@@ -439,12 +462,13 @@ CREATE TABLE `t_schedule`  (
   `end_date` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '结束日期',
   PRIMARY KEY (`schedule_serial`) USING BTREE,
   INDEX `year`(`year`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 691874001 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 691874002 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_schedule
 -- ----------------------------
-INSERT INTO `t_schedule` VALUES (691874000, 'ZHE101202002', '09：00', '10：00', '星期三', 2020, '春季', '3.1', '6.1');
+INSERT INTO `t_schedule` VALUES (691874000, 'ZHE10120200301', '09：00', '10：00', '星期三', 2020, '春季', '3.1', '6.1');
+INSERT INTO `t_schedule` VALUES (691874001, 'ZHE10220200301', '11：30', '12：30', '星期三', 2020, '春季', '3.1', '6.1');
 
 -- ----------------------------
 -- Table structure for t_stucourse
@@ -491,6 +515,14 @@ CREATE TABLE `t_stuff`  (
   CONSTRAINT `stuff_department` FOREIGN KEY (`department_id`) REFERENCES `t_department` (`department_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `stuff_id` FOREIGN KEY (`stuff_id`) REFERENCES `t_user` (`uid`) ON DELETE RESTRICT ON UPDATE CASCADE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of t_stuff
+-- ----------------------------
+INSERT INTO `t_stuff` VALUES (116193701, 47000, '教师');
+INSERT INTO `t_stuff` VALUES (116193706, 47000, '教师');
+INSERT INTO `t_stuff` VALUES (116193710, 47001, '教师');
+INSERT INTO `t_stuff` VALUES (116193714, 47001, '教师');
 
 -- ----------------------------
 -- Table structure for t_teacourse

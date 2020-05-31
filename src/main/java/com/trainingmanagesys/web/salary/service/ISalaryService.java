@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.trainingmanagesys.web.salary.vo.AddSalaryVO;
 import com.trainingmanagesys.web.salary.vo.ListSalaryVO;
 import com.trainingmanagesys.web.salary.vo.SalaryVO;
+import com.trainingmanagesys.web.stuff.entity.Stuff;
 
 import java.util.List;
 
@@ -30,4 +31,6 @@ public interface ISalaryService extends IService<Salary> {
     List<Salary> listSalary(ListSalaryVO vo);
 
     IPage<Salary> pagedListSalary(SalaryVO vo);
+
+    List<Stuff> listStuffByYearAndMonth(Integer year, Integer month);
 }

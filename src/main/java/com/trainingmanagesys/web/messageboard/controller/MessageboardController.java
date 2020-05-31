@@ -77,8 +77,10 @@ public class MessageboardController {
     }
 
     @ApiOperation(value = "列所有留言")
+    @ApiImplicitParam(name = "classCode", value = "班级号", dataType = "String" +
+            "", required = true)
     @PostMapping("/listMessage")
-    public List<Messageboard> listMessage(){
-        return messageboardService.listMessage();
+    public List<Messageboard> listMessage(@NotNull(message = "请指明班级") String classCode){
+        return messageboardService.listMessage(classCode);
     }
 }

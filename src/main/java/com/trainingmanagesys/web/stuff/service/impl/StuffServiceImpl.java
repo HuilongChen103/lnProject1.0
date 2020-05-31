@@ -8,6 +8,7 @@ import com.trainingmanagesys.web.stuff.entity.Stuff;
 import com.trainingmanagesys.web.stuff.dao.StuffMapper;
 import com.trainingmanagesys.web.stuff.service.IStuffService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.trainingmanagesys.web.stuff.vo.ReturnedSpecialListStuffVO;
 import com.trainingmanagesys.web.stuff.vo.StuffVO;
 import org.springframework.stereotype.Service;
 
@@ -80,5 +81,11 @@ public class StuffServiceImpl extends ServiceImpl<StuffMapper, Stuff> implements
         page.setCurrent(vo.getCurrentPage());
         page.setSize(vo.getPageSize());
         return baseMapper.selectPage(page, queryWrapper);
+    }
+
+    @Override
+    public List<ReturnedSpecialListStuffVO> listSpecializedStuff(Stuff stuff) {
+        System.out.println(stuff);
+        return baseMapper.listSpecializedStuff(stuff);
     }
 }

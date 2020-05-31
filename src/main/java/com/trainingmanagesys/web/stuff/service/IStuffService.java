@@ -3,6 +3,7 @@ package com.trainingmanagesys.web.stuff.service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.trainingmanagesys.web.stuff.entity.Stuff;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.trainingmanagesys.web.stuff.vo.ReturnedSpecialListStuffVO;
 import com.trainingmanagesys.web.stuff.vo.StuffVO;
 
 import java.util.List;
@@ -28,4 +29,6 @@ public interface IStuffService extends IService<Stuff> {
     List<Stuff> listStuff(StuffVO vo);
 
     IPage<Stuff> pagedListStuff(StuffVO vo);
+
+    List<ReturnedSpecialListStuffVO> listSpecializedStuff(Stuff stuff);
 }

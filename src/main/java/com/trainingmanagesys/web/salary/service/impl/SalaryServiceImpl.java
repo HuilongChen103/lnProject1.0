@@ -11,6 +11,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.trainingmanagesys.web.salary.vo.AddSalaryVO;
 import com.trainingmanagesys.web.salary.vo.ListSalaryVO;
 import com.trainingmanagesys.web.salary.vo.SalaryVO;
+import com.trainingmanagesys.web.stuff.entity.Stuff;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -104,5 +105,10 @@ public class SalaryServiceImpl extends ServiceImpl<SalaryMapper, Salary> impleme
         page.setCurrent(vo.getCurrentPage());
         page.setSize(vo.getPageSize());
         return baseMapper.selectPage(page, queryWrapper);
+    }
+
+    @Override
+    public List<Stuff> listStuffByYearAndMonth(Integer year, Integer month) {
+        return null;
     }
 }
