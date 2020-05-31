@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.trainingmanagesys.web.goods.entity.Goods;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.trainingmanagesys.web.goods.vo.GoodsVO;
+import com.trainingmanagesys.web.goods.vo.ReturnedListGoodsVO;
 
 import java.util.List;
 
@@ -25,7 +26,7 @@ public interface IGoodsService extends IService<Goods> {
 
     Goods getGoods(String goodsCode);
 
-    List<Goods> listGoods(GoodsVO vo);
+    List<ReturnedListGoodsVO> listGoods(Goods vo);
 
     IPage<Goods> pagedListGoods(GoodsVO vo);
 }

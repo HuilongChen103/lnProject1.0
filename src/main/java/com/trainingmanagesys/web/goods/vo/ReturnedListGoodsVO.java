@@ -1,11 +1,15 @@
 package com.trainingmanagesys.web.goods.vo;
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.trainingmanagesys.utils.ValidationGroup;
+import com.trainingmanagesys.web.goods.validator.UpdateGoodsValidator;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+import org.hibernate.validator.group.GroupSequenceProvider;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -22,26 +26,28 @@ import java.util.Date;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-public class GoodsVO implements Serializable, ValidationGroup {
+public class ReturnedListGoodsVO implements Serializable, ValidationGroup {
 
     private static final long serialVersionUID = 1L;
 
     /**
+     * 物资编号
+     */
+    private String goodsCode;
+
+    /**
      * 采办人id(person in charge)
      */
-    @NotNull(groups = updateGroup.class, message = "请输入信息，不能全部为空")
     private Long picId;
 
     /**
      * 物资名称
      */
-    @NotNull(groups = addAdditionGroup.class, message = "请指明物资名称")
     private String name;
 
     /**
      * 类目
      */
-    @NotNull(groups = addAdditionGroup.class, message = "请指明物资类目")
     private String catagory;
 
     /**
@@ -59,21 +65,17 @@ public class GoodsVO implements Serializable, ValidationGroup {
     /**
      * 价格
      */
-    private Double priceMax;
-
-    private Double priceMin;
+    private Double price;
 
     /**
      * 现在的地点（房间号）
      */
     private Integer roomNum;
 
-    private Integer limit;
+    /**
+     * 备注
+     */
+    private String comment;
 
-    @NotNull(groups = listKeyGroup.class, message = "请指明当前页面")
-    private Integer currentPage;
-
-    @NotNull(groups = listKeyGroup.class, message = "请指明页面大小")
-    private Integer pageSize;
-
+    private String usage;
 }

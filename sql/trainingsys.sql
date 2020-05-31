@@ -11,7 +11,7 @@
  Target Server Version : 50728
  File Encoding         : 65001
 
- Date: 31/05/2020 13:22:36
+ Date: 31/05/2020 16:09:32
 */
 
 SET NAMES utf8mb4;
@@ -112,10 +112,10 @@ CREATE TABLE `t_class`  (
 -- ----------------------------
 -- Records of t_class
 -- ----------------------------
-INSERT INTO `t_class` VALUES ('BEL10120200301', 'BEL101', '美声入门', 40, 1, 1, 116193701, 691874000, 1);
-INSERT INTO `t_class` VALUES ('BEL10220200301', 'BEL102', '美声入门', 20, 0, 0, 116193701, 691874001, 1);
-INSERT INTO `t_class` VALUES ('ZHE10120200301', 'ZHE101', '古筝初级', 40, 0, 0, 116193714, NULL, 1);
-INSERT INTO `t_class` VALUES ('ZHE10220200301', 'ZHE102', '古筝初级', 20, 0, 0, 116193714, NULL, 1);
+INSERT INTO `t_class` VALUES ('BEL10120200301', 'BEL101', '美声入门', 20, 1, 1, 116193701, 691874000, 1);
+INSERT INTO `t_class` VALUES ('BEL10220200301', 'BEL102', '美声入门', 10, 0, 0, 116193701, 691874001, 1);
+INSERT INTO `t_class` VALUES ('ZHE10120200301', 'ZHE101', '古筝初级', 20, 0, 0, 116193714, NULL, 1);
+INSERT INTO `t_class` VALUES ('ZHE10220200301', 'ZHE102', '古筝初级', 10, 0, 0, 116193714, NULL, 1);
 
 -- ----------------------------
 -- Table structure for t_course
@@ -134,8 +134,8 @@ CREATE TABLE `t_course`  (
 -- ----------------------------
 -- Records of t_course
 -- ----------------------------
-INSERT INTO `t_course` VALUES ('ARR101', '编曲初级', '1小时', '声乐', '教授编曲初级知识技巧，适合初学者。', 30);
-INSERT INTO `t_course` VALUES ('ARR201', '编曲中级', '1.5小时', '声乐', '教授编曲初级知识技巧，适合有所学习的学员。', 40);
+INSERT INTO `t_course` VALUES ('ARR101', '编曲初级', '1小时', '声乐', '教授编曲初级知识技巧，适合新手。', 30);
+INSERT INTO `t_course` VALUES ('ARR201', '编曲中级', '1.5小时', '声乐', '教授编曲中级知识技巧，适合有所学习的学员。', 40);
 INSERT INTO `t_course` VALUES ('ARR301', '编曲高级', '2小时', '声乐', '教授编曲高级知识技巧，适合熟悉编曲的学员。', 50);
 INSERT INTO `t_course` VALUES ('ARR401', '编曲业余', '2小时', '声乐', '教授编曲业余知识', 60);
 INSERT INTO `t_course` VALUES ('BEL101', '美声入门', '1小时', '声乐', '教授美声基本发声技巧和知识，适合美声入门者。', 30);
@@ -196,9 +196,10 @@ CREATE TABLE `t_department`  (
 -- ----------------------------
 INSERT INTO `t_department` VALUES (45000, '销售-宣传');
 INSERT INTO `t_department` VALUES (45001, '销售-招生');
-INSERT INTO `t_department` VALUES (45002, '管理');
+INSERT INTO `t_department` VALUES (46000, '人事-招聘');
 INSERT INTO `t_department` VALUES (47000, '教育-声乐');
 INSERT INTO `t_department` VALUES (47001, '教育-乐器');
+INSERT INTO `t_department` VALUES (48000, '管理');
 
 -- ----------------------------
 -- Table structure for t_file
@@ -266,6 +267,51 @@ CREATE TABLE `t_goods`  (
   CONSTRAINT `goods_PIC` FOREIGN KEY (`PIC_id`) REFERENCES `t_user` (`uid`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `goods_location` FOREIGN KEY (`room_num`) REFERENCES `t_room` (`room_num`) ON DELETE RESTRICT ON UPDATE CASCADE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of t_goods
+-- ----------------------------
+INSERT INTO `t_goods` VALUES ('CHA0001', 116193705, '椅子', '家具', '2015-07-15 15:38:49', NULL, 200.00, 101, NULL);
+INSERT INTO `t_goods` VALUES ('CHA0002', 116193705, '椅子', '家具', '2015-07-15 15:38:49', NULL, 200.00, 101, NULL);
+INSERT INTO `t_goods` VALUES ('CHA0003', 116193705, '椅子', '家具', '2015-07-15 15:38:49', NULL, 200.00, 101, NULL);
+INSERT INTO `t_goods` VALUES ('CHA0004', 116193705, '椅子', '家具', '2015-07-15 15:38:49', NULL, 200.00, 101, NULL);
+INSERT INTO `t_goods` VALUES ('CHA0005', 116193705, '椅子', '家具', '2015-07-15 15:38:49', NULL, 200.00, 101, NULL);
+INSERT INTO `t_goods` VALUES ('CHA0006', 116193705, '椅子', '家具', '2015-07-15 15:38:49', NULL, 200.00, 101, NULL);
+INSERT INTO `t_goods` VALUES ('CHA0007', 116193705, '椅子', '家具', '2015-07-15 15:38:49', NULL, 200.00, 101, NULL);
+INSERT INTO `t_goods` VALUES ('CHA0008', 116193705, '椅子', '家具', '2015-07-15 15:38:49', NULL, 200.00, 101, NULL);
+INSERT INTO `t_goods` VALUES ('CHA0009', 116193705, '椅子', '家具', '2015-07-15 15:38:49', NULL, 200.00, 101, NULL);
+INSERT INTO `t_goods` VALUES ('CHA0010', 116193705, '椅子', '家具', '2015-07-15 15:38:49', NULL, 200.00, 101, NULL);
+INSERT INTO `t_goods` VALUES ('CHA0011', 116193705, '椅子', '家具', '2015-07-15 15:38:49', NULL, 200.00, 101, NULL);
+INSERT INTO `t_goods` VALUES ('VOL0001', 116193703, '小提琴', '乐器', '2015-07-14 10:23:06', NULL, 1100.00, 103, NULL);
+INSERT INTO `t_goods` VALUES ('VOL0002', 116193703, '小提琴', '乐器', '2015-07-14 10:23:06', NULL, 1100.00, 103, NULL);
+INSERT INTO `t_goods` VALUES ('VOL0003', 116193703, '小提琴', '乐器', '2015-07-14 10:23:06', NULL, 1100.00, 103, NULL);
+INSERT INTO `t_goods` VALUES ('VOL0004', 116193703, '小提琴', '乐器', '2015-07-14 10:23:06', NULL, 1100.00, 103, NULL);
+INSERT INTO `t_goods` VALUES ('VOL0005', 116193703, '小提琴', '乐器', '2015-07-14 10:23:06', NULL, 1100.00, 103, NULL);
+INSERT INTO `t_goods` VALUES ('VOL0006', 116193703, '小提琴', '乐器', '2015-07-14 10:23:06', NULL, 1100.00, 103, NULL);
+INSERT INTO `t_goods` VALUES ('VOL0007', 116193703, '小提琴', '乐器', '2015-07-14 10:23:06', NULL, 1100.00, 103, NULL);
+INSERT INTO `t_goods` VALUES ('VOL0008', 116193703, '小提琴', '乐器', '2015-07-14 10:23:06', NULL, 1100.00, 103, NULL);
+INSERT INTO `t_goods` VALUES ('VOL0009', 116193703, '小提琴', '乐器', '2015-07-14 10:23:06', NULL, 1100.00, 103, NULL);
+INSERT INTO `t_goods` VALUES ('VOL0010', 116193703, '小提琴', '乐器', '2015-07-14 10:23:06', NULL, 1100.00, 103, NULL);
+INSERT INTO `t_goods` VALUES ('VOL0011', 116193703, '小提琴', '乐器', '2015-07-14 10:23:06', NULL, 1100.00, 103, NULL);
+INSERT INTO `t_goods` VALUES ('WAT0001', 116193702, '饮水器', '电器', '2015-07-15 09:29:53', NULL, 500.00, 104, NULL);
+INSERT INTO `t_goods` VALUES ('WAT0002', 116193702, '饮水器', '电器', '2015-07-15 09:29:53', NULL, 500.00, 204, NULL);
+INSERT INTO `t_goods` VALUES ('WAT0003', 116193702, '饮水器', '电器', '2015-07-15 09:29:53', NULL, 500.00, 304, NULL);
+INSERT INTO `t_goods` VALUES ('WAT0004', 116193702, '饮水器', '电器', '2015-07-15 09:29:53', NULL, 500.00, 404, NULL);
+INSERT INTO `t_goods` VALUES ('WAT0005', 116193702, '饮水器', '电器', '2015-07-15 09:29:53', NULL, 500.00, 505, NULL);
+INSERT INTO `t_goods` VALUES ('WAT0006', 116193702, '饮水器', '电器', '2015-07-15 09:29:53', NULL, 500.00, 505, NULL);
+INSERT INTO `t_goods` VALUES ('WAT0007', 116193702, '饮水器', '电器', '2015-07-15 09:29:53', NULL, 500.00, 505, NULL);
+INSERT INTO `t_goods` VALUES ('WAT0008', 116193702, '饮水器', '电器', '2015-07-15 09:29:53', NULL, 500.00, 505, NULL);
+INSERT INTO `t_goods` VALUES ('ZHE0001', 116193703, '古筝', '乐器', '2015-07-15 15:29:44', NULL, 1200.00, 101, NULL);
+INSERT INTO `t_goods` VALUES ('ZHE0002', 116193703, '古筝', '乐器', '2015-07-15 15:35:00', NULL, 1200.00, 101, NULL);
+INSERT INTO `t_goods` VALUES ('ZHE0003', 116193703, '古筝', '乐器', '2015-07-15 15:38:41', NULL, 1200.00, 101, NULL);
+INSERT INTO `t_goods` VALUES ('ZHE0004', 116193703, '古筝', '乐器', '2015-07-15 15:39:29', NULL, 1200.00, 101, NULL);
+INSERT INTO `t_goods` VALUES ('ZHE0005', 116193703, '古筝', '乐器', '2015-07-15 15:45:09', NULL, 1200.00, 101, NULL);
+INSERT INTO `t_goods` VALUES ('ZHE0006', 116193703, '古筝', '乐器', '2015-07-15 15:48:30', NULL, 1200.00, 101, NULL);
+INSERT INTO `t_goods` VALUES ('ZHE0007', 116193703, '古筝', '乐器', '2015-07-15 15:50:39', NULL, 1200.00, 101, NULL);
+INSERT INTO `t_goods` VALUES ('ZHE0008', 116193703, '古筝', '乐器', '2015-07-15 15:51:09', NULL, 1200.00, 101, NULL);
+INSERT INTO `t_goods` VALUES ('ZHE0009', 116193703, '古筝', '乐器', '2015-07-15 15:52:48', NULL, 1200.00, 101, NULL);
+INSERT INTO `t_goods` VALUES ('ZHE0010', 116193703, '古筝', '乐器', '2015-07-15 15:53:49', NULL, 1200.00, 101, NULL);
+INSERT INTO `t_goods` VALUES ('ZHE0011', 116193703, '古筝', '乐器', '2015-07-15 15:54:43', NULL, 1200.00, 101, NULL);
 
 -- ----------------------------
 -- Table structure for t_goodsusage
@@ -421,6 +467,50 @@ CREATE TABLE `t_room`  (
   PRIMARY KEY (`room_num`) USING BTREE,
   INDEX `room_num`(`room_num`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of t_room
+-- ----------------------------
+INSERT INTO `t_room` VALUES (101, '教室', 1);
+INSERT INTO `t_room` VALUES (102, '教室', 1);
+INSERT INTO `t_room` VALUES (103, '教室', 1);
+INSERT INTO `t_room` VALUES (104, '茶水间', 1);
+INSERT INTO `t_room` VALUES (105, '休息室', 1);
+INSERT INTO `t_room` VALUES (106, '卫生间', 1);
+INSERT INTO `t_room` VALUES (107, '教室', 1);
+INSERT INTO `t_room` VALUES (108, '办公室', 1);
+INSERT INTO `t_room` VALUES (201, '教室', 1);
+INSERT INTO `t_room` VALUES (202, '教室', 1);
+INSERT INTO `t_room` VALUES (203, '教室', 1);
+INSERT INTO `t_room` VALUES (204, '茶水间', 1);
+INSERT INTO `t_room` VALUES (205, '休息室', 1);
+INSERT INTO `t_room` VALUES (206, '卫生间', 1);
+INSERT INTO `t_room` VALUES (207, '教室', 1);
+INSERT INTO `t_room` VALUES (208, '办公室', 1);
+INSERT INTO `t_room` VALUES (301, '暂无', 0);
+INSERT INTO `t_room` VALUES (302, '暂无', 0);
+INSERT INTO `t_room` VALUES (303, '暂无', 0);
+INSERT INTO `t_room` VALUES (304, '茶水间', 1);
+INSERT INTO `t_room` VALUES (305, '休息室', 1);
+INSERT INTO `t_room` VALUES (306, '卫生间', 1);
+INSERT INTO `t_room` VALUES (307, '暂无', 0);
+INSERT INTO `t_room` VALUES (308, '暂无', 0);
+INSERT INTO `t_room` VALUES (401, '暂无', 0);
+INSERT INTO `t_room` VALUES (402, '暂无', 0);
+INSERT INTO `t_room` VALUES (403, '暂无', 0);
+INSERT INTO `t_room` VALUES (404, '茶水间', 1);
+INSERT INTO `t_room` VALUES (405, '休息室', 1);
+INSERT INTO `t_room` VALUES (406, '卫生间', 1);
+INSERT INTO `t_room` VALUES (407, '暂无', 0);
+INSERT INTO `t_room` VALUES (408, '暂无', 0);
+INSERT INTO `t_room` VALUES (501, '暂无', 0);
+INSERT INTO `t_room` VALUES (502, '暂无', 0);
+INSERT INTO `t_room` VALUES (503, '暂无', 0);
+INSERT INTO `t_room` VALUES (504, '暂无', 0);
+INSERT INTO `t_room` VALUES (505, '库房', 1);
+INSERT INTO `t_room` VALUES (506, '库房', 1);
+INSERT INTO `t_room` VALUES (507, '库房', 1);
+INSERT INTO `t_room` VALUES (508, '库房', 1);
 
 -- ----------------------------
 -- Table structure for t_salary

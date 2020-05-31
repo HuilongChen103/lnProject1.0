@@ -2,4 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.trainingmanagesys.web.goods.dao.GoodsMapper">
 
+    <select id="listGoods" parameterType="com.trainingmanagesys.web.goods.entity.Goods" resultType="com.trainingmanagesys.web.goods.vo.ReturnedListGoodsVO">
+        select a.*, b.usage from t_goods a, t_room b
+        <where>
+            a.room_num = b.room_num
+            <if test="name != null">
+                and a.name = #{name}
+            </if>
+            <if test=" catagory != null">
+                and a.catagory = #{catagory}
+            </if>
+            <if test="roomNum != null">
+                and a.room_num = #{roomNum}
+            </if>
+
+        </where>
+    </select>
 </mapper>

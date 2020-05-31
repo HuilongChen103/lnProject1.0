@@ -4,6 +4,7 @@ package com.trainingmanagesys.web.goods.controller;
 import com.trainingmanagesys.web.goods.entity.Goods;
 import com.trainingmanagesys.web.goods.service.IGoodsService;
 import com.trainingmanagesys.web.goods.vo.GoodsVO;
+import com.trainingmanagesys.web.goods.vo.ReturnedListGoodsVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -91,35 +92,29 @@ public class GoodsController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "name", value = "物资名称",  dataType = "String", required = false),
             @ApiImplicitParam(name = "catagory", value = "类目",  dataType = "String", required = false),
-            @ApiImplicitParam(name = "picId", value = "采办人id(person in charge)",  dataType = "Long", required = false),
-            @ApiImplicitParam(name = "stockInDate", value = "入库时间",  dataType = "Date", required = false),
-            @ApiImplicitParam(name = "stockOutDate", value = "出库时间",  dataType = "Date", required = false),
-            @ApiImplicitParam(name = "priceMax", value = "最大价格",  dataType = "Double", required = false),
-            @ApiImplicitParam(name = "priceMin", value = "最低价格",  dataType = "Double", required = false),
-            @ApiImplicitParam(name = "roomNum", value = "现在的地点（房间号）",  dataType = "Integer", required = false),
-            @ApiImplicitParam(name = "limit", value = "数量",  dataType = "Integer", required = false)
+            @ApiImplicitParam(name = "roomNum", value = "现在的地点（房间号）",  dataType = "Integer", required = false)
     })
     @PostMapping("/listGoods")
-    public List<Goods> listGoods(@RequestBody @Validated GoodsVO goods){
+    public List<ReturnedListGoodsVO> listGoods(@RequestBody Goods goods){
         return goodsService.listGoods(goods);
     }
 
-    @ApiOperation(value = "分页列物资")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "name", value = "物资名称",  dataType = "String", required = false),
-            @ApiImplicitParam(name = "catagory", value = "类目",  dataType = "String", required = false),
-            @ApiImplicitParam(name = "picId", value = "采办人id(person in charge)",  dataType = "Long", required = false),
-            @ApiImplicitParam(name = "stockInDate", value = "入库时间",  dataType = "Date", required = false),
-            @ApiImplicitParam(name = "stockOutDate", value = "出库时间",  dataType = "Date", required = false),
-            @ApiImplicitParam(name = "priceMax", value = "最大价格",  dataType = "Double", required = false),
-            @ApiImplicitParam(name = "priceMin", value = "最低价格",  dataType = "Double", required = false),
-            @ApiImplicitParam(name = "roomNum", value = "现在的地点（房间号）",  dataType = "Integer", required = false),
-            @ApiImplicitParam(name = "limit", value = "数量",  dataType = "Integer", required = false),
-            @ApiImplicitParam(name = "currentPage", value = "当前页面",  dataType = "Integer", required = false),
-            @ApiImplicitParam(name = "pageSize", value = "页面容量",  dataType = "Integer", required = false)
-    })
-    @PostMapping("/pagedListGoods")
-    public List<Goods> pagedListGoods(@RequestBody @Validated GoodsVO goods){
-        return goodsService.listGoods(goods);
-    }
+//    @ApiOperation(value = "分页列物资")
+//    @ApiImplicitParams({
+//            @ApiImplicitParam(name = "name", value = "物资名称",  dataType = "String", required = false),
+//            @ApiImplicitParam(name = "catagory", value = "类目",  dataType = "String", required = false),
+//            @ApiImplicitParam(name = "picId", value = "采办人id(person in charge)",  dataType = "Long", required = false),
+//            @ApiImplicitParam(name = "stockInDate", value = "入库时间",  dataType = "Date", required = false),
+//            @ApiImplicitParam(name = "stockOutDate", value = "出库时间",  dataType = "Date", required = false),
+//            @ApiImplicitParam(name = "priceMax", value = "最大价格",  dataType = "Double", required = false),
+//            @ApiImplicitParam(name = "priceMin", value = "最低价格",  dataType = "Double", required = false),
+//            @ApiImplicitParam(name = "roomNum", value = "现在的地点（房间号）",  dataType = "Integer", required = false),
+//            @ApiImplicitParam(name = "limit", value = "数量",  dataType = "Integer", required = false),
+//            @ApiImplicitParam(name = "currentPage", value = "当前页面",  dataType = "Integer", required = false),
+//            @ApiImplicitParam(name = "pageSize", value = "页面容量",  dataType = "Integer", required = false)
+//    })
+//    @PostMapping("/pagedListGoods")
+//    public List<Goods> pagedListGoods(@RequestBody @Validated GoodsVO goods){
+//        return goodsService.pagedListGoods(goods);
+//    }
 }
