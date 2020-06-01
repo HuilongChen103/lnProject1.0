@@ -36,6 +36,7 @@ public class ClazzServiceImpl extends ServiceImpl<ClazzMapper, Clazz> implements
     private Clazz checkClazzExistence(String classCode){
         Clazz tempClazz = getClazz(classCode, BaseConst.DATA_ENABLE);
         if (tempClazz == null){
+            // 自定义异常，并抛出异常
             APIException apiException = new APIException("该班级不存在");
             throw apiException;
         }

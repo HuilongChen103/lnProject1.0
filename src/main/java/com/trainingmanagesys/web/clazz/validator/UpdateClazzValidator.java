@@ -7,6 +7,7 @@ import org.hibernate.validator.spi.group.DefaultGroupSequenceProvider;
 import java.util.ArrayList;
 import java.util.List;
 
+// 逻辑校验类，通过继承DefaultGroupSequenceProvider并声明对象为Clazz来对Clazz类进行注解管理
 public class UpdateClazzValidator implements DefaultGroupSequenceProvider<Clazz> {
     @Override
     public List<Class<?>> getValidationGroups(Clazz clazz) {
@@ -16,6 +17,7 @@ public class UpdateClazzValidator implements DefaultGroupSequenceProvider<Clazz>
 
         if (null != clazz){
             if (clazz.getClassCode() == null){
+                // 添加校验group
                 defaultGroupSequence.add(Clazz.addKeyGroup.class);
                 return defaultGroupSequence;
             }

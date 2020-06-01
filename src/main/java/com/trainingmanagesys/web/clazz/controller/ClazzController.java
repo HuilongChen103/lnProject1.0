@@ -30,16 +30,23 @@ import java.util.List;
  * @author luoying
  * @since 2020-05-19
  */
+// 用于swagger文档，说明这个接口的标题和主要功能
 @Api(value = "班级审核", tags = {"班级审核接口"})
+// 结合@Controller（声明这是一个controller层）和@RequestBody（用于接收前端传递给后端的json数据）
 @RestController
+// 说明要映射的url，以便后端处理
 @RequestMapping("/clazz")
 public class ClazzController {
 
+    // 自动装配clazzService，避免多次创建clazzService，让他们都用这同一个，节省内存，提升效率
     @Autowired
     IClazzService clazzService;
 
+    // swagger文档说明这个方法的名字
     @ApiOperation(value = "添加班级")
+    // swagger文档说明变量
     @ApiImplicitParams({
+            // swagger文档声明变量名字、用途、类型、是否必传
             @ApiImplicitParam(name = "courseCode", value = "课程号",  dataType = "String", required = false),
             @ApiImplicitParam(name = "studentNum", value = "起始学生数量(开学的时候)",  dataType = "Integer", required = false),
             @ApiImplicitParam(name = "realNum", value = "实际学生数量",  dataType = "Integer", required = false),
@@ -47,8 +54,13 @@ public class ClazzController {
             @ApiImplicitParam(name = "teacherId", value = "教师id",  dataType = "Long", required = false),
             @ApiImplicitParam(name = "scheduleSerial", value = "日程安排编号",  dataType = "Long", required = false)
     })
+    // 用于接口映射
     @PostMapping("/addClazz")
+    // 事件回滚，如果方法执行的时候报错（比如这里是发生了Exception类的异常），就会滚这次操作
+    // 比如添加课程到一半的时候出错了，就取消这次添加，使其回到添加前的状态，避免存入错误的数据
     @Transactional(rollbackFor = Exception.class)
+    // @RequestBody声明传入json格式数据，并用Clazz类来接收
+    // @Validated用于声明要使用的校验组
     public String addClazz(@RequestBody @Validated({Clazz.addKeyGroup.class, Clazz.addAdditionGroup.class}) Clazz clazz){
         return clazzService.addClazz(clazz);
     }

@@ -21,6 +21,7 @@ import java.util.List;
  */
 public interface ClazzMapper extends BaseMapper<Clazz> {
 
+    // @Param用于声明要传入mysql语句中的参数，到时候可以用这个参数的值，直接替换#{}中指定的参数
     Clazz getClazz(@Param("classCode") String classCode, @Param("enable") Integer enable);
 
     List<ReturnedListClazzVO> listClazz(ClazzVO vo);
