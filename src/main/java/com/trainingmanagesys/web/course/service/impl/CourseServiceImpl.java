@@ -5,11 +5,16 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.exceptions.ApiException;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.trainingmanagesys.conf.exception.APIException;
+import com.trainingmanagesys.web.clazz.entity.Clazz;
+import com.trainingmanagesys.web.clazz.service.IClazzService;
+import com.trainingmanagesys.web.clazz.vo.ClazzVO;
+import com.trainingmanagesys.web.clazz.vo.ReturnedListClazzVO;
 import com.trainingmanagesys.web.course.entity.Course;
 import com.trainingmanagesys.web.course.dao.CourseMapper;
 import com.trainingmanagesys.web.course.service.ICourseService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.trainingmanagesys.web.course.vo.CourseVO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,6 +29,9 @@ import java.util.List;
  */
 @Service
 public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> implements ICourseService {
+
+    @Autowired
+    IClazzService clazzService;
 
     private Course checkCourseExistence(String courseCode){
         Course tempCourse = getCourse(courseCode);
@@ -52,8 +60,15 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 
     @Override
     public String deleteCourse(String courseCode) {
-        checkCourseExistence(courseCode);
-        String result = "删除课程失败";
+        String result = "删除课程失败，请先删除课程关联的班级";
+        Course temp = checkCourseExistence(courseCode);
+        ClazzVO vo = new ClazzVO();
+        vo.setCourseCode(courseCode);
+        List<ReturnedListClazzVO> tempList = clazzService.listClazz(vo);
+        if (tempList != null || tempList.size() != 0){
+            return result;
+        }
+
         int code = baseMapper.deleteById(courseCode);
         if (code == 1)
             result = "删除课程成功";
