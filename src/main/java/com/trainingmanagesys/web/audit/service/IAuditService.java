@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.trainingmanagesys.web.audit.entity.Audit;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.trainingmanagesys.web.audit.vo.AuditVO;
+import com.trainingmanagesys.web.audit.vo.ReturnAuditVO;
 
 import java.util.List;
 
@@ -21,11 +22,11 @@ public interface IAuditService extends IService<Audit> {
 
     String updateAudit(Audit audit);
 
-    Audit getAudit(Long auditSerial);
+    ReturnAuditVO getAudit(Long auditSerial);
 
     String deleteAudit(Long auditSerial);
 
-    List<Audit> listAudit(AuditVO audit);
+    List<ReturnAuditVO> listAudit(AuditVO audit);
 
-    IPage<Audit> pagedListAudit(AuditVO audit);
+    //IPage<ReturnAuditVO> pagedListAudit(AuditVO audit);
 }

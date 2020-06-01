@@ -11,7 +11,7 @@
  Target Server Version : 50728
  File Encoding         : 65001
 
- Date: 31/05/2020 16:09:32
+ Date: 01/06/2020 17:22:28
 */
 
 SET NAMES utf8mb4;
@@ -49,10 +49,10 @@ CREATE TABLE `t_audit`  (
   `auditor_id` int(11) NULL DEFAULT NULL COMMENT '审核人id',
   `applicant_id` int(11) NULL DEFAULT NULL COMMENT '申请人id',
   `event_code` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '事件编号(招聘，物资调用，退课...)',
-  `event` enum('请假','调休','物资调用','转岗','退课','辞职','物资采购') CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '事件类型',
+  `event` enum('学生请假','职工请假','调休','物资调用','转岗','退课','辞职','物资采购') CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '事件类型',
   `apply_date` timestamp(0) NULL DEFAULT NULL COMMENT '申请时间',
   `audit_date` timestamp(0) NULL DEFAULT NULL COMMENT '审核时间',
-  `state` enum('通过','未通过','待审核') CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '审核状态(通过，未通过...)',
+  `state` enum('通过','未通过','待审核') CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '待审核' COMMENT '审核状态(通过，未通过...)',
   `comment` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`audit_serial`) USING BTREE,
   INDEX `audit_auditor`(`auditor_id`) USING BTREE,
@@ -386,7 +386,12 @@ CREATE TABLE `t_homeworkarrange`  (
   INDEX `hwarrange_file`(`arrange_file`) USING BTREE,
   CONSTRAINT `hwarrange_class` FOREIGN KEY (`class_code`) REFERENCES `t_class` (`class_code`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `hwarrange_file` FOREIGN KEY (`arrange_file`) REFERENCES `t_file` (`file_serial`) ON DELETE RESTRICT ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 7747001 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of t_homeworkarrange
+-- ----------------------------
+INSERT INTO `t_homeworkarrange` VALUES (7747000, NULL, NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for t_messageboard
@@ -691,7 +696,7 @@ INSERT INTO `t_user` VALUES (116193708, '柳儒彦', '男', '1995-10-21', '学�
 INSERT INTO `t_user` VALUES (116193709, '秋观雪', '女', '1994-04-06', '学生', '17898764588', 1, '666666', 'offline');
 INSERT INTO `t_user` VALUES (116193710, '叶翎', '男', '1987-11-10', '老师', '14926302108', 1, '666666', 'offline');
 INSERT INTO `t_user` VALUES (116193711, '谭筱', '女', '2001-03-12', '学生', '18837482930', 1, '666666', 'offline');
-INSERT INTO `t_user` VALUES (116193712, '韩岳凡', '男', '1990-04-21', '学生', '16627392039', 1, '666666', 'offline');
+INSERT INTO `t_user` VALUES (116193712, '韩岳凡', '男', '1990-04-21', '学生', '16627392039', 1, '666666', 'online');
 INSERT INTO `t_user` VALUES (116193713, '崔昀', '男', '1995-12-14', '学生', '16738392900', 1, '666666', 'offline');
 INSERT INTO `t_user` VALUES (116193714, '兰喃', '女', '1989-05-25', '老师', '18928394778', 1, '666666', 'offline');
 INSERT INTO `t_user` VALUES (116193715, '陈晖', '男', '1997-04-01', '管理员', '15878652667', 1, '666666', 'offline');
