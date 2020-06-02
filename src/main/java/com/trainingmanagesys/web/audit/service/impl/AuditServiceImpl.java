@@ -16,6 +16,7 @@ import com.trainingmanagesys.web.user.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -109,7 +110,7 @@ public class AuditServiceImpl extends ServiceImpl<AuditMapper, Audit> implements
         if (audit.getState() != null) queryWrapper.eq("state", audit.getState());
         if (audit.getLimit() != null) queryWrapper.last(" limit " + audit.getLimit());
         List<Audit> tempList = baseMapper.selectList(queryWrapper);
-        List<ReturnAuditVO> resultList = null;
+        List<ReturnAuditVO> resultList = new ArrayList<>();
         for (Audit item : tempList){
             resultList.add(audit2ReturnAuditVO(item));
         }
