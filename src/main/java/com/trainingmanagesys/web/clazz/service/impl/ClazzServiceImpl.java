@@ -33,6 +33,7 @@ public class ClazzServiceImpl extends ServiceImpl<ClazzMapper, Clazz> implements
     @Autowired
     IScheduleService scheduleService;
 
+
     private Clazz checkClazzExistence(String classCode){
         Clazz tempClazz = getClazz(classCode, BaseConst.DATA_ENABLE);
         if (tempClazz == null){
@@ -69,8 +70,9 @@ public class ClazzServiceImpl extends ServiceImpl<ClazzMapper, Clazz> implements
         checkClazzExistence(classCode);
         String result = "删除班级失败";
         int code = baseMapper.deleteById(classCode);
-        if (code == 1)
+        if (code == 1){
             result = "删除班级成功";
+        }
         return result;
     }
 

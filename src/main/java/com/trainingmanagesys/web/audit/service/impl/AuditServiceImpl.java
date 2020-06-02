@@ -56,7 +56,7 @@ public class AuditServiceImpl extends ServiceImpl<AuditMapper, Audit> implements
         User auditUser = userService.getUser(vo.getAuditorId(), BaseConst.DATA_ENABLE);
         User applicatentUser = userService.getUser(vo.getApplicantId(), BaseConst.DATA_ENABLE);
         vo.setAuditorName(auditUser.getName());
-        vo.setApplicantName(auditUser.getName());
+        vo.setApplicantName(applicatentUser.getName());
         return vo;
     }
 
@@ -67,6 +67,7 @@ public class AuditServiceImpl extends ServiceImpl<AuditMapper, Audit> implements
         if (code == 1)
             result = "添加审计成功";
         return result;
+
     }
 
     @Override
