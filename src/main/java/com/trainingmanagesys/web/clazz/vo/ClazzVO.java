@@ -46,6 +46,8 @@ public class ClazzVO implements Serializable, ValidationGroup {
      */
     private Long scheduleSerial;
 
+    private Long roomNum;
+
     private Integer limit;
 
     private Integer enable;

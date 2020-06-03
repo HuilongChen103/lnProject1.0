@@ -100,4 +100,6 @@ public class Clazz implements Serializable, ValidationGroup {
     private Long scheduleSerial;
 
     private Integer enable;
+
+    private Long roomNum;
 }

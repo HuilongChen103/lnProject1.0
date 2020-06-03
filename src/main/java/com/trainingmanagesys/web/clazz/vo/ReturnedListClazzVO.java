@@ -74,4 +74,6 @@ public class ReturnedListClazzVO implements Serializable, ValidationGroup {
     private Long scheduleSerial;
 
     private String scheduleTime;
+
+    private Long roomNum;
 }

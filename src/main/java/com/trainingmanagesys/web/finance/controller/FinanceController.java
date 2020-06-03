@@ -77,7 +77,7 @@ public class FinanceController {
 
     @ApiOperation(value = "根据开支流水号删除财务记录")
     @ApiImplicitParam(name = "financeCode", value = "开支流水号", dataType = "String", required = true)
-    @GetMapping("/deleteFinance")
+    @DeleteMapping("/deleteFinance")
     public String deleteFinance(@NotNull(message = "请指明开支流水号") String financeCode){
         return financeService.deleteFinance(financeCode);
     }

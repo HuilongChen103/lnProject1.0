@@ -5,7 +5,7 @@
     <!--相当于一个变量，用于存储返回的值-->
     <sql id="clazz_column_list">
         a.class_code, a.course_code, b.course_name, a.student_num, a.real_num,
-         a.student_max, a.teacher_id, c.name, a.schedule_serial, a.enable
+         a.student_max, a.teacher_id, c.name, a.schedule_serial, a.enable, a.room_num
     </sql>
 
     <!--声明select语句，id为其映射的函数，当调用该函数时，则调用该sql语句，resultType说明返回值的类型-->
@@ -40,6 +40,9 @@
                 and a.course_code in (
                     select course_code from t_course where course_name like concat('%' ,#{courseName}, '%')
                 )
+            </if>
+            <if test="roomNum != null">
+                and a.room_num = #{roomNum}
             </if>
         </where>
     </select>

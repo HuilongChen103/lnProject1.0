@@ -52,6 +52,7 @@ public class ClazzController {
             @ApiImplicitParam(name = "realNum", value = "实际学生数量",  dataType = "Integer", required = false),
             @ApiImplicitParam(name = "studentMax", value = "最大学生数量",  dataType = "Integer", required = false),
             @ApiImplicitParam(name = "teacherId", value = "教师id",  dataType = "Long", required = false),
+            @ApiImplicitParam(name = "roomNum", value = "房间号",  dataType = "Long", required = false),
             @ApiImplicitParam(name = "scheduleSerial", value = "日程安排编号",  dataType = "Long", required = false)
     })
     // 用于接口映射
@@ -73,6 +74,7 @@ public class ClazzController {
             @ApiImplicitParam(name = "realNum", value = "实际学生数量",  dataType = "Integer", required = false),
             @ApiImplicitParam(name = "studentMax", value = "最大学生数量",  dataType = "Integer", required = false),
             @ApiImplicitParam(name = "teacherId", value = "教师id",  dataType = "Long", required = false),
+            @ApiImplicitParam(name = "roomNum", value = "房间号",  dataType = "Long", required = false),
             @ApiImplicitParam(name = "scheduleSerial", value = "日程安排编号",  dataType = "Long", required = false)
     })
     @PostMapping("/updateClazz")
@@ -108,7 +110,7 @@ public class ClazzController {
             @ApiImplicitParam(name = "courseCode", value = "课程号",  dataType = "String", required = false),
             @ApiImplicitParam(name = "courseName", value = "课程名称",  dataType = "String", required = false),
             @ApiImplicitParam(name = "teacherId", value = "教师id",  dataType = "Long", required = false),
-            @ApiImplicitParam(name = "limit", value = "数量",  dataType = "Integer", required = false)
+            @ApiImplicitParam(name = "roomNum", value = "房间号",  dataType = "Long", required = false)
     })
     @PostMapping("/listClazz")
     public List<ReturnedListClazzVO> listClazz(@RequestBody ClazzVO vo){
@@ -121,6 +123,7 @@ public class ClazzController {
             @ApiImplicitParam(name = "courseName", value = "课程名称",  dataType = "String", required = false),
             @ApiImplicitParam(name = "teacherId", value = "教师id",  dataType = "Long", required = false),
             @ApiImplicitParam(name = "currentPage", value = "当前页面",  dataType = "Integer", required = true),
+            @ApiImplicitParam(name = "roomNum", value = "房间号",  dataType = "Long", required = false),
             @ApiImplicitParam(name = "pageSize", value = "页面数量",  dataType = "Integer", required = true)
     })
     @PostMapping("/pagedListClazz")

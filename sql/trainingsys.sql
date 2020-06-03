@@ -11,7 +11,7 @@
  Target Server Version : 50728
  File Encoding         : 65001
 
- Date: 03/06/2020 11:03:22
+ Date: 03/06/2020 17:25:25
 */
 
 SET NAMES utf8mb4;
@@ -97,23 +97,26 @@ CREATE TABLE `t_class`  (
   `real_num` int(11) NULL DEFAULT NULL COMMENT '实际学生数量',
   `teacher_id` int(11) NULL DEFAULT NULL COMMENT '教师id',
   `schedule_serial` int(11) NULL DEFAULT NULL COMMENT '日程安排编号',
-  `enable` int(11) NULL DEFAULT 1,
+  `enable` int(11) NULL DEFAULT 1 COMMENT '是否有效',
+  `room_num` int(11) NULL DEFAULT NULL COMMENT '房间号',
   PRIMARY KEY (`class_code`) USING BTREE,
   INDEX `class_course`(`course_code`) USING BTREE,
   INDEX `class_teacher`(`teacher_id`) USING BTREE,
   INDEX `class_schedule`(`schedule_serial`) USING BTREE,
+  INDEX `class_room`(`room_num`) USING BTREE,
   CONSTRAINT `class_course` FOREIGN KEY (`course_code`) REFERENCES `t_course` (`course_code`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `class_schedule` FOREIGN KEY (`schedule_serial`) REFERENCES `t_schedule` (`schedule_serial`) ON DELETE RESTRICT ON UPDATE CASCADE,
-  CONSTRAINT `class_teacher` FOREIGN KEY (`teacher_id`) REFERENCES `t_user` (`uid`) ON DELETE RESTRICT ON UPDATE CASCADE
+  CONSTRAINT `class_teacher` FOREIGN KEY (`teacher_id`) REFERENCES `t_user` (`uid`) ON DELETE RESTRICT ON UPDATE CASCADE,
+  CONSTRAINT `class_room` FOREIGN KEY (`room_num`) REFERENCES `t_room` (`room_num`) ON DELETE RESTRICT ON UPDATE CASCADE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_class
 -- ----------------------------
-INSERT INTO `t_class` VALUES ('BEL10120200301', 'BEL101', '美声入门', 20, 2, 2, 116193701, 691874000, 1);
-INSERT INTO `t_class` VALUES ('BEL10220200301', 'BEL102', '美声入门', 10, 0, 0, 116193701, 691874001, 1);
-INSERT INTO `t_class` VALUES ('ZHE10120200301', 'ZHE101', '古筝初级', 20, 1, 1, 116193714, NULL, 1);
-INSERT INTO `t_class` VALUES ('ZHE10220200301', 'ZHE102', '古筝初级', 10, 0, 0, 116193714, NULL, 1);
+INSERT INTO `t_class` VALUES ('BEL10120200301', 'BEL101', '美声入门', 20, 2, 2, 116193701, 691874000, 1, 102);
+INSERT INTO `t_class` VALUES ('BEL10220200301', 'BEL102', '美声入门', 10, 0, 0, 116193701, 691874001, 1, 102);
+INSERT INTO `t_class` VALUES ('ZHE10120200301', 'ZHE101', '古筝初级', 20, 1, 1, 116193714, 691874002, 1, 101);
+INSERT INTO `t_class` VALUES ('ZHE10220200301', 'ZHE102', '古筝初级', 10, 0, 0, 116193714, 691874003, 1, 101);
 
 -- ----------------------------
 -- Table structure for t_course
@@ -580,13 +583,15 @@ CREATE TABLE `t_schedule`  (
   `end_date` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '结束日期',
   PRIMARY KEY (`schedule_serial`) USING BTREE,
   INDEX `year`(`year`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 691874002 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 691874005 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_schedule
 -- ----------------------------
-INSERT INTO `t_schedule` VALUES (691874000, 'ZHE10120200301', '09：00', '10：00', '星期三', 2020, '春季', '3.1', '6.1');
-INSERT INTO `t_schedule` VALUES (691874001, 'ZHE10220200301', '11：30', '12：30', '星期三', 2020, '春季', '3.1', '6.1');
+INSERT INTO `t_schedule` VALUES (691874000, 'BEL10120200301', '09:00', '10:00', '星期三', 2020, '春季', '3.1', '6.1');
+INSERT INTO `t_schedule` VALUES (691874001, 'BEL10220200301', '11:30', '12:30', '星期三', 2020, '春季', '3.1', '6.1');
+INSERT INTO `t_schedule` VALUES (691874002, 'ZHE10120200301', '14:00', '15:00', '星期四', 2020, '夏季', '6.3', '9.3');
+INSERT INTO `t_schedule` VALUES (691874003, 'ZHE10220200301', '10:00', '11:00', '星期四', 2020, '夏季', '6.3', '9.3');
 
 -- ----------------------------
 -- Table structure for t_stucourse
