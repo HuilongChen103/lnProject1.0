@@ -3,6 +3,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.trainingmanagesys.web.user.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.trainingmanagesys.web.user.vo.PagedListUserVO;
+import com.trainingmanagesys.web.user.vo.ReturnedListUserVO;
 
 import java.util.List;
 
@@ -25,7 +26,7 @@ public interface IUserService extends IService<User> {
 
     String getPosition(Long uid);
 
-    List<User> listUser(PagedListUserVO vo);
+    List<ReturnedListUserVO> listUser(User user);
 
     IPage<User> pagedListUser(PagedListUserVO vo);
 

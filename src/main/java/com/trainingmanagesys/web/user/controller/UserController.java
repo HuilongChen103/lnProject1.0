@@ -8,6 +8,7 @@ import com.trainingmanagesys.web.user.entity.User;
 import com.trainingmanagesys.web.user.service.IUserService;
 import com.trainingmanagesys.web.user.vo.LoginVO;
 import com.trainingmanagesys.web.user.vo.PagedListUserVO;
+import com.trainingmanagesys.web.user.vo.ReturnedListUserVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -93,15 +94,16 @@ public class UserController {
         return userService.deleteUser(uid);
     }
 
-    @ApiOperation(value = "根据职位、登陆状态列用户")
+    @ApiOperation(value = "列用户")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "position", value = "用户职位", dataType = "String", required = false),
-            @ApiImplicitParam(name = "state", value = "用户登录状态", dataType = "String", required = false),
-            @ApiImplicitParam(name = "enable", value = "账号是否可用", dataType = "Integer", required = false)
+            @ApiImplicitParam(name = "uid", value = "用户uid", dataType = "Long", required = false),
+            @ApiImplicitParam(name = "name", value = "用户名字", dataType = "String", required = false)
     })
     @PostMapping("/listUser")
-    public List<User> listUser(@RequestBody PagedListUserVO vo){
-        return userService.listUser(vo);
+    public List<ReturnedListUserVO> listUser(@RequestBody User user){
+        System.out.println("user = " + user);
+        return userService.listUser(user);
     }
 
     @ApiOperation(value = "根据职位、登陆状态分页列用户")

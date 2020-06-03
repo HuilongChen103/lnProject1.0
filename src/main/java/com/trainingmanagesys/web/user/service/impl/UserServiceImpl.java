@@ -10,6 +10,7 @@ import com.trainingmanagesys.web.user.dao.UserMapper;
 import com.trainingmanagesys.web.user.service.IUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.trainingmanagesys.web.user.vo.PagedListUserVO;
+import com.trainingmanagesys.web.user.vo.ReturnedListUserVO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -88,16 +89,17 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     }
 
     @Override
-    public List<User> listUser(PagedListUserVO vo) {
-        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
-
-        if (vo.getPosition() != null) queryWrapper.eq("position", vo.getPosition());
-        if (vo.getState() != null) queryWrapper.eq("state", vo.getState());
-        if (vo.getEnable() != null) queryWrapper.eq("enable", vo.getEnable());
-        if (vo.getLimit() != null) queryWrapper.last(" limit " + vo.getLimit());
-
-        List<User> list = baseMapper.selectList(queryWrapper);
-        return list;
+    public List<ReturnedListUserVO> listUser(User user) {
+//        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+//
+//        if (vo.getPosition() != null) queryWrapper.eq("position", vo.getPosition());
+//        if (vo.getState() != null) queryWrapper.eq("state", vo.getState());
+//        if (vo.getEnable() != null) queryWrapper.eq("enable", vo.getEnable());
+//        if (vo.getLimit() != null) queryWrapper.last(" limit " + vo.getLimit());
+//
+//        List<User> list = baseMapper.selectList(queryWrapper);
+        System.out.println("In the service " + user);
+        return baseMapper.listUser(user);
     }
 
     @Override

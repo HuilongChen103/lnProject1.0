@@ -19,6 +19,21 @@
             #{tel,jdbcType=VARCHAR},
             #{password,jdbcType=VARCHAR}
         </trim>
-
     </insert>
+
+    <select id="listUser" resultType="com.trainingmanagesys.web.user.vo.ReturnedListUserVO" parameterType="com.trainingmanagesys.web.user.entity.User">
+        select a.*, c.department_id, c.department_name from t_user a, t_stuff b, t_department c
+        <where>
+            a.uid = b.stuff_id and b.department_id = c.department_id
+                <if test="uid != null">
+                    and a.uid = #{uid}
+                </if>
+                <if test="position != null">
+                    and a.position = #{position}
+                </if>
+                <if test="name != null">
+                    and a.name = #{name}
+                </if>
+        </where>
+    </select>
 </mapper>
