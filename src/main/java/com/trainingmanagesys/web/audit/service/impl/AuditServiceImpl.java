@@ -56,8 +56,12 @@ public class AuditServiceImpl extends ServiceImpl<AuditMapper, Audit> implements
 
         User auditUser = userService.getUser(vo.getAuditorId(), BaseConst.DATA_ENABLE);
         User applicatentUser = userService.getUser(vo.getApplicantId(), BaseConst.DATA_ENABLE);
-        vo.setAuditorName(auditUser.getName());
-        vo.setApplicantName(applicatentUser.getName());
+        if (auditUser != null) {
+            vo.setAuditorName(auditUser.getName());
+        }
+        if (applicatentUser != null) {
+            vo.setApplicantName(applicatentUser.getName());
+        }
         return vo;
     }
 
@@ -110,7 +114,13 @@ public class AuditServiceImpl extends ServiceImpl<AuditMapper, Audit> implements
         if (audit.getState() != null) queryWrapper.eq("state", audit.getState());
         if (audit.getLimit() != null) queryWrapper.last(" limit " + audit.getLimit());
         List<Audit> tempList = baseMapper.selectList(queryWrapper);
-        List<ReturnAuditVO> resultList = null;
+        List<ReturnAuditVO> resultList = new ArrayList<>();
+        if (resultList == null) {
+            System.out.println("空指针");
+        }
+        if (tempList.size() == 0 || tempList == null){
+            System.out.println("templisst 时空的");
+        }
         for (Audit item : tempList){
             resultList.add(audit2ReturnAuditVO(item));
         }

@@ -11,7 +11,7 @@
  Target Server Version : 50728
  File Encoding         : 65001
 
- Date: 01/06/2020 17:22:28
+ Date: 03/06/2020 11:03:22
 */
 
 SET NAMES utf8mb4;
@@ -59,16 +59,14 @@ CREATE TABLE `t_audit`  (
   INDEX `audit_applicant`(`applicant_id`) USING BTREE,
   INDEX `audit_event_goods`(`event_code`) USING BTREE,
   CONSTRAINT `audit_applicant` FOREIGN KEY (`applicant_id`) REFERENCES `t_user` (`uid`) ON DELETE RESTRICT ON UPDATE CASCADE,
-  CONSTRAINT `audit_auditor` FOREIGN KEY (`auditor_id`) REFERENCES `t_user` (`uid`) ON DELETE RESTRICT ON UPDATE CASCADE,
-  CONSTRAINT `audit_event_finance` FOREIGN KEY (`event_code`) REFERENCES `t_finance` (`finance_code`) ON DELETE RESTRICT ON UPDATE CASCADE,
-  CONSTRAINT `audit_event_goods` FOREIGN KEY (`event_code`) REFERENCES `t_goodsusage` (`usage_code`) ON DELETE RESTRICT ON UPDATE CASCADE,
-  CONSTRAINT `audit_event_recruit` FOREIGN KEY (`event_code`) REFERENCES `t_recruit` (`recruit_code`) ON DELETE RESTRICT ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 31467801 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+  CONSTRAINT `audit_auditor` FOREIGN KEY (`auditor_id`) REFERENCES `t_user` (`uid`) ON DELETE RESTRICT ON UPDATE CASCADE
+) ENGINE = InnoDB AUTO_INCREMENT = 31467804 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_audit
 -- ----------------------------
 INSERT INTO `t_audit` VALUES (31467800, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `t_audit` VALUES (31467803, NULL, 116193704, 'ZHE10120200301', '学生请假', '2020-06-03 10:49:52', NULL, '待审核', '身体不适，下周三的课程需要请假。');
 
 -- ----------------------------
 -- Table structure for t_benefitevaluation
@@ -112,9 +110,9 @@ CREATE TABLE `t_class`  (
 -- ----------------------------
 -- Records of t_class
 -- ----------------------------
-INSERT INTO `t_class` VALUES ('BEL10120200301', 'BEL101', '美声入门', 20, 1, 1, 116193701, 691874000, 1);
+INSERT INTO `t_class` VALUES ('BEL10120200301', 'BEL101', '美声入门', 20, 2, 2, 116193701, 691874000, 1);
 INSERT INTO `t_class` VALUES ('BEL10220200301', 'BEL102', '美声入门', 10, 0, 0, 116193701, 691874001, 1);
-INSERT INTO `t_class` VALUES ('ZHE10120200301', 'ZHE101', '古筝初级', 20, 0, 0, 116193714, NULL, 1);
+INSERT INTO `t_class` VALUES ('ZHE10120200301', 'ZHE101', '古筝初级', 20, 1, 1, 116193714, NULL, 1);
 INSERT INTO `t_class` VALUES ('ZHE10220200301', 'ZHE102', '古筝初级', 10, 0, 0, 116193714, NULL, 1);
 
 -- ----------------------------
@@ -144,6 +142,7 @@ INSERT INTO `t_course` VALUES ('BEL201', '美声中级', '1.5小时', '声乐', 
 INSERT INTO `t_course` VALUES ('BEL202', '美声中级', '1.5小时', '声乐', '教授美声进阶发声技巧和知识，适合有一定基础的学员。（小班教学）', 45);
 INSERT INTO `t_course` VALUES ('BEL301', '美声高级', '2小时', '声乐', '教授美声专业发声技巧和知识，适合专业学员。', 40);
 INSERT INTO `t_course` VALUES ('BEL401', '美声业余', '2小时', '声乐', '教授美声专业发声技巧和知识，适合专业学员。', 50);
+INSERT INTO `t_course` VALUES ('ENK101', '演歌初级', '1小时', '声乐', '教授演歌初级知识技巧，适合新手。', 30);
 INSERT INTO `t_course` VALUES ('PIA101', '钢琴初级', '1小时', '乐器', '教授钢琴1-4级技巧及曲目，适合钢琴新手。', 30);
 INSERT INTO `t_course` VALUES ('PIA102', '钢琴初级', '1小时', '乐器', '教授钢琴1-4级技巧及曲目，适合钢琴新手。（小班教学）', 45);
 INSERT INTO `t_course` VALUES ('PIA201', '钢琴中级', '1.5小时', '乐器', '教授钢琴5-7级技巧及曲目，适合获得钢琴4级证书学员。', 45);
@@ -271,7 +270,7 @@ CREATE TABLE `t_goods`  (
 -- ----------------------------
 -- Records of t_goods
 -- ----------------------------
-INSERT INTO `t_goods` VALUES ('CHA0001', 116193705, '椅子', '家具', '2015-07-15 15:38:49', NULL, 200.00, 101, NULL);
+INSERT INTO `t_goods` VALUES ('CHA0001', 116193705, '椅子', '家具', '2015-07-15 15:38:49', NULL, 200.00, 101, '');
 INSERT INTO `t_goods` VALUES ('CHA0002', 116193705, '椅子', '家具', '2015-07-15 15:38:49', NULL, 200.00, 101, NULL);
 INSERT INTO `t_goods` VALUES ('CHA0003', 116193705, '椅子', '家具', '2015-07-15 15:38:49', NULL, 200.00, 101, NULL);
 INSERT INTO `t_goods` VALUES ('CHA0004', 116193705, '椅子', '家具', '2015-07-15 15:38:49', NULL, 200.00, 101, NULL);
@@ -282,6 +281,14 @@ INSERT INTO `t_goods` VALUES ('CHA0008', 116193705, '椅子', '家具', '2015-07
 INSERT INTO `t_goods` VALUES ('CHA0009', 116193705, '椅子', '家具', '2015-07-15 15:38:49', NULL, 200.00, 101, NULL);
 INSERT INTO `t_goods` VALUES ('CHA0010', 116193705, '椅子', '家具', '2015-07-15 15:38:49', NULL, 200.00, 101, NULL);
 INSERT INTO `t_goods` VALUES ('CHA0011', 116193705, '椅子', '家具', '2015-07-15 15:38:49', NULL, 200.00, 101, NULL);
+INSERT INTO `t_goods` VALUES ('PRO0001', 116193715, '投影仪', '电器', '2017-06-02 22:26:29', NULL, 700.00, 101, NULL);
+INSERT INTO `t_goods` VALUES ('PRO0002', 116193715, '投影仪', '电器', '2017-06-02 22:26:29', NULL, 700.00, 102, NULL);
+INSERT INTO `t_goods` VALUES ('PRO0003', 116193715, '投影仪', '电器', '2017-06-02 22:26:29', NULL, 700.00, 103, NULL);
+INSERT INTO `t_goods` VALUES ('PRO0004', 116193715, '投影仪', '电器', '2017-06-02 22:26:29', NULL, 700.00, 107, NULL);
+INSERT INTO `t_goods` VALUES ('PRO0005', 116193715, '投影仪', '电器', '2017-06-02 22:26:29', NULL, 700.00, 201, NULL);
+INSERT INTO `t_goods` VALUES ('PRO0006', 116193715, '投影仪', '电器', '2017-06-02 22:26:29', NULL, 700.00, 202, NULL);
+INSERT INTO `t_goods` VALUES ('PRO0007', 116193715, '投影仪', '电器', '2017-06-02 22:26:29', NULL, 700.00, 203, NULL);
+INSERT INTO `t_goods` VALUES ('PRO0008', 116193715, '投影仪', '电器', '2017-06-02 22:26:29', NULL, 700.00, 207, NULL);
 INSERT INTO `t_goods` VALUES ('VOL0001', 116193703, '小提琴', '乐器', '2015-07-14 10:23:06', NULL, 1100.00, 103, NULL);
 INSERT INTO `t_goods` VALUES ('VOL0002', 116193703, '小提琴', '乐器', '2015-07-14 10:23:06', NULL, 1100.00, 103, NULL);
 INSERT INTO `t_goods` VALUES ('VOL0003', 116193703, '小提琴', '乐器', '2015-07-14 10:23:06', NULL, 1100.00, 103, NULL);
@@ -349,6 +356,22 @@ CREATE TABLE `t_grade`  (
   CONSTRAINT `grade_student` FOREIGN KEY (`student_id`) REFERENCES `t_user` (`uid`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `grade_test` FOREIGN KEY (`test_serial`) REFERENCES `t_test` (`test_serial`) ON DELETE RESTRICT ON UPDATE CASCADE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Table structure for t_han
+-- ----------------------------
+DROP TABLE IF EXISTS `t_han`;
+CREATE TABLE `t_han`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `han` enum('微憨','中憨','很憨') CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of t_han
+-- ----------------------------
+INSERT INTO `t_han` VALUES (2, '辉辉', '很憨');
 
 -- ----------------------------
 -- Table structure for t_homework
