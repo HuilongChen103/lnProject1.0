@@ -35,7 +35,7 @@ public class ScheduleServiceImpl extends ServiceImpl<ScheduleMapper, Schedule> i
     }
 
     @Override
-    public String addSchedule(AddScheduleVO schedule) {
+    public Long addSchedule(AddScheduleVO schedule) {
         Schedule temp = new Schedule();
         temp.setEventCode(schedule.getEventCode());
         temp.setStartTime(schedule.getStartTime());
@@ -45,11 +45,8 @@ public class ScheduleServiceImpl extends ServiceImpl<ScheduleMapper, Schedule> i
         temp.setWeek(schedule.getWeek());
         temp.setStartDate(schedule.getStartDate());
         temp.setEndDate(schedule.getEndDate());
-        String result = "添加日程安排失败";
-        int code = baseMapper.insert(temp);
-        if (code == 1)
-            result = "添加日程安排成功";
-        return result;
+        baseMapper.insert(temp);
+        return temp.getScheduleSerial();
     }
 
     @Override

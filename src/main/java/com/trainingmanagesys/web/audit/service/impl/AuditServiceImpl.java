@@ -110,7 +110,7 @@ public class AuditServiceImpl extends ServiceImpl<AuditMapper, Audit> implements
         if (audit.getState() != null) queryWrapper.eq("state", audit.getState());
         if (audit.getLimit() != null) queryWrapper.last(" limit " + audit.getLimit());
         List<Audit> tempList = baseMapper.selectList(queryWrapper);
-        List<ReturnAuditVO> resultList = new ArrayList<>();
+        List<ReturnAuditVO> resultList = null;
         for (Audit item : tempList){
             resultList.add(audit2ReturnAuditVO(item));
         }

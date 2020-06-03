@@ -57,7 +57,7 @@ public class ScheduleController {
     })
     @PostMapping("/addSchedule")
     @Transactional(rollbackFor = Exception.class)
-    public String addSchedule(@RequestBody @Validated AddScheduleVO schedule){
+    public Long addSchedule(@RequestBody @Validated AddScheduleVO schedule){
 //        if (schedule.getStartTime().after(schedule.getEndTime()))
 //            throw new APIException("时间设置错误，开始时间在结束时间之前");
         return scheduleService.addSchedule(schedule);

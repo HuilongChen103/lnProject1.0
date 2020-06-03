@@ -19,7 +19,7 @@ import java.util.List;
  */
 public interface IScheduleService extends IService<Schedule> {
 
-    String addSchedule(AddScheduleVO schedule);
+    Long addSchedule(AddScheduleVO schedule);
 
     String updateSchedule(Schedule schedule);
 
