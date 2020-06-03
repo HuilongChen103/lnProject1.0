@@ -62,17 +62,19 @@ public class RoomServiceImpl extends ServiceImpl<RoomMapper, Room> implements IR
 
     @Override
     public List<Room> listRoom(RoomVO roomVO) {
+        System.out.println("roomVO = " + roomVO);
         QueryWrapper<Room> queryWrapper = new QueryWrapper<>();
-        if (roomVO.getUsage() != null) queryWrapper.eq("usage", roomVO.getUsage());
+        if (roomVO.getRoomUsage() != null) queryWrapper.eq("room_usage", roomVO.getRoomUsage());
         if (roomVO.getAvailable() != null) queryWrapper.eq("available", roomVO.getAvailable());
-        if (roomVO.getLimit() != null) queryWrapper.last(" limit " + roomVO.getLimit());
+//        if (roomVO.getLimit() != null) queryWrapper.last(" limit " + roomVO.getLimit());
         return baseMapper.selectList(queryWrapper);
+        //return baseMapper.listRoom(roomVO.getAvailable(), roomVO.getRoomUsage());
     }
 
     @Override
     public IPage<Room> pagedListRoom(RoomVO roomVO) {
         QueryWrapper<Room> queryWrapper = new QueryWrapper<>();
-        if (roomVO.getUsage() != null) queryWrapper.eq("usage", roomVO.getUsage());
+        if (roomVO.getRoomUsage() != null) queryWrapper.eq("usage", roomVO.getRoomUsage());
         if (roomVO.getAvailable() != null) queryWrapper.eq("available", roomVO.getAvailable());
         if (roomVO.getLimit() != null) queryWrapper.last(" limit " + roomVO.getLimit());
 

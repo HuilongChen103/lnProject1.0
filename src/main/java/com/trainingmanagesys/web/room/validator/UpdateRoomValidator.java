@@ -20,7 +20,7 @@ public class UpdateRoomValidator implements DefaultGroupSequenceProvider<Room> {
                 return defaultGroupSequence;
             }
 
-            if (null == room.getAvailable() && null == room.getUsage()){
+            if (null == room.getAvailable() && null == room.getRoomUsage()){
                 defaultGroupSequence.add(Room.updateGroup.class);
             }
         }

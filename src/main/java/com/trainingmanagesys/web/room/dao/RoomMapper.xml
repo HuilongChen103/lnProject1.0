@@ -2,4 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.trainingmanagesys.web.room.dao.RoomMapper">
 
+    <select id="listRoom" parameterType="com.trainingmanagesys.web.room.vo.RoomVO" resultType="com.trainingmanagesys.web.room.entity.Room">
+        select * from t_room
+        <where>
+            <if test="available != null">
+               and available = #{available}
+            </if>
+            <if test="usage != null">
+                and room_usage = #{usage}
+            </if>
+        </where>
+    </select>
 </mapper>

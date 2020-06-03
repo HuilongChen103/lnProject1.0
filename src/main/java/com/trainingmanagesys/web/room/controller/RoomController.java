@@ -48,7 +48,7 @@ public class RoomController {
     @ApiOperation(value = "更新房间", notes = "更新房间")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "roomNum", value = "房间号码", dataType = "Long", required = true),
-            @ApiImplicitParam(name = "usage", value = "房间用途", dataType = "String", required = false),
+            @ApiImplicitParam(name = "roomUsage", value = "房间用途", dataType = "String", required = false),
             @ApiImplicitParam(name = "available", value = "是否在使用", dataType = "Integer", required = false)
     })
     @Transactional(rollbackFor = Exception.class)
@@ -67,18 +67,18 @@ public class RoomController {
 
     @ApiOperation(value = "列房间", notes = "列房间")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "usage", value = "房间用途", dataType = "String", required = false),
+            @ApiImplicitParam(name = "roomUsage", value = "房间用途", dataType = "String", required = false),
             @ApiImplicitParam(name = "available", value = "是否在使用", dataType = "Integer", required = false),
             @ApiImplicitParam(name = "limit", value = "数量", dataType = "Integer", required = false)
     })
-    @GetMapping("/listRoom")
-    public List<Room> listRoom(@RequestBody @Validated RoomVO roomVO){
+    @PostMapping("/listRoom")
+    public List<Room> listRoom(@RequestBody RoomVO roomVO){
         return roomService.listRoom(roomVO);
     }
 
     @ApiOperation(value = "分页列房间", notes = "分页列房间")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "usage", value = "房间用途", dataType = "String", required = false),
+            @ApiImplicitParam(name = "roomUsage", value = "房间用途", dataType = "String", required = false),
             @ApiImplicitParam(name = "available", value = "是否在使用", dataType = "Integer", required = false),
             @ApiImplicitParam(name = "limit", value = "数量", dataType = "Integer", required = false),
             @ApiImplicitParam(name = "currentPage", value = "当前页面", dataType = "Integer", required = true),

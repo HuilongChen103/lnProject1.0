@@ -41,7 +41,7 @@ public class Room implements Serializable, ValidationGroup {
      * 用途（教室，库房，办公室等）
      */
     @NotNull(groups = updateGroup.class, message = "请输入信息，不能全部为空")
-    private String usage;
+    private String roomUsage;
 
     /**
      * 是否可用（0：可用 1：占用）
