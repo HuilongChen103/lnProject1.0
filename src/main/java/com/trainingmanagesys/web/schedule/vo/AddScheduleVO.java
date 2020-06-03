@@ -3,6 +3,7 @@ package com.trainingmanagesys.web.schedule.vo;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.trainingmanagesys.utils.ValidationGroup;
+import com.trainingmanagesys.web.schedule.validator.AddScheduleValidator;
 import com.trainingmanagesys.web.schedule.validator.ListScheduleValidator;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -25,7 +26,7 @@ import java.util.Date;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@GroupSequenceProvider(ListScheduleValidator.class)
+@GroupSequenceProvider(AddScheduleValidator.class)
 public class AddScheduleVO implements Serializable, ValidationGroup {
 
     private static final long serialVersionUID = 1L;
