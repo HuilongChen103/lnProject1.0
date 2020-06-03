@@ -6,7 +6,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- * Calculate the days between two dates
+ * 计算两个日期之间相差的天数
  */
 public class DateDiff {
 

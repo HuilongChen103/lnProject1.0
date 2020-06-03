@@ -18,6 +18,9 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
  */
 @RestControllerAdvice(basePackages = {"com.trainingmanagesys.web"})
 
+/**
+ * 捕获全局异常，并同意用ResultVO的格式进行返回
+ */
 public class ResponseControllerAdvice implements ResponseBodyAdvice<Object> {
     @Override
     public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> aClass) {

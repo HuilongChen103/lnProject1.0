@@ -23,7 +23,8 @@ public class ExceptionControllerAdvice {
         return new ResultVO<>(ResultCode.FAILED, e.getMsg());
     }
 
-    // JSON返回参数错误异常
+    // JSON返回参数错误异常,JSON返回错误异常的类型为MethodArgumentNotValidException
+    // 在这里对其进行捕获和处理
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResultVO<String> MethodArgumentNotValidExceptionHandler(MethodArgumentNotValidException e) {
         // 从异常对象中拿到ObjectError对象
@@ -33,7 +34,7 @@ public class ExceptionControllerAdvice {
         return new ResultVO<>(ResultCode.VALIDATE_FAILED, objectError.getDefaultMessage());
     }
 
-    // 捕获前端传递参数过来时的错误
+    // 捕获前端传递参数过来时的错误，前端校验传参捕获的异常类型为ConstraintViolationException
     @ExceptionHandler(ConstraintViolationException.class)
     public ResultVO<String> ConstraintViolationExceptionHandler(ConstraintViolationException e) {
         // 整条错误信息实例："getUserById.uid: uid不能为空"
@@ -44,12 +45,11 @@ public class ExceptionControllerAdvice {
         return new ResultVO<>(ResultCode.VALIDATE_FAILED, message[1]);
     }
 
-    // 捕获前端传递参数过来时的错误
+    // 捕获空指针异常
     @ExceptionHandler(NullPointerException.class)
     public ResultVO<String> NullPointerExceptionHandler(NullPointerException e) {
         // 整条错误信息实例："getUserById.uid: uid不能为空"
         String messageAll = e.getMessage();
-        System.out.println("显示所有的错误信息: " + messageAll);
         // 对错误信息进行剪切，取后半段
         String[] message = messageAll.split(" ");
         // 然后提取错误提示信息进行返回
