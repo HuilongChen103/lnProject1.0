@@ -23,7 +23,9 @@ public interface IRecruitService extends IService<Recruit> {
 
     String deleteRecruit(String recruitCode);
 
-    Recruit getRecruit(String recruitCode);
+    Recruit getRecruit(String recruitCode, Integer enable);
+
+    Recruit getRecruitWithPICId(Long picId, Integer enable);
 
     List<Recruit> listRecruit(RecruitVO vo);
 

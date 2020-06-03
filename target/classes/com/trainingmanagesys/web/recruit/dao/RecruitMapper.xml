@@ -2,4 +2,27 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.trainingmanagesys.web.recruit.dao.RecruitMapper">
 
+    <select id="getRecruit" resultType="com.trainingmanagesys.web.recruit.entity.Recruit">
+        select * from t_recruit where recruit_code = #{recruitCode}
+        <where>
+            <if test="enable != null">
+                and enable = #{enable}
+            </if>
+            <if test="enable == null">
+                and enable = 1
+            </if>
+        </where>
+    </select>
+
+    <select id="getRecruitWithPICId" resultType="com.trainingmanagesys.web.recruit.entity.Recruit">
+        select * from t_recruit where PIC_id = #{picId}
+        <where>
+            <if test="enable != null">
+                and enable = #{enable}
+            </if>
+            <if test="enable == null">
+                and enable = 1
+            </if>
+        </where>
+    </select>
 </mapper>

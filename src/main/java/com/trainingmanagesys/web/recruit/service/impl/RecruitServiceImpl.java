@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.trainingmanagesys.conf.exception.APIException;
+import com.trainingmanagesys.utils.BaseConst;
 import com.trainingmanagesys.web.recruit.entity.Recruit;
 import com.trainingmanagesys.web.recruit.dao.RecruitMapper;
 import com.trainingmanagesys.web.recruit.service.IRecruitService;
@@ -25,7 +26,8 @@ import java.util.List;
 public class RecruitServiceImpl extends ServiceImpl<RecruitMapper, Recruit> implements IRecruitService {
 
     private void checkRecruitExistence(String recruitCode){
-        if (getRecruit(recruitCode) == null)
+        Recruit temp = baseMapper.selectById(recruitCode);
+        if (temp == null || temp.getEnable() == BaseConst.DATA_DISABLE)
             throw new APIException("该招聘不存在");
     }
 
@@ -57,8 +59,16 @@ public class RecruitServiceImpl extends ServiceImpl<RecruitMapper, Recruit> impl
 
 
     @Override
-    public Recruit getRecruit(String recruitCode) {
-        return baseMapper.selectById(recruitCode);
+    public Recruit getRecruit(String recruitCode, Integer enable) {
+        /**
+         * dao层自动处理enable，如果enable为空，则默认其为1
+         */
+        return baseMapper.getRecruit(recruitCode, enable);
+    }
+
+    @Override
+    public Recruit getRecruitWithPICId(Long picId, Integer enable) {
+        return baseMapper.getRecruitWithPICId(picId, enable);
     }
 
     @Override
@@ -69,6 +79,7 @@ public class RecruitServiceImpl extends ServiceImpl<RecruitMapper, Recruit> impl
         if (vo.getPlace() != null) queryWrapper.like("place", vo.getPlace());
         if (vo.getMethod() != null) queryWrapper.eq("method", vo.getMethod());
         if (vo.getCatagory() != null) queryWrapper.eq("category", vo.getCatagory());
+        if (vo.getEnable() != null) queryWrapper.eq("enable", vo.getEnable());
         if (vo.getLimit() != null) queryWrapper.last(" limit " + vo.getLimit());
         return baseMapper.selectList(queryWrapper);
     }
@@ -81,6 +92,7 @@ public class RecruitServiceImpl extends ServiceImpl<RecruitMapper, Recruit> impl
         if (vo.getPlace() != null) queryWrapper.like("place", vo.getPlace());
         if (vo.getMethod() != null) queryWrapper.eq("method", vo.getMethod());
         if (vo.getCatagory() != null) queryWrapper.eq("category", vo.getCatagory());
+        if (vo.getEnable() != null) queryWrapper.eq("enable", vo.getEnable());
         if (vo.getLimit() != null) queryWrapper.last(" limit " + vo.getLimit());
 
         Page<Recruit> page = new Page<>();

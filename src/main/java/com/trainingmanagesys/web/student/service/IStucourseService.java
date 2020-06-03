@@ -34,4 +34,6 @@ public interface IStucourseService extends IService<Stucourse> {
     List<Course> listCourseByStuID(Long studentId);
 
     List<Clazz> listClazzByStuID(Long studentId);
+
+    List<Stucourse> listStucourseByStudentId(Long studentId);
 }

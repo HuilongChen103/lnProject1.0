@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.trainingmanagesys.conf.exception.APIException;
+import com.trainingmanagesys.utils.BaseConst;
 import com.trainingmanagesys.web.teacher.entity.Teacourse;
 import com.trainingmanagesys.web.teacher.dao.TeacourseMapper;
 import com.trainingmanagesys.web.teacher.service.ITeacourseService;
@@ -62,7 +63,12 @@ public class TeacourseServiceImpl extends ServiceImpl<TeacourseMapper, Teacourse
 
     @Override
     public Teacourse getTeaCourse(Long tcSerial) {
-        return baseMapper.selectById(tcSerial);
+        Teacourse teacourse = baseMapper.selectById(tcSerial);
+        if (teacourse.getEnable() != BaseConst.DATA_ENABLE) {
+            return null;
+        } else {
+            return teacourse;
+        }
     }
 
     @Override
@@ -75,6 +81,11 @@ public class TeacourseServiceImpl extends ServiceImpl<TeacourseMapper, Teacourse
         if (teacourseVO.getPercentageMin() != null) queryWrapper.ge("percentage", teacourseVO.getPercentageMin());
         if (teacourseVO.getRemainMax() != null) queryWrapper.le("remain", teacourseVO.getRemainMax());
         if (teacourseVO.getRemainMin() != null) queryWrapper.ge("remain", teacourseVO.getRemainMin());
+        if (teacourseVO.getEnable() != null) {
+            queryWrapper.eq("enable", teacourseVO.getEnable());
+        } else {
+            queryWrapper.eq("enable", BaseConst.DATA_ENABLE);
+        }
         if (teacourseVO.getLimit() != null) queryWrapper.last(" limit " + teacourseVO.getLimit());
         return baseMapper.selectList(queryWrapper);
     }
@@ -89,6 +100,11 @@ public class TeacourseServiceImpl extends ServiceImpl<TeacourseMapper, Teacourse
         if (teacourseVO.getPercentageMin() != null) queryWrapper.ge("percentage", teacourseVO.getPercentageMin());
         if (teacourseVO.getRemainMax() != null) queryWrapper.le("remain", teacourseVO.getRemainMax());
         if (teacourseVO.getRemainMin() != null) queryWrapper.ge("remain", teacourseVO.getRemainMin());
+        if (teacourseVO.getEnable() != null) {
+            queryWrapper.eq("enable", teacourseVO.getEnable());
+        } else {
+            queryWrapper.eq("enable", BaseConst.DATA_ENABLE);
+        }
         if (teacourseVO.getLimit() != null) queryWrapper.last(" limit " + teacourseVO.getLimit());
 
         Page<Teacourse> page = new Page<>();

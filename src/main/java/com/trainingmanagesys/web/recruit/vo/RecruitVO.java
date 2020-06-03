@@ -60,6 +60,8 @@ public class RecruitVO implements Serializable, ValidationGroup {
 
     private Integer limit;
 
+    private Integer enable;
+
     @NotNull(groups = listKeyGroup.class, message = "请指明当前页面")
     private Integer currentPage;
 

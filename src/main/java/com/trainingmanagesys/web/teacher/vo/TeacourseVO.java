@@ -56,6 +56,8 @@ public class TeacourseVO implements Serializable, ValidationGroup {
 
     private Long remainMin;
 
+    private Integer enable;
+
     private Integer limit;
 
     @NotNull(groups = listKeyGroup.class, message = "请指明当前页面")

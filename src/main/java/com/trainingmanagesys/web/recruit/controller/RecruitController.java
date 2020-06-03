@@ -2,6 +2,7 @@ package com.trainingmanagesys.web.recruit.controller;
 
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.trainingmanagesys.utils.BaseConst;
 import com.trainingmanagesys.web.recruit.entity.Recruit;
 import com.trainingmanagesys.web.recruit.service.IRecruitService;
 import com.trainingmanagesys.web.recruit.vo.RecruitVO;
@@ -90,7 +91,7 @@ public class RecruitController {
     @ApiImplicitParam(name = "recruitCode", value = "招聘编号", dataType = "String", required = true)
     @PostMapping("/getRecruit")
     public Recruit getRecruit(@NotNull(message = "请输入招聘编号") String recruitCode){
-        return recruitService.getRecruit(recruitCode);
+        return recruitService.getRecruit(recruitCode, BaseConst.DATA_ENABLE);
     }
 
     @ApiOperation(value = "列招聘", notes = "列招聘")
@@ -131,7 +132,7 @@ public class RecruitController {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");//设置日期格式
 
         Recruit temp = new Recruit();
-        temp.setEnable(0);
+        temp.setEnable(BaseConst.DATA_DISABLE);
 
         for (Recruit item : list){
             Schedule tempSchedule = scheduleService.getSchedule(item.getScheduleSerial());

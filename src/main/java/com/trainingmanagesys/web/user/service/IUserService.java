@@ -1,5 +1,6 @@
 package com.trainingmanagesys.web.user.service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.trainingmanagesys.web.schedule.entity.Schedule;
 import com.trainingmanagesys.web.user.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.trainingmanagesys.web.user.vo.PagedListUserVO;
@@ -39,4 +40,6 @@ public interface IUserService extends IService<User> {
     String recoverUser(Long uid);
 
     String cancelUser(Long uid);
+
+    List<Schedule> listUserSchedule(Long uid);
 }

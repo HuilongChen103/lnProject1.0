@@ -4,6 +4,7 @@ package com.trainingmanagesys.web.user.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.trainingmanagesys.conf.exception.APIException;
 import com.trainingmanagesys.utils.BaseConst;
+import com.trainingmanagesys.web.schedule.entity.Schedule;
 import com.trainingmanagesys.web.user.entity.User;
 import com.trainingmanagesys.web.user.service.IUserService;
 import com.trainingmanagesys.web.user.vo.LoginVO;
@@ -175,5 +176,12 @@ public class UserController {
     public String cancelUser(@NotNull(message = "uid不能为空") Long uid){
         String result = userService.cancelUser(uid);
         return result;
+    }
+
+    @ApiOperation(value = "根据用户身份列schedule")
+    @ApiImplicitParam(name = "uid", value = "用户uid", dataType = "Long", required = true)
+    @PostMapping("/listScheduleByUid")
+    public List<Schedule> listScheduleByUid(@NotNull(message = "uid不能为空") Long uid){
+        return userService.listUserSchedule(uid);
     }
 }

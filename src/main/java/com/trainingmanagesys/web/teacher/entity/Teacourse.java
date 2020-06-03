@@ -69,4 +69,6 @@ public class Teacourse implements Serializable, ValidationGroup {
      * 教师个人介绍，课程介绍。
      */
     private String intro;
+
+    private Integer enable;
 }

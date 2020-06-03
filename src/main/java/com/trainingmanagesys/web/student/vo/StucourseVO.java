@@ -57,6 +57,8 @@ public class StucourseVO implements Serializable, ValidationGroup {
      */
     private String financeCode;
 
+    private Integer enable;
+
     private Integer limit;
 
     @NotNull(groups = listKeyGroup.class, message = "请指明当前页面")

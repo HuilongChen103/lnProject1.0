@@ -119,4 +119,12 @@ public class StucourseServiceImpl extends ServiceImpl<StucourseMapper, Stucourse
     public List<Clazz> listClazzByStuID(Long studentId) {
         return baseMapper.listClazzByStuId(studentId);
     }
+
+    @Override
+    public List<Stucourse> listStucourseByStudentId(Long studentId) {
+        QueryWrapper<Stucourse> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("student_id", studentId);
+        queryWrapper.eq("enable", BaseConst.DATA_ENABLE);
+        return baseMapper.selectList(queryWrapper);
+    }
 }
