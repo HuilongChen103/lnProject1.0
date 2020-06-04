@@ -106,9 +106,6 @@ public class StuffController {
     })
     @PostMapping("/listSpecializedStuff")
     public List<ReturnedSpecialListStuffVO> listSpecializedStuff(@RequestBody Stuff stuff){
-        System.out.println("here");
-        System.out.println(stuff);
-        System.out.println("End");
         return stuffService.listSpecializedStuff(stuff);
     }
 }

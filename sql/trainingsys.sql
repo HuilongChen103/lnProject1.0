@@ -11,7 +11,7 @@
  Target Server Version : 50728
  File Encoding         : 65001
 
- Date: 03/06/2020 21:22:00
+ Date: 04/06/2020 09:11:13
 */
 
 SET NAMES utf8mb4;
@@ -49,7 +49,7 @@ CREATE TABLE `t_audit`  (
   `auditor_id` int(11) NULL DEFAULT NULL COMMENT '审核人id',
   `applicant_id` int(11) NULL DEFAULT NULL COMMENT '申请人id',
   `event_code` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '事件编号(招聘，物资调用，退课...)',
-  `event` enum('学生请假','职工请假','调休','物资调用','转岗','退课','辞职','物资采购') CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '事件类型',
+  `event` enum('学生请假','职工请假','费用报销','其它') CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '事件类型',
   `apply_date` timestamp(0) NULL DEFAULT NULL COMMENT '申请时间',
   `audit_date` timestamp(0) NULL DEFAULT NULL COMMENT '审核时间',
   `state` enum('通过','未通过','待审核') CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '待审核' COMMENT '审核状态(通过，未通过...)',
@@ -91,7 +91,6 @@ DROP TABLE IF EXISTS `t_class`;
 CREATE TABLE `t_class`  (
   `class_code` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '班级号',
   `course_code` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '课程号',
-  `course_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '课程名',
   `student_max` int(11) NULL DEFAULT NULL COMMENT '最大学生数量',
   `student_num` int(11) NULL DEFAULT NULL COMMENT '起始学生数量(开学的时候)',
   `real_num` int(11) NULL DEFAULT NULL COMMENT '实际学生数量',
@@ -105,20 +104,27 @@ CREATE TABLE `t_class`  (
   INDEX `class_schedule`(`schedule_serial`) USING BTREE,
   INDEX `class_room`(`room_num`) USING BTREE,
   CONSTRAINT `class_course` FOREIGN KEY (`course_code`) REFERENCES `t_course` (`course_code`) ON DELETE RESTRICT ON UPDATE CASCADE,
+  CONSTRAINT `class_room` FOREIGN KEY (`room_num`) REFERENCES `t_room` (`room_num`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `class_schedule` FOREIGN KEY (`schedule_serial`) REFERENCES `t_schedule` (`schedule_serial`) ON DELETE RESTRICT ON UPDATE CASCADE,
-  CONSTRAINT `class_teacher` FOREIGN KEY (`teacher_id`) REFERENCES `t_user` (`uid`) ON DELETE RESTRICT ON UPDATE CASCADE,
-  CONSTRAINT `class_room` FOREIGN KEY (`room_num`) REFERENCES `t_room` (`room_num`) ON DELETE RESTRICT ON UPDATE CASCADE
+  CONSTRAINT `class_teacher` FOREIGN KEY (`teacher_id`) REFERENCES `t_user` (`uid`) ON DELETE RESTRICT ON UPDATE CASCADE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_class
 -- ----------------------------
-INSERT INTO `t_class` VALUES ('ARR10120200603', 'ARR101', '编曲初级', 20, NULL, NULL, 116193701, 691874005, 1, 103);
-INSERT INTO `t_class` VALUES ('ARR20120200603', 'ARR201', '编曲中级', 20, NULL, NULL, 116193701, 691874006, 1, 103);
-INSERT INTO `t_class` VALUES ('BEL10120200301', 'BEL101', '美声入门', 20, 2, 2, 116193701, 691874000, 1, 102);
-INSERT INTO `t_class` VALUES ('BEL10220200301', 'BEL102', '美声入门', 10, 0, 0, 116193701, 691874001, 1, 102);
-INSERT INTO `t_class` VALUES ('ZHE10120200301', 'ZHE101', '古筝初级', 20, 1, 1, 116193714, 691874002, 1, 101);
-INSERT INTO `t_class` VALUES ('ZHE10220200301', 'ZHE102', '古筝初级', 10, 0, 0, 116193714, 691874003, 1, 101);
+INSERT INTO `t_class` VALUES ('ARR10120200603', 'ARR101', 20, NULL, NULL, 116193701, 691874005, 1, 103);
+INSERT INTO `t_class` VALUES ('ARR20120200603', 'ARR201', 20, NULL, NULL, 116193701, 691874006, 1, 103);
+INSERT INTO `t_class` VALUES ('ARR30120200603', 'ARR301', 20, NULL, NULL, 116193716, 691874007, 1, 107);
+INSERT INTO `t_class` VALUES ('ARR40120200603', 'ARR401', 20, NULL, NULL, 116193716, 691874008, 1, 202);
+INSERT INTO `t_class` VALUES ('BEL10120200301', 'BEL101', 20, 2, 2, 116193701, 691874000, 1, 102);
+INSERT INTO `t_class` VALUES ('BEL10220200301', 'BEL102', 10, 0, 0, 116193701, 691874001, 1, 102);
+INSERT INTO `t_class` VALUES ('BEL20120200603', 'BEL201', 20, NULL, NULL, 116193707, 691874011, 1, 303);
+INSERT INTO `t_class` VALUES ('BEL20120200604', 'BEL201', 20, NULL, NULL, 116193716, 691874012, 1, 307);
+INSERT INTO `t_class` VALUES ('PIA10120200603', 'PIA101', 20, 1, 2, 116193710, 691874009, 1, 203);
+INSERT INTO `t_class` VALUES ('PIA10220200603', 'PIA102', 10, NULL, NULL, 116193710, 691874010, 1, 203);
+INSERT INTO `t_class` VALUES ('VOL30120200604', 'VOL301', 10, NULL, NULL, 116193710, 691874013, 1, 107);
+INSERT INTO `t_class` VALUES ('ZHE10120200301', 'ZHE101', 20, 1, 1, 116193714, 691874002, 1, 101);
+INSERT INTO `t_class` VALUES ('ZHE10220200301', 'ZHE102', 10, 0, 0, 116193714, 691874003, 1, 101);
 
 -- ----------------------------
 -- Table structure for t_course
@@ -250,6 +256,8 @@ CREATE TABLE `t_finance`  (
 INSERT INTO `t_finance` VALUES ('REV202005252353', 'REV', 116193706, '12637328210', '1010101010101', '银行转账', 360, '2020-05-25 23:54:49', '学员缴费', NULL);
 INSERT INTO `t_finance` VALUES ('REV202005271621', 'REV', 116193704, '182930472523', '1010101010101', '支付宝', 240, NULL, '学员缴费', NULL);
 INSERT INTO `t_finance` VALUES ('REV202005271624', 'REV', 116193704, '2124782394', '1010101010101', '支付宝', 240, NULL, '学员缴费', NULL);
+INSERT INTO `t_finance` VALUES ('REV202006040310', 'REV', 116193706, '23456745', '1010101010101', '微信', 360, NULL, '学员缴费', NULL);
+INSERT INTO `t_finance` VALUES ('REV202006040326', 'REV', 116193712, '1273891242', '1010101010101', '银行转账', 360, NULL, '学员缴费', NULL);
 
 -- ----------------------------
 -- Table structure for t_goods
@@ -439,7 +447,7 @@ CREATE TABLE `t_messageboard`  (
   CONSTRAINT `messageboard_class` FOREIGN KEY (`class_code`) REFERENCES `t_class` (`class_code`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `messageboard_reply` FOREIGN KEY (`reply`) REFERENCES `t_messageboard` (`message_serial`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `messageboard_uploader` FOREIGN KEY (`uploader_id`) REFERENCES `t_user` (`uid`) ON DELETE RESTRICT ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 789004006 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 789004009 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_messageboard
@@ -448,6 +456,9 @@ INSERT INTO `t_messageboard` VALUES (789004002, 116193704, 'hello world！', '20
 INSERT INTO `t_messageboard` VALUES (789004003, 116193704, 'What is the homework today?', '2020-05-31 01:02:55', 'ZHE10120200301', NULL);
 INSERT INTO `t_messageboard` VALUES (789004004, 116193704, 'Is there going to be a test tomorrow?', '2020-05-31 01:03:53', 'ZHE10120200301', NULL);
 INSERT INTO `t_messageboard` VALUES (789004005, 116193704, 'Today‘s lecture is fairly hard, could it be a little easier next time?', '2020-05-31 01:06:38', 'ZHE10120200301', NULL);
+INSERT INTO `t_messageboard` VALUES (789004006, 116193706, '下次上课讲什么呢？', '2020-06-04 03:14:38', 'BEL10120200301', NULL);
+INSERT INTO `t_messageboard` VALUES (789004007, 116193706, '这次课的进度太快了，之后可以稍微放慢一些吗？', '2020-06-04 03:24:29', 'PIA10120200603', NULL);
+INSERT INTO `t_messageboard` VALUES (789004008, 116193712, '我也这么觉得 希望以后进度可以慢一些', '2020-06-04 03:29:57', 'PIA10120200603', NULL);
 
 -- ----------------------------
 -- Table structure for t_recruit
@@ -585,7 +596,7 @@ CREATE TABLE `t_schedule`  (
   `end_date` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '结束日期',
   PRIMARY KEY (`schedule_serial`) USING BTREE,
   INDEX `year`(`year`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 691874007 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 691874014 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_schedule
@@ -596,6 +607,13 @@ INSERT INTO `t_schedule` VALUES (691874002, 'ZHE10120200301', '14:00', '15:00', 
 INSERT INTO `t_schedule` VALUES (691874003, 'ZHE10220200301', '10:00', '11:00', '星期四', 2020, '夏季', '6.3', '9.3');
 INSERT INTO `t_schedule` VALUES (691874005, 'ARR10120200603', '11:00', '12:00', '星期四', 2020, '夏季', '6.3', '9.3');
 INSERT INTO `t_schedule` VALUES (691874006, 'ARR20120200603', '10:00', '11:30', '星期五', 2020, '夏季', '6.3', '9.3');
+INSERT INTO `t_schedule` VALUES (691874007, 'ARR30120200603', '16:00', '18:00', '星期二', 2020, '夏季', '6.3', '9.3');
+INSERT INTO `t_schedule` VALUES (691874008, 'ARR40120200603', '13:00', '15:00', '星期一', 2020, '夏季', '6.3', '9.3');
+INSERT INTO `t_schedule` VALUES (691874009, 'PIA10120200603', '09:00', '10:00', '星期天', 2020, '夏季', '6.3', '9.3');
+INSERT INTO `t_schedule` VALUES (691874010, 'PIA10220200603', '18:00', '19:00', '星期一', 2020, '夏季', '6.3', '9.3');
+INSERT INTO `t_schedule` VALUES (691874011, 'BEL20120200603', '19:00', '20:00', '星期五', 2020, '夏季', '6.3', '9.3');
+INSERT INTO `t_schedule` VALUES (691874012, 'BEL20120200604', '10:00', '11:00', '星期五', 2020, '夏季', '6.4', '9.4');
+INSERT INTO `t_schedule` VALUES (691874013, 'VOL30120200604', '09:00', '10:00', '星期五', 2020, '夏季', '6.4', '9.4');
 
 -- ----------------------------
 -- Table structure for t_stucourse
@@ -620,7 +638,7 @@ CREATE TABLE `t_stucourse`  (
   CONSTRAINT `stucourse_course` FOREIGN KEY (`course_code`) REFERENCES `t_course` (`course_code`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `stucourse_finance` FOREIGN KEY (`finance_code`) REFERENCES `t_finance` (`finance_code`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `stucourse_id` FOREIGN KEY (`student_id`) REFERENCES `t_user` (`uid`) ON DELETE RESTRICT ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 80597407 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 80597409 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_stucourse
@@ -628,6 +646,8 @@ CREATE TABLE `t_stucourse`  (
 INSERT INTO `t_stucourse` VALUES (80597400, 116193706, 'BEL101', 'BEL10120200301', 360, '已支付', 'REV202005252353', '未退课', 1);
 INSERT INTO `t_stucourse` VALUES (80597405, 116193704, 'ZHE101', 'ZHE10120200301', 240, '未支付', 'REV202005271621', '未退课', 1);
 INSERT INTO `t_stucourse` VALUES (80597406, 116193704, 'BEL101', 'BEL10120200301', 240, '已支付', 'REV202005271624', '未退课', 1);
+INSERT INTO `t_stucourse` VALUES (80597407, 116193706, 'PIA101', 'PIA10120200603', 360, '已支付', 'REV202006040310', '未退课', NULL);
+INSERT INTO `t_stucourse` VALUES (80597408, 116193712, 'PIA101', 'PIA10120200603', 360, '已支付', 'REV202006040326', '未退课', NULL);
 
 -- ----------------------------
 -- Table structure for t_stuff
@@ -676,7 +696,24 @@ CREATE TABLE `t_teacourse`  (
   CONSTRAINT `teacourse_class` FOREIGN KEY (`class_code`) REFERENCES `t_class` (`class_code`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `teacourse_course` FOREIGN KEY (`course_code`) REFERENCES `t_course` (`course_code`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `teacourse_id` FOREIGN KEY (`teacher_id`) REFERENCES `t_user` (`uid`) ON DELETE RESTRICT ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 34798013 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of t_teacourse
+-- ----------------------------
+INSERT INTO `t_teacourse` VALUES (34798000, 116193701, 'ARR101', 'ARR10120200603', NULL, NULL, NULL, 1);
+INSERT INTO `t_teacourse` VALUES (34798001, 116193701, 'ARR201', 'ARR20120200603', NULL, NULL, NULL, 1);
+INSERT INTO `t_teacourse` VALUES (34798002, 116193716, 'ARR301', 'ARR30120200603', NULL, NULL, NULL, 1);
+INSERT INTO `t_teacourse` VALUES (34798003, 116193716, 'ARR401', 'ARR40120200603', NULL, NULL, NULL, 1);
+INSERT INTO `t_teacourse` VALUES (34798004, 116193701, 'BEL101', 'BEL10120200301', NULL, NULL, NULL, 1);
+INSERT INTO `t_teacourse` VALUES (34798005, 116193701, 'BEL102', 'BEL10220200301', NULL, NULL, NULL, 1);
+INSERT INTO `t_teacourse` VALUES (34798006, 116193714, 'ZHE101', 'ZHE10120200301', NULL, NULL, NULL, 1);
+INSERT INTO `t_teacourse` VALUES (34798007, 116193714, 'ZHE102', 'ZHE10220200301', NULL, NULL, NULL, 1);
+INSERT INTO `t_teacourse` VALUES (34798008, 116193710, 'PIA101', 'PIA10120200603', NULL, NULL, NULL, 1);
+INSERT INTO `t_teacourse` VALUES (34798009, 116193710, 'PIA102', 'PIA10220200603', NULL, NULL, NULL, 1);
+INSERT INTO `t_teacourse` VALUES (34798010, 116193707, 'BEL201', 'BEL20120200603', NULL, NULL, NULL, 1);
+INSERT INTO `t_teacourse` VALUES (34798011, 116193716, 'BEL201', 'BEL20120200604', NULL, NULL, NULL, 1);
+INSERT INTO `t_teacourse` VALUES (34798012, 116193710, 'VOL301', 'VOL30120200604', NULL, NULL, NULL, 1);
 
 -- ----------------------------
 -- Table structure for t_test
@@ -716,7 +753,8 @@ CREATE TABLE `t_user`  (
   `enable` int(11) NOT NULL DEFAULT 1 COMMENT '是否可用',
   `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '密码',
   `state` enum('online','offline') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'offline' COMMENT '登陆状态(oneline,offline)',
-  PRIMARY KEY (`uid`, `position`) USING BTREE
+  PRIMARY KEY (`uid`, `position`) USING BTREE,
+  INDEX `uid`(`uid`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 116193717 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
