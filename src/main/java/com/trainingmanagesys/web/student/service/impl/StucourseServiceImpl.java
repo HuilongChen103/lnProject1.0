@@ -118,10 +118,13 @@ public class StucourseServiceImpl extends ServiceImpl<StucourseMapper, Stucourse
     @Override
     public List<Clazz> listClazzByStuID(Long studentId) {
         List<Clazz> resultList = baseMapper.listClazzByStuId(studentId);
-        for (Clazz item: resultList){
-
-        }
-        return null;
+//        for (Clazz item: resultList){
+//            // 设置教师名字
+//            item.setName();
+//            // 设置课程名字
+//            item.setCourseName()
+//        }
+        return resultList;
     }
 
     @Override

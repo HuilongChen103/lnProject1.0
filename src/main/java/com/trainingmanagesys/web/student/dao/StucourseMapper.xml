@@ -11,10 +11,12 @@
     </select>
 
     <select id="listClazzByStuId" resultType="com.trainingmanagesys.web.clazz.entity.Clazz">
-        select b.* from t_stucourse a, t_class b
+        select b.*, c.name, d.course_name from t_stucourse a, t_class b, t_user c, t_course d
         <where>
             a.student_id = #{studentId}
             and a.class_code = b.class_code
+            and b.teacher_id = c.uid
+            and b.course_code = d.course_code
         </where>
     </select>
 </mapper>

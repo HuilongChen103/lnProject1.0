@@ -2,6 +2,8 @@ package com.trainingmanagesys.web.teacher.controller;
 
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.trainingmanagesys.web.clazz.entity.Clazz;
+import com.trainingmanagesys.web.course.entity.Course;
 import com.trainingmanagesys.web.teacher.entity.Teacourse;
 import com.trainingmanagesys.web.teacher.service.ITeacourseService;
 import com.trainingmanagesys.web.teacher.vo.TeacourseVO;
@@ -108,5 +110,19 @@ public class TeacourseController {
     @PostMapping("/pagedListTeacourse")
     public IPage<Teacourse> pagedListTeaCourse(@RequestBody @Validated(TeacourseVO.listKeyGroup.class) TeacourseVO teacourseVO){
         return teacourseService.pagedListTeaCourse(teacourseVO);
+    }
+
+    @ApiOperation(value = "根据老师ID列他/她选取的课程")
+    @ApiImplicitParam(name = "teacherId", value = "老师id", dataType = "Long", required = true)
+    @PostMapping("/listCourseByTeacherID")
+    public List<Course> listCourseByTeacherID(@NotNull(message = "请指明老师ID") Long teacherId){
+        return teacourseService.listCourseByTeacherID(teacherId);
+    }
+
+    @ApiOperation(value = "根据老师ID列他/她选取的课程")
+    @ApiImplicitParam(name = "teacherId", value = "老师id", dataType = "Long", required = true)
+    @PostMapping("/listClazzByTeacherID")
+    public List<Clazz> listClazzByTeacherID(@NotNull(message = "请指明老师ID") Long teacherId){
+        return teacourseService.listClazzByTeacherID(teacherId);
     }
 }

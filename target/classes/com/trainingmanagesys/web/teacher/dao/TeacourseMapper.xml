@@ -2,4 +2,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.trainingmanagesys.web.teacher.dao.TeacourseMapper">
 
+    <select id="listClazzByTeacherID" resultType="com.trainingmanagesys.web.clazz.entity.Clazz">
+        select b.*, c.name, d.course_name from t_teacourse a, t_class b, t_user c, t_course d
+        <where>
+            a.teacher_id = #{teacherId}
+            and a.class_code = b.class_code
+            and #{teacherId} = c.uid
+            and a.course_code = d.course_code
+        </where>
+    </select>
+
+    <select id="listCourseByTeacherID" resultType="com.trainingmanagesys.web.course.entity.Course">
+        select b.* from t_teacourse a, t_course b
+        <where>
+            a.teacher_id = #{teacherId}
+            and a.course_code = b.course_code
+        </where>
+    </select>
 </mapper>

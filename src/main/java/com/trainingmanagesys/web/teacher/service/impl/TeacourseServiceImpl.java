@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.trainingmanagesys.conf.exception.APIException;
 import com.trainingmanagesys.utils.BaseConst;
+import com.trainingmanagesys.web.clazz.entity.Clazz;
+import com.trainingmanagesys.web.course.entity.Course;
 import com.trainingmanagesys.web.teacher.entity.Teacourse;
 import com.trainingmanagesys.web.teacher.dao.TeacourseMapper;
 import com.trainingmanagesys.web.teacher.service.ITeacourseService;
@@ -13,6 +15,7 @@ import com.trainingmanagesys.web.teacher.vo.TeacourseVO;
 import com.trainingmanagesys.web.user.entity.User;
 import org.springframework.stereotype.Service;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
@@ -112,5 +115,15 @@ public class TeacourseServiceImpl extends ServiceImpl<TeacourseMapper, Teacourse
         page.setSize(teacourseVO.getPageSize());
         IPage<Teacourse> pagedList = baseMapper.selectPage(page, queryWrapper);
         return pagedList;
+    }
+
+    @Override
+    public List<Clazz> listClazzByTeacherID(@NotNull(message = "请指明老师ID") Long teacherId) {
+        return baseMapper.listClazzByTeacherID(teacherId);
+    }
+
+    @Override
+    public List<Course> listCourseByTeacherID(@NotNull(message = "请指明老师ID") Long teacherId) {
+        return baseMapper.listCourseByTeacherID(teacherId);
     }
 }
